@@ -78,17 +78,14 @@ Future<void> generateScreen({
     ),
   );
 
-  final screenClassKey = screenName.toSnakeCase();
-
   final insight = Insight(
     screenClassName: screenName.toPascalCase(),
     bindingsFileName: '_bindings.g.dart',
     controllerFileName: '_controller.dart',
-    screenFileName: '$screenClassKey.dart',
+    screenFileName: '${screenName.toSnakeCase()}.dart',
     viewFileName: '_view.dart',
     isAccessibleOnlyIfLoggedIn: isAccessibleOnlyIfLoggedIn,
-    isAccessibleOnlyIfLoggedInAndVerified:
-        isAccessibleOnlyIfLoggedInAndVerified,
+    isAccessibleOnlyIfLoggedInAndVerified: isAccessibleOnlyIfLoggedInAndVerified,
     isAccessibleOnlyIfLoggedOut: isAccessibleOnlyIfLoggedOut,
     isRedirectable: isRedirectable,
     internalParameters: internalParameters,
