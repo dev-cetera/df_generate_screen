@@ -57,8 +57,9 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.I1,
     mapInsights: (insight) async {
-      final q1 =
-          insight.queryParameters.map((e) => 'late final $e = this.configuration.$e;').join('\n');
+      final q1 = insight.queryParameters
+          .map((e) => 'late final $e = this.configuration.$e;')
+          .join('\n');
       return q1;
     },
   ),
@@ -83,13 +84,17 @@ final insightMappers = [
         if (insight.path.isNotEmpty) "path: '${insight.path}'",
         if (insight.title.isNotEmpty) "defaultTitle: '${insight.title}'",
         if (insight.makeup.isNotEmpty) "makeup: '${insight.makeup}'",
-        if (insight.isAccessibleOnlyIfLoggedIn) 'isAccessibleOnlyIfLoggedIn: true',
+        if (insight.isAccessibleOnlyIfLoggedIn)
+          'isAccessibleOnlyIfLoggedIn: true',
         if (insight.isAccessibleOnlyIfLoggedInAndVerified)
           'isAccessibleOnlyIfLoggedInAndVerified: true',
-        if (insight.isAccessibleOnlyIfLoggedOut) 'isAccessibleOnlyIfLoggedOut: true',
+        if (insight.isAccessibleOnlyIfLoggedOut)
+          'isAccessibleOnlyIfLoggedOut: true',
         if (insight.isRedirectable) 'isRedirectable: true',
-        if (insight.internalParameters.isNotEmpty && a.isNotEmpty) 'internalParameters: {$a,}',
-        if (insight.queryParameters.isNotEmpty && b.isNotEmpty) 'queryParameters: {$b,}',
+        if (insight.internalParameters.isNotEmpty && a.isNotEmpty)
+          'internalParameters: {$a,}',
+        if (insight.queryParameters.isNotEmpty && b.isNotEmpty)
+          'queryParameters: {$b,}',
       ].join(',');
       return generateScreenBindingsArgs;
     },
