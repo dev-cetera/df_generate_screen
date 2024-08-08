@@ -31,7 +31,7 @@ Future<void> runGenerateScreensApp(List<String> args) async {
         'output',
         abbr: 'o',
         help: 'Output directory path.',
-        defaultsTo: toLocalSystemPathFormat('/lib/screens'),
+        defaultsTo: '.',
       )
       ..addOption(
         'class-name',
