@@ -4,3 +4,4 @@
 
 - Released @ 8/2024 (UTC)
 - chore: Update generate_screen.dart
+- chore: Fix issues
