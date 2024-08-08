@@ -30,7 +30,7 @@ final generatorConverger = _GeneratorConverger(
     for (final replacement in replacements) {
       final templates = {
         replacement.insight.controllerFileName: controllerTemplate,
-        replacement.insight.screenClassName: screenTemplate,
+        replacement.insight.screenFileName: screenTemplate,
         replacement.insight.viewFileName: viewTemplate,
         replacement.insight.bindingsFileName: bindingsTemplate,
       };
@@ -46,8 +46,7 @@ final generatorConverger = _GeneratorConverger(
 
         // Determine the output file path.
         final folderName = replacement.insight.screenClassName.toSnakeCase();
-        final outputFilePath =
-            p.join(replacement.insight.path, folderName, fileName);
+        final outputFilePath = p.join(replacement.insight.path, folderName, fileName);
 
         // Write the generated Dart file.
         await writeFile(outputFilePath, output);

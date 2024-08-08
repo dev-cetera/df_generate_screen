@@ -10,15 +10,14 @@
 
 import 'package:df_screen/df_screen.dart';
 
-part '../template/_bindings.g.dart';
-part '../template/_controller.dart';
-part '../template/_view.dart';
+part '_bindings.g.dart';
+part '_controller.dart';
+part '_view.dart';
 
 ___PARTS___
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-@GenerateScreenBindings(___GENERATE_SCREEN_BINDINGS_ARGS___)
 final class ___SCREEN_CLASS___ extends Screen {
   //
   //
