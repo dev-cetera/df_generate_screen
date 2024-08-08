@@ -16,6 +16,5 @@ import 'package:df_log/df_log.dart';
 
 void main(List<String> args) async {
   DebugLog.debugOnly = false;
-  printRed('Testing...');
   await runGenerateScreensApp(args);
 }
