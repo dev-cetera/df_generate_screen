@@ -49,27 +49,23 @@ Future<void> runGenerateScreensApp(List<String> args) async {
       ..addOption(
         'bindings-template',
         help: 'Bindings template file path.',
-        defaultsTo: '',
       )
       ..addOption(
         'controller-template',
         help: 'Controller template file path.',
-        defaultsTo: '',
       )
       ..addOption(
         'view-template',
         help: 'View template file path.',
-        defaultsTo: '',
       )
       ..addOption(
         'screen-template',
         help: 'Screen template file path.',
-        defaultsTo: '',
       )
       ..addOption(
         'path',
         help: 'Screen path.',
-        defaultsTo: '',
+        defaultsTo: '.',
       )
       ..addOption(
         'is-only-accessible-if-logged-in',
@@ -94,11 +90,9 @@ Future<void> runGenerateScreensApp(List<String> args) async {
       ..addOption(
         'makeup',
         help: 'Screen makeup.',
+        defaultsTo: '',
       )
-      ..addOption(
-        'default-title',
-        help: 'Screen title.',
-      )
+      ..addOption('default-title', help: 'Screen title.', defaultsTo: 'Title')
       ..addOption(
         'part-file-dirs',
         help: 'Part file directories separated by `&`.',
