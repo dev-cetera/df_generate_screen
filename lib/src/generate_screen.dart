@@ -32,7 +32,6 @@ Future<void> generateScreen({
   bool isRedirectable = false,
   Map<String, String> internalParameters = const {},
   Set<String> queryParameters = const {},
-  String makeup = '',
   String title = '',
   Set<String> partFileDirs = const {},
 }) async {
@@ -42,7 +41,7 @@ Future<void> generateScreen({
   final controllerTemplate = extractCodeFromMarkdown(
     await loadFileFromGitHub(
       username: 'robmllze',
-      repo: 'df_generate_dart_models_core',
+      repo: 'df_generate_screen',
       filePath: [
         controllerTemplateFilePath ?? 'templates/controller.dart.md',
       ].join('/'),
@@ -52,7 +51,7 @@ Future<void> generateScreen({
   final screenTemplate = extractCodeFromMarkdown(
     await loadFileFromGitHub(
       username: 'robmllze',
-      repo: 'df_generate_dart_models_core',
+      repo: 'df_generate_screen',
       filePath: [
         screenTemplateFilePath ?? 'templates/screen.dart.md',
       ].join('/'),
@@ -62,7 +61,7 @@ Future<void> generateScreen({
   final viewTemplate = extractCodeFromMarkdown(
     await loadFileFromGitHub(
       username: 'robmllze',
-      repo: 'df_generate_dart_models_core',
+      repo: 'df_generate_screen',
       filePath: [
         viewTemplateFilePath ?? 'templates/view.dart.md',
       ].join('/'),
@@ -72,7 +71,7 @@ Future<void> generateScreen({
   final bindingsTemplate = extractCodeFromMarkdown(
     await loadFileFromGitHub(
       username: 'robmllze',
-      repo: 'df_generate_dart_models_core',
+      repo: 'df_generate_screen',
       filePath: [
         bindingsTemplateFilePath ?? 'templates/bindings.dart.md',
       ].join('/'),
@@ -82,20 +81,18 @@ Future<void> generateScreen({
   final screenClassKey = screenName.toSnakeCase();
 
   final insight = Insight(
-    screenClassName: screenName.toSnakeCase(),
+    screenClassName: screenName.toPascalCase(),
     bindingsFileName: '_bindings.g.dart',
     controllerFileName: '_controller.dart',
     screenFileName: '$screenClassKey.dart',
     viewFileName: '_view.dart',
     isAccessibleOnlyIfLoggedIn: isAccessibleOnlyIfLoggedIn,
-    isAccessibleOnlyIfLoggedInAndVerified:
-        isAccessibleOnlyIfLoggedInAndVerified,
+    isAccessibleOnlyIfLoggedInAndVerified: isAccessibleOnlyIfLoggedInAndVerified,
     isAccessibleOnlyIfLoggedOut: isAccessibleOnlyIfLoggedOut,
     isRedirectable: isRedirectable,
     internalParameters: internalParameters,
     queryParameters: queryParameters,
     path: path,
-    makeup: makeup,
     title: title,
     partFileDirs: partFileDirs,
   );

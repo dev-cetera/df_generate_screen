@@ -20,7 +20,6 @@ class Insight {
   final Map<String, String> internalParameters;
   final Set<String> queryParameters;
   final String path;
-  final String makeup;
   final String title;
   final Set<String> partFileDirs;
 
@@ -37,7 +36,6 @@ class Insight {
     required this.internalParameters,
     required this.queryParameters,
     required this.path,
-    required this.makeup,
     required this.title,
     required this.partFileDirs,
   });

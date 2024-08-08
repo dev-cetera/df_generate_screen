@@ -18,14 +18,8 @@ final class _View extends T___SCREEN_CLASS___View {
   //
 
   @override
-  Widget top(BuildContext context) {
-    return MyHeader(
-      breadCrumbBar: MyBreadCrumbBar(
-        routeManager: g.app.routeManager,
-      ),
-      title: this.widget.configuration?.title,
-      onBackButtonPressed: g.app.routeManager.goBack,
-    );
+  Widget topSide(BuildContext context, double topInsets) {
+    return const SizedBox.shrink();
   }
 
   //
@@ -56,7 +50,7 @@ final class _View extends T___SCREEN_CLASS___View {
 
   @override
   Widget bottomSide(BuildContext context, double bottomInsets) {
-    return bottomInsets == 0 ? const DcBottomNavigationControls() : const SizedBox();
+    return const SizedBox.shrink();
   }
 }
 

@@ -35,6 +35,7 @@ Future<void> runGenerateScreensApp(List<String> args) async {
       )
       ..addOption(
         'class-name',
+        abbr: 'n',
         help: 'Screen name.',
         defaultsTo: 'ScreenExample',
       )
@@ -87,11 +88,6 @@ Future<void> runGenerateScreensApp(List<String> args) async {
         help: 'Is screen redirectable?',
         defaultsTo: false.toString(),
       )
-      ..addOption(
-        'makeup',
-        help: 'Screen makeup.',
-        defaultsTo: '',
-      )
       ..addOption('default-title', help: 'Screen title.', defaultsTo: 'Title')
       ..addOption(
         'part-file-dirs',
@@ -110,14 +106,11 @@ Future<void> runGenerateScreensApp(List<String> args) async {
             })
             .nonNulls
             .toSet();
-        return entries != null
-            ? Map<String, String>.fromEntries(entries)
-            : null;
+        return entries != null ? Map<String, String>.fromEntries(entries) : null;
       }
 
       bool toBool(String option) {
-        return results[option]?.toString().toLowerCase().trim() ==
-            true.toString();
+        return results[option]?.toString().toLowerCase().trim() == true.toString();
       }
 
       return _ArgsChecker(
@@ -136,7 +129,6 @@ Future<void> runGenerateScreensApp(List<String> args) async {
         isRedirectable: toBool('is-redirectable'),
         internalParameters: toOptionsMap('internal-parameters'),
         queryParameters: splitArg(results['query-parameters'])?.toSet(),
-        makeup: results['makeup'],
         title: results['default-title'],
         partFileDirs: splitArg(results['part-file-dirs'])?.toSet(),
       );
@@ -152,13 +144,11 @@ Future<void> runGenerateScreensApp(List<String> args) async {
         viewTemplateFilePath: args.stateTemplateFilePath,
         path: args.path!,
         isAccessibleOnlyIfLoggedIn: args.isAccessibleOnlyIfLoggedIn ?? false,
-        isAccessibleOnlyIfLoggedInAndVerified:
-            args.isAccessibleOnlyIfLoggedInAndVerified ?? false,
+        isAccessibleOnlyIfLoggedInAndVerified: args.isAccessibleOnlyIfLoggedInAndVerified ?? false,
         isAccessibleOnlyIfLoggedOut: args.isAccessibleOnlyIfLoggedOut ?? false,
         isRedirectable: args.isRedirectable ?? false,
         internalParameters: args.internalParameters ?? const {},
         queryParameters: args.queryParameters ?? const {},
-        makeup: args.makeup ?? '',
         title: args.title ?? '',
         partFileDirs: args.partFileDirs ?? {},
       );
@@ -187,7 +177,6 @@ class _ArgsChecker extends ValidArgsChecker {
   final bool? isRedirectable;
   final Map<String, String>? internalParameters;
   final Set<String>? queryParameters;
-  final String? makeup;
   final String? title;
   final Set<String>? partFileDirs;
 
@@ -210,7 +199,6 @@ class _ArgsChecker extends ValidArgsChecker {
     required this.isRedirectable,
     required this.internalParameters,
     required this.queryParameters,
-    required this.makeup,
     required this.title,
     required this.partFileDirs,
   });
@@ -227,14 +215,11 @@ class _ArgsChecker extends ValidArgsChecker {
         if (controllerTemplateFilePath != null) controllerTemplateFilePath,
         if (screenTemplateFilePath != null) screenTemplateFilePath,
         if (stateTemplateFilePath != null) stateTemplateFilePath,
-        if (configurationTemplateFilePath != null)
-          configurationTemplateFilePath,
-        if (isAccessibleOnlyIfLoggedInAndVerified != null)
-          isAccessibleOnlyIfLoggedInAndVerified,
+        if (configurationTemplateFilePath != null) configurationTemplateFilePath,
+        if (isAccessibleOnlyIfLoggedInAndVerified != null) isAccessibleOnlyIfLoggedInAndVerified,
         if (isAccessibleOnlyIfLoggedIn != null) isAccessibleOnlyIfLoggedIn,
         if (isAccessibleOnlyIfLoggedOut != null) isAccessibleOnlyIfLoggedOut,
         if (isRedirectable != null) isRedirectable,
-        if (makeup != null) makeup,
         if (title != null) title,
         if (partFileDirs != null) partFileDirs,
       ];

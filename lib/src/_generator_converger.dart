@@ -10,6 +10,7 @@
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_log/df_log.dart';
 import 'package:df_config/df_config.dart';
+import 'package:df_string/df_string.dart';
 
 import 'package:path/path.dart' as p;
 
@@ -44,7 +45,8 @@ final generatorConverger = _GeneratorConverger(
         );
 
         // Determine the output file path.
-        final outputFilePath = p.join(replacement.insight.path, fileName);
+        final folderName = replacement.insight.screenClassName.toSnakeCase();
+        final outputFilePath = p.join(replacement.insight.path, folderName, fileName);
 
         // Write the generated Dart file.
         await writeFile(outputFilePath, output);
