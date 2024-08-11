@@ -65,10 +65,12 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
               ),
         ),
       );
-    case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedInAndVerified:
+    case ModelGenerateScreenBindingsFieldNames
+          .isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         ModelGenerateScreenBindings(
-          isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
+          isAccessibleOnlyIfLoggedInAndVerified:
+              params.fieldValue.toBoolValue(),
         ),
       );
     case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedIn:
