@@ -35,16 +35,16 @@ Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
     //     temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
-      final fullPathName = params.fullFilePath;
-      final fileName = p.basename(fullPathName);
-      final dirPath = p.dirname(fullPathName);
-      final insight = _ClassInsight(
-        className: params.className,
-        annotation: temp,
-        dirPath: dirPath,
-        fileName: fileName,
-      );
-      insights.add(insight);
+      // final fullPathName = params.fullFilePath;
+      // final fileName = p.basename(fullPathName);
+      // final dirPath = p.dirname(fullPathName);
+      // final insight = _ClassInsight(
+      //   className: params.className,
+      //   annotation: temp,
+      //   dirPath: dirPath,
+      //   fileName: fileName,
+      // );
+      // insights.add(insight);
     },
   );
   return insights;
