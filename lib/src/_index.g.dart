@@ -8,14 +8,21 @@
 //.title~
 
 // --- PUBLIC FILES ---
-export 'run_generate_screens_app.dart';
-export 'generate_screen.dart';
+export 'generate_screen/generate.dart';
+export 'generate_screen/app.dart';
+export 'generate_screen_access/generator.dart';
+export 'generate_screen_access/app.dart';
+export 'generate_screen_bindings/generate_screen_access.dart';
+export 'generate_screen_bindings/run_generte_screen_bindings_app.dart';
 
 // --- PRIVATE FILES (EXCLUDED) ---
-// export '_insight.dart';
-// export '_generator_converger.dart';
 // export '_index.g.dart';
-// export '_insight_mappers.dart';
+// export 'generate_screen/_insight.dart';
+// export 'generate_screen/_generator_converger.dart';
+// export 'generate_screen/_insight_mappers.dart';
+// export 'generate_screen_access/_extract_class_insights_from_dart_file.dart';
+// export 'generate_screen_bindings/generate_parts/_generate_screen_bindings_file.dart';
+// export 'generate_screen_bindings/generate_parts/_replacements.dart';
 
 // --- GENERATED FILES (EXCLUDED) ---
 // None found.

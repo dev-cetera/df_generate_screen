@@ -47,3 +47,7 @@ executables:
   df_generate_screen: generate_screen
   generate_screen: generate_screen
   genscreen: generate_screen
+
+  df_generate_screen_access: generate_screen_access
+  generate_screen_access: generate_screen_access
+  genscreenaccess: genscreenaccess
