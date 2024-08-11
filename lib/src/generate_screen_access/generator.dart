@@ -11,7 +11,6 @@
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_log/df_log.dart';
 
-
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 Future<void> generateScreenAccess({
