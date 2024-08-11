@@ -10,7 +10,6 @@
 
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_log/df_log.dart';
-import '_extract_class_insights_from_dart_file.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -62,8 +61,8 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult
-      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult in sourceFileExplorerResults.filePathResults
+      .where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // // Extract insights from the file.
