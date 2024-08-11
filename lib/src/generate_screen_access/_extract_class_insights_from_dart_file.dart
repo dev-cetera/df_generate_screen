@@ -23,10 +23,10 @@ Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
   String filePath,
 ) async {
   //late ModelGenerateScreenBindings temp;
-  final analyzer = DartAnnotatedClassAnalyzer(
-    filePath: filePath,
-    analysisContextCollection: analysisContextCollection,
-  );
+  // final analyzer = DartAnnotatedClassAnalyzer(
+  //   filePath: filePath,
+  //   analysisContextCollection: analysisContextCollection,
+  // );
 
   // //final insights = <_ClassInsight>[];
   // await analyzer.analyze(
