@@ -65,8 +65,8 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult
-      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult in sourceFileExplorerResults.filePathResults
+      .where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     late ModelGenerateScreenBindings temp;
