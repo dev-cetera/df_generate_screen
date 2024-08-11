@@ -31,7 +31,8 @@ Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
   final insights = <_ClassInsight>[];
   await analyzer.analyze(
     inclClassAnnotations: {ModelGenerateScreenBindingsFieldNames.className},
-    onClassAnnotationField: (params) async => temp = _updateFromClassAnnotationField(temp, params),
+    onClassAnnotationField: (params) async =>
+        temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       final fullPathName = params.fullFilePath;
@@ -64,10 +65,12 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
               ),
         ),
       );
-    case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedInAndVerified:
+    case ModelGenerateScreenBindingsFieldNames
+          .isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         ModelGenerateScreenBindings(
-          isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
+          isAccessibleOnlyIfLoggedInAndVerified:
+              params.fieldValue.toBoolValue(),
         ),
       );
     case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedIn:
