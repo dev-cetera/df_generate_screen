@@ -23,7 +23,7 @@ Future<void> generateScreenAccess({
   String? templateFilePath,
 }) async {
   // Notify start.
-  debugLogStart('Starting generator (1). Please wait...');
+  debugLogStart('Starting generator. Please wait...');
 
   // Explore all source paths.
   final sourceFileExporer = PathExplorer(
