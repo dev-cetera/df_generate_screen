@@ -14,7 +14,6 @@ import 'package:path/path.dart' as p;
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_screen_core/df_screen_core.dart';
 
-import '../dart_from_record_on_dart_object_x.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -31,7 +30,8 @@ Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
   final insights = <_ClassInsight>[];
   await analyzer.analyze(
     inclClassAnnotations: {ModelGenerateScreenBindings.CLASS_NAME},
-    onClassAnnotationField: (params) async => temp = _updateFromClassAnnotationField(temp, params),
+    onClassAnnotationField: (params) async =>
+        temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       final fullPathName = params.fullFilePath;
@@ -64,10 +64,12 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
               ),
         ),
       );
-    case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedInAndVerified:
+    case ModelGenerateScreenBindingsFieldNames
+          .isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         ModelGenerateScreenBindings(
-          isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
+          isAccessibleOnlyIfLoggedInAndVerified:
+              params.fieldValue.toBoolValue(),
         ),
       );
     case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedIn:
