@@ -109,19 +109,22 @@ Future<void> generateScreenAccess({
             return '...PATH_ALWAYS_ACCESSIBLE_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED.placeholder: classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED
+            .placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN.placeholder: classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN.placeholder:
+            classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT.placeholder: classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT.placeholder:
+            classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
