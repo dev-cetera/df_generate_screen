@@ -31,6 +31,8 @@ Future<List<ClassInsight<ModelGenerateScreenBindings>>>
 
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
   await analyzer.analyze(
+    inclClassAnnotations: {ModelGenerateScreenBindings.CLASS_NAME},
+    onClassAnnotationField: (params) async => temp = _updateFromClassAnnotationField(temp, params),
     inclClassAnnotations: {ModelGenerateScreenBindingsFieldNames.className},
     onClassAnnotationField: (params) async =>
         temp = _updateFromClassAnnotationField(temp, params),
