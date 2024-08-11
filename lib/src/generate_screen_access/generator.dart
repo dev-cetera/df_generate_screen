@@ -62,8 +62,8 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -73,8 +73,7 @@ Future<void> generateScreenAccess({
     );
 
     if (classInsights.isNotEmpty) {
-      printRed(classInsights.map((e) => e.className));
-      // // Converge what was gathered to generate the output.
+      // Converge what was gathered to generate the output.
       // await generatorConverger.converge(
       //   classInsights,
       //   [template],
