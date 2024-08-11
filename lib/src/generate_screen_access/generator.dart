@@ -65,14 +65,34 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
-    // Extract insights from the file.
-    final classInsights = await extractClassInsightsFromDartFile1(
-      analysisContextCollection,
-      filePath,
+    late ModelGenerateScreenBindings temp;
+    final analyzer = DartAnnotatedClassAnalyzer(
+      filePath: filePath,
+      analysisContextCollection: analysisContextCollection,
+    );
+
+    //final insights = <_ClassInsight>[];
+    await analyzer.analyze(
+      inclClassAnnotations: {ModelGenerateScreenBindingsFieldNames.className},
+      // onClassAnnotationField: (params) async =>
+      //     temp = _updateFromClassAnnotationField(temp, params),
+      //onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
+      onPostAnalysis: (params) {
+        // final fullPathName = params.fullFilePath;
+        // final fileName = p.basename(fullPathName);
+        // final dirPath = p.dirname(fullPathName);
+        // final insight = _ClassInsight(
+        //   className: params.className,
+        //   annotation: temp,
+        //   dirPath: dirPath,
+        //   fileName: fileName,
+        // );
+        // insights.add(insight);
+      },
     );
 
     // if (classInsights.isNotEmpty) {
@@ -140,37 +160,13 @@ Future<void> generateScreenAccess({
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-Future<List<ClassInsight1>> extractClassInsightsFromDartFile1(
-  AnalysisContextCollection analysisContextCollection,
-  String filePath,
-) async {
-  //late ModelGenerateScreenBindings temp;
-  // final analyzer = DartAnnotatedClassAnalyzer(
-  //   filePath: filePath,
-  //   analysisContextCollection: analysisContextCollection,
-  // );
+// Future<List<ClassInsight1>> extractClassInsightsFromDartFile1(
+//   AnalysisContextCollection analysisContextCollection,
+//   String filePath,
+// ) async {
 
-  // //final insights = <_ClassInsight>[];
-  // await analyzer.analyze(
-  //   inclClassAnnotations: {ModelGenerateScreenBindingsFieldNames.className},
-  //   // onClassAnnotationField: (params) async =>
-  //   //     temp = _updateFromClassAnnotationField(temp, params),
-  //   //onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
-  //   onPostAnalysis: (params) {
-  //     // final fullPathName = params.fullFilePath;
-  //     // final fileName = p.basename(fullPathName);
-  //     // final dirPath = p.dirname(fullPathName);
-  //     // final insight = _ClassInsight(
-  //     //   className: params.className,
-  //     //   annotation: temp,
-  //     //   dirPath: dirPath,
-  //     //   fileName: fileName,
-  //     // );
-  //     // insights.add(insight);
-  //   },
-  // );
-  return [];
-}
+//   return [];
+// }
 
 enum _Categories {
   DART,
