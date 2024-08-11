@@ -18,8 +18,8 @@ import 'generator.dart';
 /// A command line app for generating screen access.
 Future<void> generateScreenAccessApp(List<String> args) async {
   await runCommandLineApp(
-    title: 'Generate Screens',
-    description: 'A command line app for generating screens',
+    title: 'Generate Screen Access',
+    description: '...',
     args: args,
     parser: ArgParser()
       ..addFlag(
@@ -45,10 +45,6 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         help: 'Path patterns separated by `&`.',
       )
       ..addOption(
-        'additional-screen-class-names',
-        help: 'Additional screen class names separated by `&`.',
-      )
-      ..addOption(
         'template',
         abbr: 't',
         help: 'Template file path.',
@@ -58,6 +54,10 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         abbr: 'o',
         help: 'Output file path.',
         defaultsTo: '.',
+      )
+      ..addOption(
+        'dart-sdk',
+        help: 'Dart SDK path.',
       ),
     onResults: (parser, results) {
       return _ArgsChecker(
