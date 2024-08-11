@@ -122,8 +122,8 @@ class _ArgsChecker extends ValidArgsChecker {
       paths,
       ...paths,
       if (this.pathPatterns != null) this.pathPatterns,
-      this.templateFilePath,
-      this.outputFilePath,
+      if (this.templateFilePath != null) this.templateFilePath,
+      if (this.outputFilePath != null) this.outputFilePath,
       if (fallbackDartSdkPath != null) fallbackDartSdkPath,
     ];
   }
