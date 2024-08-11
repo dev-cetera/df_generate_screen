@@ -13,7 +13,6 @@ import 'package:df_screen_core/df_screen_core.dart';
 
 import 'package:path/path.dart' as p;
 
-
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 final generatorConverger = _GeneratorConverger(
