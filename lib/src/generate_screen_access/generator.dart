@@ -67,24 +67,24 @@ Future<void> generateScreenAccess({
       .where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
-    // Extract insights from the file.
-    final classInsights = await extractClassInsightsFromDartFile(
-      analysisContextCollection,
-      filePath,
-    );
+    // // Extract insights from the file.
+    // final classInsights = await extractClassInsightsFromDartFile(
+    //   analysisContextCollection,
+    //   filePath,
+    // );
 
-    if (classInsights.isNotEmpty) {
-      printRed(classInsights.map((e) => e.className));
-      // // Converge what was gathered to generate the output.
-      // await generatorConverger.converge(
-      //   classInsights,
-      //   [template],
-      //   [
-      //     ...insightMappersA,
-      //     ...insightMappersB,
-      //   ],
-      // );
-    }
+    // if (classInsights.isNotEmpty) {
+    //   printRed(classInsights.map((e) => e.className));
+    //   // // Converge what was gathered to generate the output.
+    //   // await generatorConverger.converge(
+    //   //   classInsights,
+    //   //   [template],
+    //   //   [
+    //   //     ...insightMappersA,
+    //   //     ...insightMappersB,
+    //   //   ],
+    //   // );
+    // }
   }
 
   // final screenClassNames = <String>{};
