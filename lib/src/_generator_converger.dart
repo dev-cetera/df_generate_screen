@@ -14,7 +14,7 @@ import 'package:df_string/df_string.dart';
 
 import 'package:path/path.dart' as p;
 
-import '_insight.dart';
+import 'generate_screen/_insight.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -46,8 +46,7 @@ final generatorConverger = _GeneratorConverger(
 
         // Determine the output file path.
         final folderName = replacement.insight.screenClassName.toSnakeCase();
-        final outputFilePath =
-            p.join(replacement.insight.path, folderName, fileName);
+        final outputFilePath = p.join(replacement.insight.path, folderName, fileName);
 
         // Write the generated Dart file.
         await writeFile(outputFilePath, output);
