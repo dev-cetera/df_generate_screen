@@ -15,7 +15,6 @@ import 'package:df_screen_core/df_screen_core.dart';
 import 'package:df_string/df_string.dart';
 
 import '_extract_class_insights_from_dart_file.dart';
-import '_insight_mappers.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -69,8 +68,8 @@ Future<void> generateScreenAccess({
   final classInsights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -88,7 +87,7 @@ Future<void> generateScreenAccess({
         Placeholders.SCREEN_MAKERS.placeholder: classInsights.map(
           (e) {
             final a = e.className.toPascalCase();
-            return 'maker$a,';
+            return 'maker$a';
           },
         ).join(','),
         Placeholders.PATHS.placeholder: classInsights.map(
@@ -160,4 +159,15 @@ Future<void> generateScreenAccess({
 
 enum _Categories {
   DART,
+}
+
+enum Placeholders {
+  SCREEN_MAKERS,
+  PATHS,
+  PATHS_NOT_REDIRECTABLE,
+  PATHS_ALWAYS_ACCESSIBLE,
+  PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+  PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+  PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
+  GENERATED_SCREEN_ROUTES,
 }
