@@ -24,7 +24,7 @@ Future<void> generateScreenAccess({
   String? templateFilePath,
 }) async {
   // Notify start.
-  debugLogStart('Starting generator. Please wait...');
+  debugLogStart('Starting generator (1). Please wait...');
 
   // Explore all source paths.
   final sourceFileExporer = PathExplorer(
@@ -63,8 +63,8 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -72,6 +72,10 @@ Future<void> generateScreenAccess({
       analysisContextCollection,
       filePath,
     );
+
+    printRed(filePath);
+    debugLogAlert(filePath);
+    debugLogAlert(classInsights.length);
 
     if (classInsights.isNotEmpty) {
       printRed(classInsights.map((e) => e.className));
