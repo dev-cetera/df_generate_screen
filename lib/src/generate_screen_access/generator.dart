@@ -8,8 +8,10 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_log/df_log.dart';
+import 'package:df_screen_core/df_screen_core.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -63,8 +65,8 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -138,6 +140,40 @@ Future<void> generateScreenAccess({
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
+Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
+  AnalysisContextCollection analysisContextCollection,
+  String filePath,
+) async {
+  //late ModelGenerateScreenBindings temp;
+  // final analyzer = DartAnnotatedClassAnalyzer(
+  //   filePath: filePath,
+  //   analysisContextCollection: analysisContextCollection,
+  // );
+
+  // //final insights = <_ClassInsight>[];
+  // await analyzer.analyze(
+  //   inclClassAnnotations: {ModelGenerateScreenBindingsFieldNames.className},
+  //   // onClassAnnotationField: (params) async =>
+  //   //     temp = _updateFromClassAnnotationField(temp, params),
+  //   //onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
+  //   onPostAnalysis: (params) {
+  //     // final fullPathName = params.fullFilePath;
+  //     // final fileName = p.basename(fullPathName);
+  //     // final dirPath = p.dirname(fullPathName);
+  //     // final insight = _ClassInsight(
+  //     //   className: params.className,
+  //     //   annotation: temp,
+  //     //   dirPath: dirPath,
+  //     //   fileName: fileName,
+  //     // );
+  //     // insights.add(insight);
+  //   },
+  // );
+  return [];
+}
+
 enum _Categories {
   DART,
 }
+
+typedef _ClassInsight = ClassInsight<ModelGenerateScreenBindings>;
