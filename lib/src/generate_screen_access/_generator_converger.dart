@@ -9,9 +9,7 @@
 
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_log/df_log.dart';
-import 'package:df_config/df_config.dart';
 import 'package:df_screen_core/df_screen_core.dart';
-import 'package:df_string/df_string.dart';
 
 import 'package:path/path.dart' as p;
 
@@ -21,7 +19,7 @@ import 'package:path/path.dart' as p;
 final generatorConverger = _GeneratorConverger(
   (replacements, templates) async {
     final [template] = templates;
-
+    printBlue(template);
     final a =
         replacements.fold<Map<String, String>>({}, (accumulator, currentMap) {
       currentMap.replacements.forEach((key, value) {

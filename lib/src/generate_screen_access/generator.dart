@@ -75,6 +75,8 @@ Future<void> generateScreenAccess({
       filePath,
     );
 
+    printRed(classInsights.length);
+
     if (classInsights.isNotEmpty) {
       // Converge what was gathered to generate the output.
       await generatorConverger.converge(

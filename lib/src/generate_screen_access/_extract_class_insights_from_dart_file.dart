@@ -18,7 +18,7 @@ import '/src/_index.g.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
+Future<List<ClassInsight<ModelGenerateScreenBindings>>> extractClassInsightsFromDartFile(
   AnalysisContextCollection analysisContextCollection,
   String filePath,
 ) async {
@@ -28,17 +28,16 @@ Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
     analysisContextCollection: analysisContextCollection,
   );
 
-  final insights = <_ClassInsight>[];
+  final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
   await analyzer.analyze(
     inclClassAnnotations: {ModelGenerateScreenBindingsFieldNames.className},
-    onClassAnnotationField: (params) async =>
-        temp = _updateFromClassAnnotationField(temp, params),
+    onClassAnnotationField: (params) async => temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       final fullPathName = params.fullFilePath;
       final fileName = p.basename(fullPathName);
       final dirPath = p.dirname(fullPathName);
-      final insight = _ClassInsight(
+      final insight = ClassInsight<ModelGenerateScreenBindings>(
         className: params.className,
         annotation: temp,
         dirPath: dirPath,
@@ -65,12 +64,10 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
               ),
         ),
       );
-    case ModelGenerateScreenBindingsFieldNames
-          .isAccessibleOnlyIfLoggedInAndVerified:
+    case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         ModelGenerateScreenBindings(
-          isAccessibleOnlyIfLoggedInAndVerified:
-              params.fieldValue.toBoolValue(),
+          isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
         ),
       );
     case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedIn:
@@ -157,7 +154,3 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
       return ModelGenerateScreenBindings.of(annotation);
   }
 }
-
-// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-typedef _ClassInsight = ClassInsight<ModelGenerateScreenBindings>;
