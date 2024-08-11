@@ -70,7 +70,7 @@ Future<void> generateScreenAccess({
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
-    final classInsights = await extractClassInsightsFromDartFile(
+    final classInsights = await extractClassInsightsFromDartFile1(
       analysisContextCollection,
       filePath,
     );
@@ -140,7 +140,7 @@ Future<void> generateScreenAccess({
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
+Future<List<ClassInsight1>> extractClassInsightsFromDartFile1(
   AnalysisContextCollection analysisContextCollection,
   String filePath,
 ) async {
@@ -176,4 +176,4 @@ enum _Categories {
   DART,
 }
 
-typedef _ClassInsight = ClassInsight<ModelGenerateScreenBindings>;
+typedef ClassInsight1 = ClassInsight<ModelGenerateScreenBindings>;
