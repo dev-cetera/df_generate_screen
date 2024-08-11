@@ -1,51 +1,20 @@
-```dart
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// GENERATED - DO NOT MODIFY BY HAND
-// See: https://github.com/robmllze/df_generate_screen
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. See LICENSE file
+// in root directory.
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'package:df_screen_core/df_screen_core.dart';
-
-part '_bindings.g.dart';
-part '_controller.dart';
-part '_view.dart';
-
-___PARTS___
+import 'package:analyzer/dart/constant/value.dart';
+import 'package:df_type/df_type.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-final class ___SCREEN_CLASS___ extends Screen {
-  //
-  //
-  //
-
-  const ___SCREEN_CLASS___({
-    super.key,
-    super.configuration,
-    super.controllerCacheTimeout = Duration.zero,
-  });
-
-  //
-  //
-  //
-
-  @override
-  _View createState() => _View();
-
-  //
-  //
-  //
-
-  @override
-  ___SCREEN_CLASS___Controller createController(
-    Screen screen,
-    ScreenView state,
-  ) {
-    return ___SCREEN_CLASS___Controller(screen, state);
-  }
+List<String>? dartObjToList(DartObject? obj) {
+  return (letListOrNull<String>(obj?.toStringValue()) ??
+          obj?.toListValue()?.map((e) => e.toStringValue()))
+      ?.nonNulls
+      .toList();
 }
-```

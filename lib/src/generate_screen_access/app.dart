@@ -83,6 +83,8 @@ Future<void> generateScreenAccessApp(List<String> args) async {
   );
 }
 
+// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
 class _ArgsChecker extends ValidArgsChecker {
   //
   //

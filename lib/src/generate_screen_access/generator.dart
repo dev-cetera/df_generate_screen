@@ -44,15 +44,15 @@ Future<void> generateScreenAccess({
   );
   final sourceFileExplorerResults = await sourceFileExporer.explore();
 
-  // final template = extractCodeFromMarkdown(
-  //   await loadFileFromGitHub(
-  //     username: 'robmllze',
-  //     repo: 'df_generate_screen',
-  //     filePath: [
-  //       templateFilePath ?? 'templates/screen_access.dart.md',
-  //     ].join('/'),
-  //   ),
-  // );
+  final template = extractCodeFromMarkdown(
+    await loadFileFromGitHub(
+      username: 'robmllze',
+      repo: 'df_generate_screen',
+      filePath: [
+        templateFilePath ?? 'templates/access.dart.md',
+      ].join('/'),
+    ),
+  );
 
   // ---------------------------------------------------------------------------
 
@@ -63,8 +63,8 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
