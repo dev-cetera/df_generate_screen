@@ -52,13 +52,15 @@ Future<void> generateScreenAccess({
     ),
   );
 
+  printRed(template.length);
+
   // ---------------------------------------------------------------------------
 
   // Create context for the Dart analyzer.
-  final analysisContextCollection = createDartAnalysisContextCollection(
-    sourceFileExporer.dirPathGroups.first.paths,
-    fallbackDartSdkPath,
-  );
+  // final analysisContextCollection = createDartAnalysisContextCollection(
+  //   sourceFileExporer.dirPathGroups.first.paths,
+  //   fallbackDartSdkPath,
+  // );
 
   // For each file...
   for (final filePathResult in sourceFileExplorerResults.filePathResults
