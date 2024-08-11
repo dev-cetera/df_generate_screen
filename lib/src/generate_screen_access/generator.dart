@@ -8,11 +8,12 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
+import 'package:df_config/df_config.dart';
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_log/df_log.dart';
+import 'package:df_string/df_string.dart';
 
 import '_extract_class_insights_from_dart_file.dart';
-import '_generator_converger.dart';
 import '_insight_mappers.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -65,8 +66,8 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -75,17 +76,72 @@ Future<void> generateScreenAccess({
       filePath,
     );
 
-    printRed(classInsights.length);
-
     if (classInsights.isNotEmpty) {
-      // Converge what was gathered to generate the output.
-      await generatorConverger.converge(
-        classInsights,
-        [template],
-        [
-          ...insightMappers,
-        ],
+      final output = template.replaceData(
+        {
+          Placeholders.SCREEN_MAKERS.placeholder: classInsights.map(
+            (e) {
+              final a = e.className.toPascalCase();
+              return 'maker$a,';
+            },
+          ),
+          Placeholders.PATHS.placeholder: classInsights.map(
+            (e) {
+              final a = e.className.toUpperSnakeCase();
+              return '...PATH_$a';
+            },
+          ),
+          Placeholders.PATHS_NOT_REDIRECTABLE.placeholder: classInsights.map(
+            (e) {
+              final a = e.className.toUpperSnakeCase();
+              return '...PATH_NOT_REDIRECTABLE_$a';
+            },
+          ),
+          Placeholders.PATHS_ALWAYS_ACCESSIBLE.placeholder: classInsights.map(
+            (e) {
+              final a = e.className.toUpperSnakeCase();
+              return '...PATH_ALWAYS_ACCESSIBLE_$a';
+            },
+          ),
+          Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED.placeholder:
+              classInsights.map(
+            (e) {
+              final a = e.className.toUpperSnakeCase();
+              return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
+            },
+          ),
+          Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN.placeholder: classInsights.map(
+            (e) {
+              final a = e.className.toUpperSnakeCase();
+              return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
+            },
+          ),
+          Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT.placeholder: classInsights.map(
+            (e) {
+              final a = e.className.toUpperSnakeCase();
+              return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
+            },
+          ),
+          Placeholders.GENERATED_SCREEN_ROUTES.placeholder: classInsights.map(
+            (e) {
+              final a = e.className.toPascalCase();
+              return 'generated${a}Route';
+            },
+          ),
+        },
       );
+
+      // Write the generated Dart file.
+      await writeFile(outputFilePath, output);
+
+      // Fix the generated Dart file.
+      await fixDartFile(outputFilePath);
+
+      // Format the generated Dart file.
+      await fmtDartFile(outputFilePath);
+
+      // Log a success.
+      debugLogSuccess('Generated "${previewPath(outputFilePath)}"');
     }
   }
 

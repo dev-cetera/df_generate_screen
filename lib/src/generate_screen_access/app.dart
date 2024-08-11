@@ -53,7 +53,7 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         'output',
         abbr: 'o',
         help: 'Output file path.',
-        defaultsTo: '.',
+        defaultsTo: './_screen_access.g.dart',
       )
       ..addOption(
         'dart-sdk',
