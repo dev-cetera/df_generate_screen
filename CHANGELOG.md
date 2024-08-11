@@ -7,3 +7,4 @@
 - chore: Fix issues
 - fix: Change template folder to templates
 - test: Generate sceen access test
+- fix: Fix import bug
