@@ -75,7 +75,7 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         rootDirPaths: args.rootPaths ?? const {},
         subDirPaths: args.subPaths ?? const {},
         pathPatterns: args.pathPatterns ?? {},
-        templateFilePath: args.templateFilePath!,
+        templateFilePath: args.templateFilePath,
         outputFilePath: outputFilePath,
       );
       await fmtDartFile(outputFilePath);
