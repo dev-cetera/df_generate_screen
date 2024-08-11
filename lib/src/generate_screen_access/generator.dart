@@ -70,10 +70,10 @@ Future<void> generateScreenAccess({
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
-    final classInsights = await extractClassInsightsFromDartFile(
-      analysisContextCollection,
-      filePath,
-    );
+    // final classInsights = await extractClassInsightsFromDartFile(
+    //   analysisContextCollection,
+    //   filePath,
+    // );
 
     // if (classInsights.isNotEmpty) {
     //   // Converge what was gathered to generate the output.
