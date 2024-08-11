@@ -22,18 +22,18 @@ Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
   AnalysisContextCollection analysisContextCollection,
   String filePath,
 ) async {
-  late ModelGenerateScreenBindings temp;
+  //late ModelGenerateScreenBindings temp;
   final analyzer = DartAnnotatedClassAnalyzer(
     filePath: filePath,
     analysisContextCollection: analysisContextCollection,
   );
 
-  final insights = <_ClassInsight>[];
+  //final insights = <_ClassInsight>[];
   await analyzer.analyze(
-    inclClassAnnotations: {ModelGenerateScreenBindings.CLASS_NAME},
+    inclClassAnnotations: {ModelGenerateScreenBindingsFieldNames.className},
     // onClassAnnotationField: (params) async =>
     //     temp = _updateFromClassAnnotationField(temp, params),
-    onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
+    //onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       // final fullPathName = params.fullFilePath;
       // final fileName = p.basename(fullPathName);
@@ -47,7 +47,7 @@ Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
       // insights.add(insight);
     },
   );
-  return insights;
+  return [];
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
