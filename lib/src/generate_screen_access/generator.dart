@@ -8,10 +8,10 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_log/df_log.dart';
-import 'package:df_screen_core/df_screen_core.dart';
+
+import '_extract_class_insights_from_dart_file.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -65,47 +65,27 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
-    late ModelGenerateScreenBindings temp;
-    final analyzer = DartAnnotatedClassAnalyzer(
-      filePath: filePath,
-      analysisContextCollection: analysisContextCollection,
+    // Extract insights from the file.
+    final classInsights = await extractClassInsightsFromDartFile(
+      analysisContextCollection,
+      filePath,
     );
 
-    //final insights = <_ClassInsight>[];
-    await analyzer.analyze(
-      inclClassAnnotations: {ModelGenerateScreenBindingsFieldNames.className},
-      // onClassAnnotationField: (params) async =>
-      //     temp = _updateFromClassAnnotationField(temp, params),
-      //onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
-      onPostAnalysis: (params) {
-        // final fullPathName = params.fullFilePath;
-        // final fileName = p.basename(fullPathName);
-        // final dirPath = p.dirname(fullPathName);
-        // final insight = _ClassInsight(
-        //   className: params.className,
-        //   annotation: temp,
-        //   dirPath: dirPath,
-        //   fileName: fileName,
-        // );
-        // insights.add(insight);
-      },
-    );
-
-    // if (classInsights.isNotEmpty) {
-    //   // Converge what was gathered to generate the output.
-    //   // await generatorConverger.converge(
-    //   //   classInsights,
-    //   //   [template],
-    //   //   [
-    //   //     ...insightMappersA,
-    //   //     ...insightMappersB,
-    //   //   ],
-    //   // );
-    // }
+    if (classInsights.isNotEmpty) {
+      // Converge what was gathered to generate the output.
+      // await generatorConverger.converge(
+      //   classInsights,
+      //   [template],
+      //   [
+      //     ...insightMappersA,
+      //     ...insightMappersB,
+      //   ],
+      // );
+    }
   }
 
   // final screenClassNames = <String>{};
@@ -160,16 +140,6 @@ Future<void> generateScreenAccess({
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-// Future<List<ClassInsight1>> extractClassInsightsFromDartFile1(
-//   AnalysisContextCollection analysisContextCollection,
-//   String filePath,
-// ) async {
-
-//   return [];
-// }
-
 enum _Categories {
   DART,
 }
-
-typedef ClassInsight1 = ClassInsight<ModelGenerateScreenBindings>;
