@@ -14,7 +14,6 @@ import 'package:path/path.dart' as p;
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_screen_core/df_screen_core.dart';
 
-
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 Future<List<_ClassInsight>> extractClassInsightsFromDartFile(
