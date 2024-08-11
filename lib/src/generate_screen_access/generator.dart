@@ -11,7 +11,6 @@
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_log/df_log.dart';
 
-import '_extract_class_insights_from_dart_file.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
