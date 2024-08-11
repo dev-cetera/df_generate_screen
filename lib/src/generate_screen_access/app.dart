@@ -32,7 +32,7 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         'roots',
         abbr: 'r',
         help: 'Root directory paths separated by `&`.',
-        defaultsTo: toLocalSystemPathFormat('/lib/screens'),
+        defaultsTo: '.',
       )
       ..addOption(
         'subs',
