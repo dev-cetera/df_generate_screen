@@ -44,8 +44,6 @@ Future<void> generateScreenAccess({
   );
   final sourceFileExplorerResults = await sourceFileExporer.explore();
 
-  printYellow(sourceFileExplorerResults.filePathResults.map((e) => e.path));
-
   // final template = extractCodeFromMarkdown(
   //   await loadFileFromGitHub(
   //     username: 'robmllze',
@@ -65,8 +63,8 @@ Future<void> generateScreenAccess({
   );
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -74,10 +72,6 @@ Future<void> generateScreenAccess({
       analysisContextCollection,
       filePath,
     );
-
-    printRed(filePath);
-    debugLogAlert(filePath);
-    debugLogAlert(classInsights.length);
 
     if (classInsights.isNotEmpty) {
       printRed(classInsights.map((e) => e.className));
