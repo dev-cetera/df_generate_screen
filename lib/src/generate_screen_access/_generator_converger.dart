@@ -15,7 +15,6 @@ import 'package:df_string/df_string.dart';
 
 import 'package:path/path.dart' as p;
 
-import '_extract_class_insights_from_dart_file.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -23,7 +22,8 @@ final generatorConverger = _GeneratorConverger(
   (replacements, templates) async {
     final [template] = templates;
 
-    final a = replacements.fold<Map<String, String>>({}, (accumulator, currentMap) {
+    final a =
+        replacements.fold<Map<String, String>>({}, (accumulator, currentMap) {
       currentMap.replacements.forEach((key, value) {
         if (accumulator.containsKey(key)) {
           accumulator[key] = '${accumulator[key]},$value';
@@ -64,5 +64,5 @@ final generatorConverger = _GeneratorConverger(
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-typedef _GeneratorConverger
-    = GeneratorConverger<ClassInsight<ModelGenerateScreenBindings>, Enum, String>;
+typedef _GeneratorConverger = GeneratorConverger<
+    ClassInsight<ModelGenerateScreenBindings>, Enum, String>;

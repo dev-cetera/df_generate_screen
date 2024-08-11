@@ -85,4 +85,5 @@ enum Placeholders {
   GENERATED_SCREEN_ROUTES,
 }
 
-typedef _InsightMapper = InsightMapper<ClassInsight<ModelGenerateScreenBindings>, Placeholders>;
+typedef _InsightMapper
+    = InsightMapper<ClassInsight<ModelGenerateScreenBindings>, Placeholders>;
