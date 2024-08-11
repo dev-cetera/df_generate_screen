@@ -6,3 +6,4 @@
 - chore: Update generate_screen.dart
 - chore: Fix issues
 - fix: Change template folder to templates
+- test: Generate sceen access test
