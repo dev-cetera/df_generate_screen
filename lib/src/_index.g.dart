@@ -8,6 +8,8 @@
 //.title~
 
 // --- PUBLIC FILES ---
+export 'dart_obj_to_list.dart';
+export 'dart_from_record_on_dart_object_x.dart';
 export 'generate_screen/generate.dart';
 export 'generate_screen/app.dart';
 export 'generate_screen_access/generator.dart';
@@ -16,6 +18,7 @@ export 'generate_screen_bindings/generate_screen_access.dart';
 export 'generate_screen_bindings/run_generte_screen_bindings_app.dart';
 
 // --- PRIVATE FILES (EXCLUDED) ---
+// export '_generator_converger.dart';
 // export '_index.g.dart';
 // export 'generate_screen/_insight.dart';
 // export 'generate_screen/_generator_converger.dart';
