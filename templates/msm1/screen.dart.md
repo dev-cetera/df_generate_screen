@@ -20,9 +20,7 @@ ___PARTS___
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 @GenerateScreenBindings(
-  title: '__TITLE__',
-  isAccessibleOnlyIfLoggedIn: true,
-  isRedirectable: true,
+  ___GENERATE_SCREEN_BINDINGS_ARGS___
 )
 final class ___SCREEN_CLASS___ extends Screen {
   //
