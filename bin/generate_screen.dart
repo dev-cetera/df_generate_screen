@@ -19,9 +19,18 @@ void main(List<String> args) async {
   final currentDir = Directory.current.path;
   DebugLog.debugOnly = false;
   final argsChecker = await runGenerateScreensApp(args);
-  final r = argsChecker.screenName?.toSnakeCase() ?? '.';
-  await runGenerateScreenBindingsApp(['-r', r]);
-  await generateScreenAccessApp([]);
+  await runGenerateScreenBindingsApp([
+    '-r',
+    currentDir,
+    '-s',
+    argsChecker.screenName?.toSnakeCase() ?? '.',
+  ]);
+  await generateScreenAccessApp([
+    '-r',
+    currentDir,
+    '-s',
+    '.',
+  ]);
   await runGenerateIndexFilesForDartApp([
     '-r',
     currentDir,
