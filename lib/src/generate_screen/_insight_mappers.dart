@@ -14,7 +14,7 @@ import '_insight.dart';
 
 final insightMappers = [
   _InsightMapper(
-    placeholder: Placeholders.TITLE,
+    placeholder: Placeholders.DEFAULT_TITLE,
     mapInsights: (insight) async {
       return insight.title;
     },
@@ -63,9 +63,8 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.I1,
     mapInsights: (insight) async {
-      final q1 = insight.queryParameters
-          .map((e) => 'late final $e = this.configuration.$e;')
-          .join('\n');
+      final q1 =
+          insight.queryParameters.map((e) => 'late final $e = this.configuration.$e;').join('\n');
       return q1;
     },
   ),
@@ -89,17 +88,13 @@ final insightMappers = [
       final generateScreenBindingsArgs = [
         if (insight.path.isNotEmpty) "path: '${insight.path}'",
         if (insight.title.isNotEmpty) "title: '${insight.title}'",
-        if (insight.isAccessibleOnlyIfLoggedIn)
-          'isAccessibleOnlyIfLoggedIn: true',
+        if (insight.isAccessibleOnlyIfLoggedIn) 'isAccessibleOnlyIfLoggedIn: true',
         if (insight.isAccessibleOnlyIfLoggedInAndVerified)
           'isAccessibleOnlyIfLoggedInAndVerified: true',
-        if (insight.isAccessibleOnlyIfLoggedOut)
-          'isAccessibleOnlyIfLoggedOut: true',
+        if (insight.isAccessibleOnlyIfLoggedOut) 'isAccessibleOnlyIfLoggedOut: true',
         if (insight.isRedirectable) 'isRedirectable: true',
-        if (insight.internalParameters.isNotEmpty && a.isNotEmpty)
-          'internalParameters: {$a,}',
-        if (insight.queryParameters.isNotEmpty && b.isNotEmpty)
-          'queryParameters: {$b,}',
+        if (insight.internalParameters.isNotEmpty && a.isNotEmpty) 'internalParameters: {$a,}',
+        if (insight.queryParameters.isNotEmpty && b.isNotEmpty) 'queryParameters: {$b,}',
       ].join(',');
       return generateScreenBindingsArgs;
     },
@@ -117,7 +112,7 @@ final insightMappers = [
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 enum Placeholders {
-  TITLE,
+  DEFAULT_TITLE,
   SCREEN_CLASS,
   BINDINGS_FILE,
   CONTROLLER_FILE,

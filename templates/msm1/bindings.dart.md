@@ -218,5 +218,5 @@ const _CLASS = '___CLASS___';
 const _SEGMENT = '___SCREEN_SEGMENT___';
 const _PATH = '/$_SEGMENT';
 const _TR_KEY = 'screens.___CLASS___';
-const _DEFAULT_TITLE = '___TITLE___';
+const _DEFAULT_TITLE = '___ DEFAULT_TITLE___';
 ```
