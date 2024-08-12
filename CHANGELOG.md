@@ -25,3 +25,4 @@
 - fix: Fix import bug
 - Update
 - fix: Fix generator bug
+- chore: Update default title in bindings.dart.md
