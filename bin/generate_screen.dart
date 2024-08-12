@@ -9,7 +9,6 @@
 
 import 'dart:io' show Directory;
 
-import 'package:df_generate_dart_indexes/df_generate_dart_indexes.dart';
 import 'package:df_generate_screen/df_generate_screen.dart';
 import 'package:df_log/df_log.dart';
 import 'package:df_string/df_string.dart';

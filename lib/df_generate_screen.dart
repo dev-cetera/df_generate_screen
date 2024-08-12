@@ -11,3 +11,5 @@
 library;
 
 export 'src/_index.g.dart';
+
+export 'package:df_generate_dart_indexes/df_generate_dart_indexes.dart';

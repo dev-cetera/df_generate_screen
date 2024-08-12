@@ -32,6 +32,8 @@ dependencies:
   df_generate_dart_models_core: ">=0.2.2 <0.3.0"
   path: ^1.9.0
 
+  df_generate_dart_indexes: ^0.1.4
+
   df_screen_core:
     git:
       url: https://github.com/robmllze/df_screen_core
