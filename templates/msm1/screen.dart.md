@@ -10,9 +10,9 @@
 
 import 'package:df_screen_core/df_screen_core.dart';
 
-part '../v1/_bindings.g.dart';
-part '../v1/_controller.dart';
-part '../v1/_view.dart';
+part '_bindings.g.dart';
+part '_controller.dart';
+part '_view.dart';
 
 ___PARTS___
 

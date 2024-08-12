@@ -65,7 +65,7 @@ Future<void> generateScreenBindings({
     fallbackDartSdkPath,
   );
 
-  final classInsights = <ClassInsight<ModelGenerateScreenBindings>>[];
+  final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
   for (final filePathResult in sourceFileExplorerResults.filePathResults
@@ -78,15 +78,18 @@ Future<void> generateScreenBindings({
       filePath,
     );
 
-    classInsights.addAll(temp);
+    printBlue(filePath);
+    printRed(temp.length);
+
+    insights.addAll(temp);
   }
 
   // ---------------------------------------------------------------------------
 
-  if (classInsights.isNotEmpty) {
+  if (insights.isNotEmpty) {
     // Converge what was gathered to generate the output.
     await generatorConverger.converge(
-      classInsights,
+      insights,
       [template],
       insightMappers,
     );
