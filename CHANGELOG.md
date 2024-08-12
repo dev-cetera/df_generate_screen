@@ -24,3 +24,4 @@
 - test: Generate sceen access test
 - fix: Fix import bug
 - Update
+- fix: Fix generator bug

@@ -31,7 +31,9 @@ final _screenSegmentMapper = _InsightMapper(
     final path = insight.annotation.path ?? '';
     final screenSegment = p.joinAll(
       [
-        path.isNotEmpty && path.startsWith(RegExp(r'[\\/]')) ? path.substring(1) : path,
+        path.isNotEmpty && path.startsWith(RegExp(r'[\\/]'))
+            ? path.substring(1)
+            : path,
         screenKey,
       ],
     );
@@ -77,7 +79,8 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
     mapInsights: (insight) async {
-      final b = insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false;
+      final b =
+          insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false;
       return b.toString();
     },
   ),
@@ -98,7 +101,8 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.IS_ALWAYS_ACCESSIBLE,
     mapInsights: (insight) async {
-      final a = insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false;
+      final a =
+          insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false;
       final b = insight.annotation.isAccessibleOnlyIfLoggedIn ?? false;
       final c = insight.annotation.isAccessibleOnlyIfLoggedOut ?? false;
       if (a && b) {
@@ -141,8 +145,10 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.IP0,
     mapInsights: (insight) async {
-      final params =
-          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+      final params = insight.annotation.internalParameters
+              ?.map((e) => FieldUtils.ofOrNull(e))
+              .nonNulls ??
+          {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -170,8 +176,10 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.IP1,
     mapInsights: (insight) async {
-      final params =
-          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+      final params = insight.annotation.internalParameters
+              ?.map((e) => FieldUtils.ofOrNull(e))
+              .nonNulls ??
+          {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -191,8 +199,10 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.IP2,
     mapInsights: (insight) async {
-      final params =
-          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+      final params = insight.annotation.internalParameters
+              ?.map((e) => FieldUtils.ofOrNull(e))
+              .nonNulls ??
+          {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -210,8 +220,10 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.QP0,
     mapInsights: (insight) async {
-      final params =
-          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+      final params = insight.annotation.queryParameters
+              ?.map((e) => FieldUtils.ofOrNull(e))
+              .nonNulls ??
+          {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -239,8 +251,10 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.QP1,
     mapInsights: (insight) async {
-      final params =
-          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+      final params = insight.annotation.queryParameters
+              ?.map((e) => FieldUtils.ofOrNull(e))
+              .nonNulls ??
+          {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -257,8 +271,10 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.QP2,
     mapInsights: (insight) async {
-      final params =
-          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+      final params = insight.annotation.queryParameters
+              ?.map((e) => FieldUtils.ofOrNull(e))
+              .nonNulls ??
+          {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -300,4 +316,5 @@ enum Placeholders {
   TITLE,
 }
 
-typedef _InsightMapper = InsightMapper<ClassInsight<ModelGenerateScreenBindings>, Placeholders>;
+typedef _InsightMapper
+    = InsightMapper<ClassInsight<ModelGenerateScreenBindings>, Placeholders>;
