@@ -30,7 +30,9 @@ final class ___SCREEN_CLASS___Controller extends T___SCREEN_CLASS___Controller {
 
   ___Q1___
   ___I1___
-  final pCounter = Pod<int>(-1)..bindWith(this);
+
+  // Bind the Pod to this controller so that it disposes  when the controller disposes.
+  late final pCounter = Pod<int>(-1)..bindParent(this);
 
   //
   //
@@ -48,6 +50,18 @@ final class ___SCREEN_CLASS___Controller extends T___SCREEN_CLASS___Controller {
   void initController() {
     this.pCounter.set(0);
     super.initController();
+  }
+
+  //
+  //
+  //
+
+  @override
+  void dispose() {
+    // You can also dispose of Pods manually instead of the bind method
+    // illustrated aboce.
+    //this.pCounter.dispose();
+    super.dispose();
   }
 }
 

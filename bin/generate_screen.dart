@@ -17,4 +17,5 @@ import 'package:df_log/df_log.dart';
 void main(List<String> args) async {
   DebugLog.debugOnly = false;
   await runGenerateScreensApp(args);
+  await runGenerateScreenBindingsApp([]);
 }
