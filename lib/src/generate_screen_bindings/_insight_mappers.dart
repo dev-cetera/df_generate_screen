@@ -132,7 +132,7 @@ final insightMappers = [
       if (b && params != null && params.isNotEmpty) {
         for (final e in params) {
           final field = FieldUtils.ofOrNull(e)!;
-          if (field.nullable == true) {
+          if (field.nullable == false) {
             throw Exception(
               'Cannot set `isRedirectable` to `true` if `internalParameters` contains required parameters.',
             );
