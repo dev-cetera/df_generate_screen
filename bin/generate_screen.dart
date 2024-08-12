@@ -22,7 +22,6 @@ void main(List<String> args) async {
   final r = argsChecker.screenName?.toSnakeCase() ?? '.';
   await runGenerateScreenBindingsApp(['-r', r]);
   await generateScreenAccessApp([]);
-  DebugLog.debugOnly = false;
   await runGenerateIndexFilesForDartApp([
     '-r',
     currentDir,
