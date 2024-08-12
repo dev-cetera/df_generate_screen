@@ -8,7 +8,8 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'package:df_screen_core/df_screen_core.dart';
+//import 'package:df_screen_core/df_screen_core.dart';
+import '/_common.dart';
 
 part '_bindings.g.dart';
 part '_controller.dart';
