@@ -32,13 +32,12 @@ Future<void> runGenerateScreenBindingsApp(List<String> args) async {
         'roots',
         abbr: 'r',
         help: 'Root directory paths separated by `&`.',
-        defaultsTo: 'lib',
+        defaultsTo: '.',
       )
       ..addOption(
         'subs',
         abbr: 's',
         help: 'Sub-directory paths separated by `&`.',
-        defaultsTo: 'screens',
       )
       ..addOption(
         'patterns',
