@@ -16,7 +16,8 @@ import 'generate.dart';
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 /// A command line app for generating screen bindings.
-Future<void> runGenerateScreenBindingsApp(List<String> args) async {
+Future<_ArgsChecker> runGenerateScreenBindingsApp(List<String> args) async {
+  late _ArgsChecker argsChecker;
   await runCommandLineApp(
     title: 'Generate Screen Bindings',
     description: 'A command line app for generating screens bindings',
@@ -54,7 +55,7 @@ Future<void> runGenerateScreenBindingsApp(List<String> args) async {
         help: 'Dart SDK path.',
       ),
     onResults: (parser, results) {
-      return _ArgsChecker(
+      return argsChecker = _ArgsChecker(
         fallbackDartSdkPath: results['dart-sdk'],
         templateFilePath: results['template'],
         rootPaths: splitArg(results['roots'])?.toSet(),
@@ -72,6 +73,7 @@ Future<void> runGenerateScreenBindingsApp(List<String> args) async {
       );
     },
   );
+  return argsChecker;
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
