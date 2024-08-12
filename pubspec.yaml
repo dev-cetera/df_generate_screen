@@ -54,7 +54,7 @@ executables:
 
   df_generate_screen_access: generate_screen_access
   generate_screen_access: generate_screen_access
-  genscr-access: genscreenaccess
+  genscr-access: generate_screen_access
 
   df_generate_screen_bindings: generate_screen_bindings
   generate_screen_bindings: generate_screen_bindings
