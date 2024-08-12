@@ -20,4 +20,5 @@ void main(List<String> args) async {
   final argsChecker = await runGenerateScreensApp(args);
   final r = argsChecker.screenName?.toSnakeCase() ?? '.';
   await runGenerateScreenBindingsApp(['-r', r]);
+  await generateScreenAccessApp([]);
 }
