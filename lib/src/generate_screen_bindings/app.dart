@@ -15,11 +15,11 @@ import 'generate.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// A command line app for generating screen access.
-Future<void> generateScreenAccessApp(List<String> args) async {
+/// A command line app for generating screen bindings.
+Future<void> runGenerateScreenBindingsApp(List<String> args) async {
   await runCommandLineApp(
-    title: 'Generate Screen Access',
-    description: '...',
+    title: 'Generate Screen Bindings',
+    description: 'A command line app for generating screens bindings',
     args: args,
     parser: ArgParser()
       ..addFlag(
@@ -32,12 +32,13 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         'roots',
         abbr: 'r',
         help: 'Root directory paths separated by `&`.',
-        defaultsTo: '.',
+        defaultsTo: 'lib',
       )
       ..addOption(
         'subs',
         abbr: 's',
         help: 'Sub-directory paths separated by `&`.',
+        defaultsTo: 'screens',
       )
       ..addOption(
         'patterns',
@@ -50,12 +51,6 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         help: 'Template file path.',
       )
       ..addOption(
-        'output',
-        abbr: 'o',
-        help: 'Output file path.',
-        defaultsTo: './_screen_access.g.dart',
-      )
-      ..addOption(
         'dart-sdk',
         help: 'Dart SDK path.',
       ),
@@ -66,19 +61,16 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         rootPaths: splitArg(results['roots'])?.toSet(),
         subPaths: splitArg(results['subs'])?.toSet(),
         pathPatterns: splitArg(results['patterns'])?.toSet(),
-        outputFilePath: results['output'],
       );
     },
     action: (parser, results, args) async {
-      final outputFilePath = args.outputFilePath!;
-      await generateScreenAccess(
-        rootDirPaths: args.rootPaths ?? const {},
-        subDirPaths: args.subPaths ?? const {},
-        pathPatterns: args.pathPatterns ?? {},
+      await generateScreenBindings(
+        fallbackDartSdkPath: args.fallbackDartSdkPath,
         templateFilePath: args.templateFilePath,
-        outputFilePath: outputFilePath,
+        rootDirPaths: args.rootPaths!,
+        subDirPaths: args.subPaths ?? const {},
+        pathPatterns: args.pathPatterns ?? const {},
       );
-      await fmtDartFile(outputFilePath);
     },
   );
 }
@@ -94,7 +86,6 @@ class _ArgsChecker extends ValidArgsChecker {
   final Set<String>? subPaths;
   final Set<String>? pathPatterns;
   final String? templateFilePath;
-  final String? outputFilePath;
   final String? fallbackDartSdkPath;
 
   //
@@ -106,7 +97,6 @@ class _ArgsChecker extends ValidArgsChecker {
     required this.subPaths,
     required this.pathPatterns,
     required this.templateFilePath,
-    required this.outputFilePath,
     required this.fallbackDartSdkPath,
   });
 
@@ -125,7 +115,6 @@ class _ArgsChecker extends ValidArgsChecker {
       ...paths,
       if (this.pathPatterns != null) this.pathPatterns,
       if (this.templateFilePath != null) this.templateFilePath,
-      if (this.outputFilePath != null) this.outputFilePath,
       if (this.fallbackDartSdkPath != null) this.fallbackDartSdkPath,
     ];
   }

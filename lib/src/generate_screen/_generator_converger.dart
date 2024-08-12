@@ -24,7 +24,6 @@ final generatorConverger = _GeneratorConverger(
       controllerTemplate,
       screenTemplate,
       viewTemplate,
-      bindingsTemplate,
     ] = templates;
 
     for (final replacement in replacements) {
@@ -32,7 +31,6 @@ final generatorConverger = _GeneratorConverger(
         replacement.insight.controllerFileName: controllerTemplate,
         replacement.insight.screenFileName: screenTemplate,
         replacement.insight.viewFileName: viewTemplate,
-        replacement.insight.bindingsFileName: bindingsTemplate,
       };
       for (final entry in templates.entries) {
         final fileName = entry.key;

@@ -43,7 +43,7 @@ Future<void> generateScreen({
       username: 'robmllze',
       repo: 'df_generate_screen',
       filePath: [
-        controllerTemplateFilePath ?? 'templates/controller.dart.md',
+        controllerTemplateFilePath ?? 'templates/msm1/controller.dart.md',
       ].join('/'),
     ),
   );
@@ -53,7 +53,7 @@ Future<void> generateScreen({
       username: 'robmllze',
       repo: 'df_generate_screen',
       filePath: [
-        screenTemplateFilePath ?? 'templates/screen.dart.md',
+        screenTemplateFilePath ?? 'templates/msm1/screen.dart.md',
       ].join('/'),
     ),
   );
@@ -63,17 +63,7 @@ Future<void> generateScreen({
       username: 'robmllze',
       repo: 'df_generate_screen',
       filePath: [
-        viewTemplateFilePath ?? 'templates/view.dart.md',
-      ].join('/'),
-    ),
-  );
-
-  final bindingsTemplate = extractCodeFromMarkdown(
-    await loadFileFromGitHub(
-      username: 'robmllze',
-      repo: 'df_generate_screen',
-      filePath: [
-        bindingsTemplateFilePath ?? 'templates/bindings.dart.md',
+        viewTemplateFilePath ?? 'templates/msm1/view.dart.md',
       ].join('/'),
     ),
   );
@@ -85,8 +75,7 @@ Future<void> generateScreen({
     screenFileName: '${screenName.toSnakeCase()}.dart',
     viewFileName: '_view.dart',
     isAccessibleOnlyIfLoggedIn: isAccessibleOnlyIfLoggedIn,
-    isAccessibleOnlyIfLoggedInAndVerified:
-        isAccessibleOnlyIfLoggedInAndVerified,
+    isAccessibleOnlyIfLoggedInAndVerified: isAccessibleOnlyIfLoggedInAndVerified,
     isAccessibleOnlyIfLoggedOut: isAccessibleOnlyIfLoggedOut,
     isRedirectable: isRedirectable,
     internalParameters: internalParameters,
@@ -103,7 +92,6 @@ Future<void> generateScreen({
       controllerTemplate,
       screenTemplate,
       viewTemplate,
-      bindingsTemplate,
     ],
     insightMappers,
   );

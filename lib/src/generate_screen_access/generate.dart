@@ -52,7 +52,7 @@ Future<void> generateScreenAccess({
       username: 'robmllze',
       repo: 'df_generate_screen',
       filePath: [
-        templateFilePath ?? 'templates/access.dart.md',
+        templateFilePath ?? 'templates/msm1/access.dart.md',
       ].join('/'),
     ),
   );
@@ -68,8 +68,8 @@ Future<void> generateScreenAccess({
   final classInsights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -108,22 +108,19 @@ Future<void> generateScreenAccess({
             return '...PATH_ALWAYS_ACCESSIBLE_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED
-            .placeholder: classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED.placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN.placeholder:
-            classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN.placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT.placeholder:
-            classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT.placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
