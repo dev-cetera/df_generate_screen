@@ -88,7 +88,7 @@ final insightMappers = [
           .join(',');
       final generateScreenBindingsArgs = [
         if (insight.path.isNotEmpty) "path: '${insight.path}'",
-        if (insight.title.isNotEmpty) "defaultTitle: '${insight.title}'",
+        if (insight.title.isNotEmpty) "title: '${insight.title}'",
         if (insight.isAccessibleOnlyIfLoggedIn)
           'isAccessibleOnlyIfLoggedIn: true',
         if (insight.isAccessibleOnlyIfLoggedInAndVerified)
