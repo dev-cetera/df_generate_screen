@@ -1,38 +1,39 @@
 ##.title
 ## ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ##
-## Dart/Flutter (DF) Packages by DevCetra.com & contributors. See LICENSE file
-## in root directory.
+## Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
+## source code is governed by an an MIT-style license that can be found in the
+## LICENSE file located in this project's root directory.
 ##
 ## ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ##.title~
 
 name: df_generate_screen
 description: "A tool to generate ready-made screen templates for your Flutter app (uses df_sceen) #CodeGenerator"
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/robmllze/df_generate_screen
 publish_to: none
 
 ## -----------------------------------------------------------------------------
 
 environment:
-  sdk: ">=3.0.0 < 4.0.0"
+  sdk: ">=3.5.0 <4.0.0"
 
 ## -----------------------------------------------------------------------------
 
 dependencies:
   analyzer: ^6.8.0
   args: ^2.5.0
-  df_collection: ^0.2.0
-  df_config: ^0.1.2
-  df_gen_core: ^0.2.3
-  df_log: ^0.1.2
-  df_string: ^0.1.2
-  df_type: ^0.1.4
-  df_generate_dart_models_core: ">=0.2.2 <0.3.0"
+  df_collection: ^0.3.0
+  df_config: ^0.2.0
+  df_gen_core: ^0.2.4
+  df_log: ^0.2.1
+  df_string: ^0.2.1
+  df_type: ^0.2.3
+  df_generate_dart_models_core: ^0.3.1
   path: ^1.9.0
 
-  df_generate_dart_indexes: ^0.1.4
+  df_generate_dart_indexes: ^0.1.5
 
   df_screen_core:
     git:

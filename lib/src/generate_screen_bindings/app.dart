@@ -108,15 +108,15 @@ class _ArgsChecker extends ValidArgsChecker {
   @override
   List<dynamic> get args {
     final paths = [
-      if (this.rootPaths != null) this.rootPaths,
-      if (this.subPaths != null) this.subPaths,
+      if (rootPaths != null) rootPaths,
+      if (subPaths != null) subPaths,
     ];
     return [
       paths,
       ...paths,
-      if (this.pathPatterns != null) this.pathPatterns,
-      if (this.templateFilePath != null) this.templateFilePath,
-      if (this.fallbackDartSdkPath != null) this.fallbackDartSdkPath,
+      if (pathPatterns != null) pathPatterns,
+      if (templateFilePath != null) templateFilePath,
+      if (fallbackDartSdkPath != null) fallbackDartSdkPath,
     ];
   }
 }
