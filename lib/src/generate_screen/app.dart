@@ -108,11 +108,14 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
             })
             .nonNulls
             .toSet();
-        return entries != null ? Map<String, String>.fromEntries(entries) : null;
+        return entries != null
+            ? Map<String, String>.fromEntries(entries)
+            : null;
       }
 
       bool toBool(String option) {
-        return results[option]?.toString().toLowerCase().trim() == true.toString();
+        return results[option]?.toString().toLowerCase().trim() ==
+            true.toString();
       }
 
       return argsChecker = _ArgsChecker(
@@ -146,7 +149,8 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
         viewTemplateFilePath: args.stateTemplateFilePath,
         path: args.path!,
         isAccessibleOnlyIfLoggedIn: args.isAccessibleOnlyIfLoggedIn ?? false,
-        isAccessibleOnlyIfLoggedInAndVerified: args.isAccessibleOnlyIfLoggedInAndVerified ?? false,
+        isAccessibleOnlyIfLoggedInAndVerified:
+            args.isAccessibleOnlyIfLoggedInAndVerified ?? false,
         isAccessibleOnlyIfLoggedOut: args.isAccessibleOnlyIfLoggedOut ?? false,
         isRedirectable: args.isRedirectable ?? false,
         internalParameters: args.internalParameters ?? const {},
@@ -218,8 +222,10 @@ class _ArgsChecker extends ValidArgsChecker {
         if (controllerTemplateFilePath != null) controllerTemplateFilePath,
         if (screenTemplateFilePath != null) screenTemplateFilePath,
         if (stateTemplateFilePath != null) stateTemplateFilePath,
-        if (configurationTemplateFilePath != null) configurationTemplateFilePath,
-        if (isAccessibleOnlyIfLoggedInAndVerified != null) isAccessibleOnlyIfLoggedInAndVerified,
+        if (configurationTemplateFilePath != null)
+          configurationTemplateFilePath,
+        if (isAccessibleOnlyIfLoggedInAndVerified != null)
+          isAccessibleOnlyIfLoggedInAndVerified,
         if (isAccessibleOnlyIfLoggedIn != null) isAccessibleOnlyIfLoggedIn,
         if (isAccessibleOnlyIfLoggedOut != null) isAccessibleOnlyIfLoggedOut,
         if (isRedirectable != null) isRedirectable,
