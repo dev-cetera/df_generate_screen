@@ -38,7 +38,8 @@ Future<void> generateScreen({
 
   final controllerTemplate = extractCodeFromMarkdown(
     await loadFileFromPathOrUrl(
-        [templatesPath, 'controller.dart.md'].join('/'),),
+      [templatesPath, 'controller.dart.md'].join('/'),
+    ),
   );
 
   final screenTemplate = extractCodeFromMarkdown(
