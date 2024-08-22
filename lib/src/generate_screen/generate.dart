@@ -37,7 +37,8 @@ Future<void> generateScreen({
   debugLogStart('Starting generator. Please wait...');
 
   final controllerTemplate = extractCodeFromMarkdown(
-    await loadFileFromPathOrUrl([templatesPath, 'controller.dart.md'].join('/')),
+    await loadFileFromPathOrUrl(
+        [templatesPath, 'controller.dart.md'].join('/'),),
   );
 
   final screenTemplate = extractCodeFromMarkdown(

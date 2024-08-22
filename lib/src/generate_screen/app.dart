@@ -197,7 +197,8 @@ class _ArgsChecker extends ValidArgsChecker {
         outputDirPath,
         screenName,
         if (templatesPath != null) templatesPath,
-        if (isAccessibleOnlyIfLoggedInAndVerified != null) isAccessibleOnlyIfLoggedInAndVerified,
+        if (isAccessibleOnlyIfLoggedInAndVerified != null)
+          isAccessibleOnlyIfLoggedInAndVerified,
         if (isAccessibleOnlyIfLoggedIn != null) isAccessibleOnlyIfLoggedIn,
         if (isAccessibleOnlyIfLoggedOut != null) isAccessibleOnlyIfLoggedOut,
         if (isRedirectable != null) isRedirectable,
