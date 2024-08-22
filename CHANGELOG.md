@@ -4,3 +4,4 @@
 
 - Released @ 8/2024 (UTC)
 - Update
+- chore: Update templates
