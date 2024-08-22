@@ -1,9 +1,11 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
-// source code is governed by an an MIT-style license that can be found in the
-// LICENSE file located in this project's root directory.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// source code is governed by an MIT-style license described in the LICENSE
+// file located in this project's root directory.
+//
+// See: https://opensource.org/license/mit
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -19,8 +21,7 @@ import '/src/_index.g.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-Future<List<ClassInsight<ModelGenerateScreenBindings>>>
-    extractClassInsightsFromDartFile(
+Future<List<ClassInsight<ModelGenerateScreenBindings>>> extractClassInsightsFromDartFile(
   AnalysisContextCollection analysisContextCollection,
   String filePath,
 ) async {
@@ -33,8 +34,7 @@ Future<List<ClassInsight<ModelGenerateScreenBindings>>>
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
   await analyzer.analyze(
     inclClassAnnotations: {ModelGenerateScreenBindings.CLASS_NAME},
-    onClassAnnotationField: (params) async =>
-        temp = _updateFromClassAnnotationField(temp, params),
+    onClassAnnotationField: (params) async => temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       final fullPathName = params.fullFilePath;
@@ -67,12 +67,10 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
               ),
         ),
       );
-    case ModelGenerateScreenBindingsFieldNames
-          .isAccessibleOnlyIfLoggedInAndVerified:
+    case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         ModelGenerateScreenBindings(
-          isAccessibleOnlyIfLoggedInAndVerified:
-              params.fieldValue.toBoolValue(),
+          isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
         ),
       );
     case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedIn:

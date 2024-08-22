@@ -63,12 +63,12 @@ Future<void> generateScreenAccessApp(List<String> args) async {
       ),
     onResults: (parser, results) {
       return _ArgsChecker(
-        fallbackDartSdkPath: results['dart-sdk'],
-        templateFilePath: results['template'],
+        fallbackDartSdkPath: results['dart-sdk'] as String?,
+        templateFilePath: results['template'] as String?,
         rootPaths: splitArg(results['roots'])?.toSet(),
         subPaths: splitArg(results['subs'])?.toSet(),
         pathPatterns: splitArg(results['patterns'])?.toSet(),
-        outputFilePath: results['output'],
+        outputFilePath: results['output'] as String?,
       );
     },
     action: (parser, results, args) async {

@@ -1,9 +1,11 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
-// source code is governed by an an MIT-style license that can be found in the
-// LICENSE file located in this project's root directory.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// source code is governed by an MIT-style license described in the LICENSE
+// file located in this project's root directory.
+//
+// See: https://opensource.org/license/mit
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -28,8 +30,7 @@ final generatorConverger = _GeneratorConverger(
       );
 
       // Determine the output file path.
-      final outputFilePath =
-          p.join(replacement.insight.dirPath, '_bindings.g.dart');
+      final outputFilePath = p.join(replacement.insight.dirPath, '_bindings.g.dart');
 
       // Write the generated Dart file.
       await writeFile(outputFilePath, output);
@@ -48,5 +49,5 @@ final generatorConverger = _GeneratorConverger(
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-typedef _GeneratorConverger = GeneratorConverger<
-    ClassInsight<ModelGenerateScreenBindings>, Enum, String>;
+typedef _GeneratorConverger
+    = GeneratorConverger<ClassInsight<ModelGenerateScreenBindings>, Enum, String>;

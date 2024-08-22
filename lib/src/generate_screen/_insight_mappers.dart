@@ -1,9 +1,11 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
-// source code is governed by an an MIT-style license that can be found in the
-// LICENSE file located in this project's root directory.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// source code is governed by an MIT-style license described in the LICENSE
+// file located in this project's root directory.
+//
+// See: https://opensource.org/license/mit
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -64,9 +66,8 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.I1,
     mapInsights: (insight) async {
-      final q1 = insight.queryParameters
-          .map((e) => 'late final $e = this.configuration.$e;')
-          .join('\n');
+      final q1 =
+          insight.queryParameters.map((e) => 'late final $e = this.configuration.$e;').join('\n');
       return q1;
     },
   ),
@@ -90,17 +91,13 @@ final insightMappers = [
       final generateScreenBindingsArgs = [
         if (insight.path != null) "path: '${insight.path}'",
         if (insight.title != null) "title: '${insight.title}'",
-        if (insight.isAccessibleOnlyIfLoggedIn)
-          'isAccessibleOnlyIfLoggedIn: true',
+        if (insight.isAccessibleOnlyIfLoggedIn) 'isAccessibleOnlyIfLoggedIn: true',
         if (insight.isAccessibleOnlyIfLoggedInAndVerified)
           'isAccessibleOnlyIfLoggedInAndVerified: true',
-        if (insight.isAccessibleOnlyIfLoggedOut)
-          'isAccessibleOnlyIfLoggedOut: true',
+        if (insight.isAccessibleOnlyIfLoggedOut) 'isAccessibleOnlyIfLoggedOut: true',
         if (insight.isRedirectable) 'isRedirectable: true',
-        if (insight.internalParameters.isNotEmpty && a.isNotEmpty)
-          'internalParameters: {$a,}',
-        if (insight.queryParameters.isNotEmpty && b.isNotEmpty)
-          'queryParameters: {$b,}',
+        if (insight.internalParameters.isNotEmpty && a.isNotEmpty) 'internalParameters: {$a,}',
+        if (insight.queryParameters.isNotEmpty && b.isNotEmpty) 'queryParameters: {$b,}',
       ].join(',');
       return generateScreenBindingsArgs;
     },

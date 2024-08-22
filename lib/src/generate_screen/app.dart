@@ -1,9 +1,11 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. Use of this
-// source code is governed by an an MIT-style license that can be found in the
-// LICENSE file located in this project's root directory.
+// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// source code is governed by an MIT-style license described in the LICENSE
+// file located in this project's root directory.
+//
+// See: https://opensource.org/license/mit
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -108,11 +110,11 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
       }
 
       return argsChecker = _ArgsChecker(
-        fallbackDartSdkPath: results['dart-sdk'],
-        outputDirPath: results['output'],
-        screenName: results['class-name'],
-        templatesPath: results['templates'],
-        path: results['path'],
+        fallbackDartSdkPath: results['dart-sdk'] as String?,
+        outputDirPath: results['output'] as String?,
+        screenName: results['class-name'] as String?,
+        templatesPath: results['templates'] as String?,
+        path: results['path'] as String?,
         isAccessibleOnlyIfLoggedIn: toBool('is-only-accessible-if-logged-in'),
         isAccessibleOnlyIfLoggedInAndVerified:
             toBool('is-only-accessible-if-logged-in-and-verified'),
@@ -120,7 +122,7 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
         isRedirectable: toBool('is-redirectable'),
         internalParameters: toOptionsMap('internal-parameters'),
         queryParameters: splitArg(results['query-parameters'])?.toSet(),
-        title: results['default-title'],
+        title: results['default-title'] as String?,
         partFileDirs: splitArg(results['part-file-dirs'])?.toSet(),
       );
     },

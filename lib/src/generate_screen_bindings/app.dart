@@ -58,8 +58,8 @@ Future<_ArgsChecker> runGenerateScreenBindingsApp(List<String> args) async {
       ),
     onResults: (parser, results) {
       return argsChecker = _ArgsChecker(
-        fallbackDartSdkPath: results['dart-sdk'],
-        templateFilePath: results['template'],
+        fallbackDartSdkPath: results['dart-sdk'] as String?,
+        templateFilePath: results['template'] as String?,
         rootPaths: splitArg(results['roots'])?.toSet(),
         subPaths: splitArg(results['subs'])?.toSet(),
         pathPatterns: splitArg(results['patterns'])?.toSet(),
