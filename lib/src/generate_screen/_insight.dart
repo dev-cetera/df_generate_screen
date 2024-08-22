@@ -20,8 +20,8 @@ class Insight {
   final bool isRedirectable;
   final Map<String, String> internalParameters;
   final Set<String> queryParameters;
-  final String path;
-  final String title;
+  final String? path;
+  final String? title;
   final Set<String> partFileDirs;
 
   const Insight({

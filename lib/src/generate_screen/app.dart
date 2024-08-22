@@ -130,7 +130,7 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
         outputDirPath: args.outputDirPath!,
         screenName: args.screenName!,
         templatesPath: args.templatesPath!,
-        path: args.path!,
+        path: args.path,
         isAccessibleOnlyIfLoggedIn: args.isAccessibleOnlyIfLoggedIn ?? false,
         isAccessibleOnlyIfLoggedInAndVerified:
             args.isAccessibleOnlyIfLoggedInAndVerified ?? false,

@@ -45,8 +45,9 @@ final generatorConverger = _GeneratorConverger(
 
         // Determine the output file path.
         final folderName = replacement.insight.screenClassName.toSnakeCase();
-        final outputFilePath =
-            p.join(replacement.insight.path, folderName, fileName);
+        final outputFilePath = p.joinAll(
+          [replacement.insight.path, folderName, fileName].nonNulls,
+        );
 
         // Write the generated Dart file.
         await writeFile(outputFilePath, output);

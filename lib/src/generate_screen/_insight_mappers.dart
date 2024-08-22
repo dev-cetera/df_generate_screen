@@ -17,7 +17,7 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.DEFAULT_TITLE,
     mapInsights: (insight) async {
-      return insight.title;
+      return insight.title ?? 'Title';
     },
   ),
   _InsightMapper(
@@ -88,8 +88,8 @@ final insightMappers = [
           .nonNulls
           .join(',');
       final generateScreenBindingsArgs = [
-        if (insight.path.isNotEmpty) "path: '${insight.path}'",
-        if (insight.title.isNotEmpty) "title: '${insight.title}'",
+        if (insight.path != null) "path: '${insight.path}'",
+        if (insight.title != null) "title: '${insight.title}'",
         if (insight.isAccessibleOnlyIfLoggedIn)
           'isAccessibleOnlyIfLoggedIn: true',
         if (insight.isAccessibleOnlyIfLoggedInAndVerified)

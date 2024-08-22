@@ -23,14 +23,14 @@ Future<void> generateScreen({
   required String outputDirPath,
   required String screenName,
   required String templatesPath,
-  String path = '',
+  String? path,
   bool isAccessibleOnlyIfLoggedIn = false,
   bool isAccessibleOnlyIfLoggedInAndVerified = false,
   bool isAccessibleOnlyIfLoggedOut = false,
   bool isRedirectable = false,
   Map<String, String> internalParameters = const {},
   Set<String> queryParameters = const {},
-  String title = '',
+  String? title,
   Set<String> partFileDirs = const {},
 }) async {
   // Notify start.
