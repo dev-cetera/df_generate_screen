@@ -21,7 +21,7 @@ import '_insight_mappers.dart';
 /// Note: Returns all the annotated screen class names.
 Future<void> generateScreenBindings({
   String? fallbackDartSdkPath,
-  String? templateFilePath,
+  required String templateFilePath,
   required Set<String> rootDirPaths,
   Set<String> subDirPaths = const {},
   Set<String> pathPatterns = const {},
@@ -48,13 +48,7 @@ Future<void> generateScreenBindings({
   final sourceFileExplorerResults = await sourceFileExporer.explore();
 
   final template = extractCodeFromMarkdown(
-    await loadFileFromGitHub(
-      username: 'robmllze',
-      repo: 'df_generate_screen',
-      filePath: [
-        templateFilePath ?? 'templates/msm1/bindings.dart.md',
-      ].join('/'),
-    ),
+    await loadFileFromPathOrUrl(templateFilePath),
   );
 
   // ---------------------------------------------------------------------------
@@ -68,8 +62,8 @@ Future<void> generateScreenBindings({
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.

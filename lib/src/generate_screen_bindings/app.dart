@@ -19,8 +19,8 @@ import 'generate.dart';
 Future<_ArgsChecker> runGenerateScreenBindingsApp(List<String> args) async {
   late _ArgsChecker argsChecker;
   await runCommandLineApp(
-    title: 'Generate Screen Bindings',
-    description: 'A command line app for generating screens bindings',
+    title: 'Generate Screen Bindings by DevCetra.com',
+    description: '...',
     args: args,
     parser: ArgParser()
       ..addFlag(
@@ -48,7 +48,9 @@ Future<_ArgsChecker> runGenerateScreenBindingsApp(List<String> args) async {
       ..addOption(
         'template',
         abbr: 't',
-        help: 'Template file path.',
+        help: 'Template file path or URL.',
+        defaultsTo:
+            'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/msm1/bindings.dart.md',
       )
       ..addOption(
         'dart-sdk',
@@ -66,7 +68,7 @@ Future<_ArgsChecker> runGenerateScreenBindingsApp(List<String> args) async {
     action: (parser, results, args) async {
       await generateScreenBindings(
         fallbackDartSdkPath: args.fallbackDartSdkPath,
-        templateFilePath: args.templateFilePath,
+        templateFilePath: args.templateFilePath!,
         rootDirPaths: args.rootPaths!,
         subDirPaths: args.subPaths ?? const {},
         pathPatterns: args.pathPatterns ?? const {},

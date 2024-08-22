@@ -22,10 +22,7 @@ Future<void> generateScreen({
   String? fallbackDartSdkPath,
   required String outputDirPath,
   required String screenName,
-  String? controllerTemplateFilePath,
-  String? screenTemplateFilePath,
-  String? viewTemplateFilePath,
-  String? bindingsTemplateFilePath,
+  required String templatesPath,
   String path = '',
   bool isAccessibleOnlyIfLoggedIn = false,
   bool isAccessibleOnlyIfLoggedInAndVerified = false,
@@ -40,33 +37,15 @@ Future<void> generateScreen({
   debugLogStart('Starting generator. Please wait...');
 
   final controllerTemplate = extractCodeFromMarkdown(
-    await loadFileFromGitHub(
-      username: 'robmllze',
-      repo: 'df_generate_screen',
-      filePath: [
-        controllerTemplateFilePath ?? 'templates/msm1/controller.dart.md',
-      ].join('/'),
-    ),
+    await loadFileFromPathOrUrl([templatesPath, 'controller.dart.md'].join('/')),
   );
 
   final screenTemplate = extractCodeFromMarkdown(
-    await loadFileFromGitHub(
-      username: 'robmllze',
-      repo: 'df_generate_screen',
-      filePath: [
-        screenTemplateFilePath ?? 'templates/msm1/screen.dart.md',
-      ].join('/'),
-    ),
+    await loadFileFromPathOrUrl([templatesPath, 'screen.dart.md'].join('/')),
   );
 
   final viewTemplate = extractCodeFromMarkdown(
-    await loadFileFromGitHub(
-      username: 'robmllze',
-      repo: 'df_generate_screen',
-      filePath: [
-        viewTemplateFilePath ?? 'templates/msm1/view.dart.md',
-      ].join('/'),
-    ),
+    await loadFileFromPathOrUrl([templatesPath, 'view.dart.md'].join('/')),
   );
 
   final insight = Insight(

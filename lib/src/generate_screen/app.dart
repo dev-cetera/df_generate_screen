@@ -19,8 +19,8 @@ import '../../df_generate_screen.dart';
 Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
   late _ArgsChecker argsChecker;
   await runCommandLineApp(
-    title: 'Generate Screens',
-    description: 'A command line app for generating screens',
+    title: 'Generate Screens by DevCetra.com',
+    description: '...',
     args: args,
     parser: ArgParser()
       ..addFlag(
@@ -50,25 +50,14 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
         help: 'Query parameters.',
       )
       ..addOption(
-        'bindings-template',
-        help: 'Bindings template file path.',
-      )
-      ..addOption(
-        'controller-template',
-        help: 'Controller template file path.',
-      )
-      ..addOption(
-        'view-template',
-        help: 'View template file path.',
-      )
-      ..addOption(
-        'screen-template',
-        help: 'Screen template file path.',
+        'templates',
+        help: 'Template dir path or URL.',
+        defaultsTo:
+            'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/msm1/',
       )
       ..addOption(
         'path',
         help: 'Screen path.',
-        defaultsTo: '.',
       )
       ..addOption(
         'is-only-accessible-if-logged-in',
@@ -122,10 +111,7 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
         fallbackDartSdkPath: results['dart-sdk'],
         outputDirPath: results['output'],
         screenName: results['class-name'],
-        controllerTemplateFilePath: results['controller-template'],
-        screenTemplateFilePath: results['screen-template'],
-        stateTemplateFilePath: results['view-template'],
-        configurationTemplateFilePath: results['bindings-template'],
+        templatesPath: results['templates'],
         path: results['path'],
         isAccessibleOnlyIfLoggedIn: toBool('is-only-accessible-if-logged-in'),
         isAccessibleOnlyIfLoggedInAndVerified:
@@ -143,10 +129,7 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
         fallbackDartSdkPath: args.fallbackDartSdkPath,
         outputDirPath: args.outputDirPath!,
         screenName: args.screenName!,
-        bindingsTemplateFilePath: args.configurationTemplateFilePath,
-        controllerTemplateFilePath: args.controllerTemplateFilePath,
-        screenTemplateFilePath: args.screenTemplateFilePath,
-        viewTemplateFilePath: args.stateTemplateFilePath,
+        templatesPath: args.templatesPath!,
         path: args.path!,
         isAccessibleOnlyIfLoggedIn: args.isAccessibleOnlyIfLoggedIn ?? false,
         isAccessibleOnlyIfLoggedInAndVerified:
@@ -173,10 +156,7 @@ class _ArgsChecker extends ValidArgsChecker {
   final String? fallbackDartSdkPath;
   final String? outputDirPath;
   final String? screenName;
-  final String? controllerTemplateFilePath;
-  final String? screenTemplateFilePath;
-  final String? stateTemplateFilePath;
-  final String? configurationTemplateFilePath;
+  final String? templatesPath;
   final String? path;
   final bool? isAccessibleOnlyIfLoggedIn;
   final bool? isAccessibleOnlyIfLoggedInAndVerified;
@@ -195,10 +175,7 @@ class _ArgsChecker extends ValidArgsChecker {
     required this.fallbackDartSdkPath,
     required this.outputDirPath,
     required this.screenName,
-    required this.controllerTemplateFilePath,
-    required this.screenTemplateFilePath,
-    required this.stateTemplateFilePath,
-    required this.configurationTemplateFilePath,
+    required this.templatesPath,
     required this.path,
     required this.isAccessibleOnlyIfLoggedIn,
     required this.isAccessibleOnlyIfLoggedInAndVerified,
@@ -219,13 +196,8 @@ class _ArgsChecker extends ValidArgsChecker {
         if (fallbackDartSdkPath != null) fallbackDartSdkPath,
         outputDirPath,
         screenName,
-        if (controllerTemplateFilePath != null) controllerTemplateFilePath,
-        if (screenTemplateFilePath != null) screenTemplateFilePath,
-        if (stateTemplateFilePath != null) stateTemplateFilePath,
-        if (configurationTemplateFilePath != null)
-          configurationTemplateFilePath,
-        if (isAccessibleOnlyIfLoggedInAndVerified != null)
-          isAccessibleOnlyIfLoggedInAndVerified,
+        if (templatesPath != null) templatesPath,
+        if (isAccessibleOnlyIfLoggedInAndVerified != null) isAccessibleOnlyIfLoggedInAndVerified,
         if (isAccessibleOnlyIfLoggedIn != null) isAccessibleOnlyIfLoggedIn,
         if (isAccessibleOnlyIfLoggedOut != null) isAccessibleOnlyIfLoggedOut,
         if (isRedirectable != null) isRedirectable,

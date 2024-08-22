@@ -18,7 +18,7 @@ import 'generate.dart';
 /// A command line app for generating screen access.
 Future<void> generateScreenAccessApp(List<String> args) async {
   await runCommandLineApp(
-    title: 'Generate Screen Access',
+    title: 'Generate Screen Access by DevCetra.com',
     description: '...',
     args: args,
     parser: ArgParser()
@@ -47,7 +47,9 @@ Future<void> generateScreenAccessApp(List<String> args) async {
       ..addOption(
         'template',
         abbr: 't',
-        help: 'Template file path.',
+        help: 'Template file path or URL.',
+        defaultsTo:
+            'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/msm1/access.dart.md',
       )
       ..addOption(
         'output',
@@ -75,7 +77,7 @@ Future<void> generateScreenAccessApp(List<String> args) async {
         rootDirPaths: args.rootPaths ?? const {},
         subDirPaths: args.subPaths ?? const {},
         pathPatterns: args.pathPatterns ?? {},
-        templateFilePath: args.templateFilePath,
+        templateFilePath: args.templateFilePath!,
         outputFilePath: outputFilePath,
       );
       await fmtDartFile(outputFilePath);
