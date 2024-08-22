@@ -1,15 +1,5 @@
 ```dart
-//.title
-// ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-//
-// GENERATED - DO NOT MODIFY BY HAND
-// See: https://github.com/robmllze/df_generate_screen
-//
-// ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-//.title~
-
-//import 'package:df_screen_core/df_screen_core.dart';
-import '/_common.dart';
+import 'package:df_screen/df_screen.dart';
 
 part '_bindings.g.dart';
 part '_controller.dart';
