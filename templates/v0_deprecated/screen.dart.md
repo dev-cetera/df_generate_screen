@@ -11,9 +11,9 @@
 //import 'package:df_screen_core/df_screen_core.dart';
 import '/_common.dart';
 
-part '../msm1 copy/_bindings.g.dart';
-part '../msm1 copy/_controller.dart';
-part '../msm1 copy/_view.dart';
+part '../v1 copy/_bindings.g.dart';
+part '../v1 copy/_controller.dart';
+part '../v1 copy/_view.dart';
 
 ___PARTS___
 

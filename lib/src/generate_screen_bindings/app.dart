@@ -50,7 +50,7 @@ Future<_ArgsChecker> runGenerateScreenBindingsApp(List<String> args) async {
         abbr: 't',
         help: 'Template file path or URL.',
         defaultsTo:
-            'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/msm1/bindings.dart.md',
+            'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/bindings.dart.md',
       )
       ..addOption(
         'dart-sdk',

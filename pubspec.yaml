@@ -49,14 +49,14 @@ dev_dependencies:
 ## -----------------------------------------------------------------------------
 
 executables:
-  df_generate_screen: generate_screen
-  generate_screen: generate_screen
-  genscr: generate_screen
+  genscr: genscr-v1
+  genscr-access: genscr-access-v1
+  genscr-bindings: genscr-bindings-v1
 
-  df_generate_screen_access: generate_screen_access
-  generate_screen_access: generate_screen_access
-  genscr-access: generate_screen_access
+  genscr-v1: genscr-v1
+  genscr-access-v1: genscr-access-v1
+  genscr-bindings-v1: genscr-bindings-v1
 
-  df_generate_screen_bindings: generate_screen_bindings
-  generate_screen_bindings: generate_screen_bindings
-  genscr-bindings: generate_screen_bindings
+  genscr-v2: genscr-v2
+  genscr-access-v2: genscr-access-v2
+  genscr-bindings-v2: genscr-bindings-v2
