@@ -1,4 +1,5 @@
 ```dart
+import 'package:flutter/material.dart';
 import 'package:df_screen/df_screen.dart';
 
 part '_bindings.g.dart';
