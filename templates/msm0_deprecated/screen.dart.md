@@ -8,40 +8,48 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-part of '___SCREEN_FILE___';
+//import 'package:df_screen_core/df_screen_core.dart';
+import '/_common.dart';
+
+part '../msm1 copy/_bindings.g.dart';
+part '../msm1 copy/_controller.dart';
+part '../msm1 copy/_view.dart';
+
+___PARTS___
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-final class _View extends T___SCREEN_CLASS___View {
+@GenerateScreenBindings(
+  ___GENERATE_SCREEN_BINDINGS_ARGS___
+)
+final class ___SCREEN_CLASS___ extends Screen {
   //
   //
   //
 
-  @override
-  Widget topSide(BuildContext context, double topInsets) {
-    return const SizedBox.shrink();
-  }
-
-  //
-  //
-  //
-
-  @override
-  Widget body(BuildContext context) {
-    return Column(
-      children: [
-        // ...
-      ],
-    );
-  }
+  const ___SCREEN_CLASS___({
+    super.key,
+    super.configuration,
+    super.controllerCacheTimeout = Duration.zero,
+  });
 
   //
   //
   //
 
   @override
-  Widget bottomSide(BuildContext context, double bottomInsets) {
-    return const SizedBox.shrink();
+  _View createState() => _View();
+
+  //
+  //
+  //
+
+  @override
+  ___SCREEN_CLASS___Controller createController(
+    Screen screen,
+    ScreenView state,
+  ) {
+    return ___SCREEN_CLASS___Controller(screen, state);
   }
 }
 ```

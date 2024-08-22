@@ -30,7 +30,16 @@ final class _View extends T___SCREEN_CLASS___View {
   Widget body(BuildContext context) {
     return Column(
       children: [
-        // ...
+        PodBuilder(
+          pod: this.c.pCounter,
+          builder: (context, child, counter) {
+            return Text('Count: $counter');
+          },
+        ),
+        TextButton(
+          onPressed: this.c.incrementCounter,
+          child: const Text('INCREMENT COUNTER'),
+        ),
       ],
     );
   }
@@ -43,5 +52,12 @@ final class _View extends T___SCREEN_CLASS___View {
   Widget bottomSide(BuildContext context, double bottomInsets) {
     return const SizedBox.shrink();
   }
+}
+
+// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+// TODO: Delete this if you don't need it.
+extension _Labels on ___SCREEN_CLASS___Controller {
+  // Tip: You can add functions to your controller here.
 }
 ```
