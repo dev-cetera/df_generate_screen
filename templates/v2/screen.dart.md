@@ -15,34 +15,11 @@ ___PARTS___
 @GenerateScreenBindings(
   ___GENERATE_SCREEN_BINDINGS_ARGS___
 )
-final class ___SCREEN_CLASS___ extends Screen {
-  //
-  //
-  //
-
+final class ___SCREEN_CLASS___ extends Screen with _ScreenMixin {
   const ___SCREEN_CLASS___({
     super.key,
     super.configuration,
     super.controllerCacheTimeout = Duration.zero,
   });
-
-  //
-  //
-  //
-
-  @override
-  _View createState() => _View();
-
-  //
-  //
-  //
-
-  @override
-  ___SCREEN_CLASS___Controller createController(
-    Screen screen,
-    ScreenView state,
-  ) {
-    return ___SCREEN_CLASS___Controller(screen, state);
-  }
 }
 ```

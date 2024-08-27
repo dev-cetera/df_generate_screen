@@ -206,7 +206,7 @@ typedef T___CLASS___PageView<T extends ScreenPage> = ScreenPageView<T, ___CONFIG
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-base mixin ___CLASS___Mixin on Screen {
+base mixin _ScreenMixin on Screen {
   @override
   _View createState() => _View();
 
