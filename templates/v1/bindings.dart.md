@@ -206,12 +206,19 @@ typedef T___CLASS___PageView<T extends ScreenPage> = ScreenPageView<T, ___CONFIG
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-base mixin _ScreenMixin on Screen {
-  @override
-  _View createState() => _View();
+class ____CLASS___ extends Screen {
+  const ____CLASS___({
+    required super.key,
+    required super.configuration,
+    // ignore: unused_element
+    super.controllerCacheTimeout = Duration.zero,
+  });
 
   @override
-  ___CLASS___Controller createController(
+  createState() => _View();
+
+  @override
+  createController(
     Screen screen,
     ScreenView state,
   ) {

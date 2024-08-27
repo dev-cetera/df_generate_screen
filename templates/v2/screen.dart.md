@@ -15,7 +15,7 @@ ___PARTS___
 @GenerateScreenBindings(
   ___GENERATE_SCREEN_BINDINGS_ARGS___
 )
-final class ___SCREEN_CLASS___ extends Screen with _ScreenMixin {
+final class ___SCREEN_CLASS___ extends ____SCREEN_CLASS___ {
   const ___SCREEN_CLASS___({
     super.key,
     super.configuration,
