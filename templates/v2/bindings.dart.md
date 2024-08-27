@@ -206,7 +206,7 @@ typedef T___CLASS___PageView<T extends ScreenPage> = ScreenPageView<T, ___CONFIG
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-class ____CLASS___ extends Screen {
+base class ____CLASS___ extends Screen {
   const ____CLASS___({
     required super.key,
     required super.configuration,
