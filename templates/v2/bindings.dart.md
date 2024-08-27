@@ -204,6 +204,20 @@ typedef T___CLASS___View = ScreenView<___CLASS___, ___CONFIGURATION_CLASS___, __
 /// The [ScreenPageView] [Type] corresponding to [___CLASS___].
 typedef T___CLASS___PageView<T extends ScreenPage> = ScreenPageView<T, ___CONFIGURATION_CLASS___, ___CLASS___Controller>;
 
+// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+base mixin ___CLASS___Mixin on Screen {
+  @override
+  _View createState() => _View();
+
+  @override
+  ___CLASS___Controller createController(
+    Screen screen,
+    ScreenView state,
+  ) {
+    return ___CLASS___Controller(screen, state);
+  }
+}
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
