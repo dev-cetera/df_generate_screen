@@ -24,23 +24,23 @@ environment:
 ## -----------------------------------------------------------------------------
 
 dependencies:
-  analyzer: ^6.8.0
-  args: ^2.5.0
-  df_collection: ^0.3.0
-  df_config: ^0.3.0
-  df_gen_core: ^0.2.7
+  df_collection: ^0.4.0
+  df_config: ^0.4.0
+  df_gen_core: ^0.2.8
+  df_generate_dart_indexes: ^0.2.2
+  df_generate_dart_models_core: ^0.3.2
   df_log: ^0.2.1
   df_string: ^0.2.1
-  df_type: ^0.2.3
-  df_generate_dart_models_core: ^0.3.1
-  path: ^1.9.0
-
-  df_generate_dart_indexes: ^0.2.1
+  df_type: ^0.5.3
 
   df_screen_core:
     git:
       url: https://github.com/robmllze/df_screen_core
       ref: main
+
+  analyzer: ^6.8.0
+  args: ^2.5.0
+  path: ^1.9.0
 
 ## -----------------------------------------------------------------------------
 
