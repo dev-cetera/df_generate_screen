@@ -31,7 +31,7 @@ dependencies:
   df_generate_dart_models_core: ^0.3.2
   df_log: ^0.2.1
   df_string: ^0.2.1
-  df_type: ^0.5.3
+  df_type: ^0.5.13
 
   df_screen_core:
     git:
@@ -51,9 +51,9 @@ dev_dependencies:
 ## -----------------------------------------------------------------------------
 
 executables:
-  genscr: genscr-v1
-  genscr-access: genscr-access-v1
-  genscr-bindings: genscr-bindings-v1
+  genscr: genscr-v2
+  genscr-access: genscr-access-v2
+  genscr-bindings: genscr-bindings-v2
 
   genscr-v1: genscr-v1
   genscr-access-v1: genscr-access-v1

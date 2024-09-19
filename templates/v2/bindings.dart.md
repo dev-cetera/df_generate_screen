@@ -128,7 +128,7 @@ abstract base class _ControllerBroker<T1 extends ___CLASS___, T2 extends _View>
 final generated___CLASS___Route = GoRoute(
   path: _SEGMENT,
   pageBuilder: (context, state) {
-    final extraConfiguration = letAsOrNullOrNull<ModelScreenConfiguration>(state.extra);
+    final extraConfiguration = letAsOrNull<ModelScreenConfiguration>(state.extra);
     final urlConfiguration = urlToScreenConfiguration(
       url: state.uri,
       isAccessibleOnlyIfLoggedIn: ___CONFIGURATION_CLASS___.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
