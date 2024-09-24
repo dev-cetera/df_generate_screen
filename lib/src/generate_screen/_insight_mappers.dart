@@ -57,7 +57,7 @@ final insightMappers = [
     mapInsights: (insight) async {
       final i1 = insight.internalParameters.entries
           .map(
-            (e) => 'late final ${e.key} = this.configuration.${e.key};',
+            (e) => 'late final ${e.key} = configuration.${e.key};',
           )
           .join('\n');
       return i1;
@@ -67,7 +67,7 @@ final insightMappers = [
     placeholder: Placeholders.I1,
     mapInsights: (insight) async {
       final q1 = insight.queryParameters
-          .map((e) => 'late final $e = this.configuration.$e;')
+          .map((e) => 'late final $e = configuration.$e;')
           .join('\n');
       return q1;
     },

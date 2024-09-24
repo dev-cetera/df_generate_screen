@@ -31,13 +31,13 @@ final class _View extends T___SCREEN_CLASS___View {
     return Column(
       children: [
         PodBuilder(
-          pod: this.c.pCounter,
+          pod: c.pCounter,
           builder: (context, child, counter) {
             return Text('Count: $counter');
           },
         ),
         TextButton(
-          onPressed: this.c.incrementCounter,
+          onPressed: c.incrementCounter,
           child: const Text('INCREMENT COUNTER'),
         ),
       ],

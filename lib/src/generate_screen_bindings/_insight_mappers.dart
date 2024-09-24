@@ -178,7 +178,7 @@ final insightMappers = [
             "static const $fieldK = '$fieldKey';",
             '/// Returns the **internal parameter** with the key `$fieldKey`',
             '/// or [$fieldK].',
-            '$fieldType$questionMark get $fieldName => this.arg<$fieldType>($fieldK)$exclamationMark;',
+            '$fieldType$questionMark get $fieldName => arg<$fieldType>($fieldK)$exclamationMark;',
           ].join('\n');
         }).toList()
           ..sort();
@@ -253,7 +253,7 @@ final insightMappers = [
             "static const $fieldK = '$fieldKey';",
             '/// Returns the URI **query parameter** with the key `$fieldKey`',
             '/// or [$fieldK].',
-            'String$questionMark get $fieldName => this.arg<String>($fieldK)$exclamationMark;',
+            'String$questionMark get $fieldName => arg<String>($fieldK)$exclamationMark;',
           ].join('\n');
         }).toList()
           ..sort();

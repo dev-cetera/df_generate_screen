@@ -39,7 +39,7 @@ final class ___SCREEN_CLASS___Controller extends T___SCREEN_CLASS___Controller {
   //
 
   void incrementCounter() {
-    this.pCounter.update((final value) => value + 1);
+    pCounter.update((final value) => value + 1);
   }
 
   //
@@ -48,7 +48,7 @@ final class ___SCREEN_CLASS___Controller extends T___SCREEN_CLASS___Controller {
 
   @override
   void initController() {
-    this.pCounter.set(0);
+    pCounter.set(0);
     super.initController();
   }
 
@@ -60,7 +60,7 @@ final class ___SCREEN_CLASS___Controller extends T___SCREEN_CLASS___Controller {
   void dispose() {
     // You can also dispose of Pods manually instead of the bind method
     // illustrated aboce.
-    //this.pCounter.dispose();
+    //pCounter.dispose();
     super.dispose();
   }
 }
