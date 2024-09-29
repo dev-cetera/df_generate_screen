@@ -18,7 +18,7 @@ A tool to generate ready-made screen templates for your Flutter app (uses df_gen
 1. You do not need to add this package to your pubspec.yaml file.
 2. Activate the tool by running: `dart pub global activate df_generate_screen` or `dart pub global activate --source git https://github.com/robmllze/df_generate_screen.git`.
 3. Navigate to a folder in your project using the terminal (Tip: If you're using VS Code, you can right-click on a folder and select `"Open in Integrated Terminal"`).
-4. Run `genscr . -n ExampleScreen` to generate a screen template called `ExampleScreen` at the current directory.
+4. Run `genscr -n ExampleScreen` to generate a screen template called `ExampleScreen` at the current directory.
 
 ---
 
@@ -28,7 +28,6 @@ This is an open-source project, and we warmly welcome contributions from everyon
 
 ### Ways you can contribute:
 
-- **Join the discussions and ask questions:** Your curiosity can lead to valuable insights and improvements.
 - **Buy me a coffee:** If you'd like to support the project financially, consider [buying me a coffee](https://www.buymeacoffee.com/robmllze). Your support helps cover the costs of development and keeps the project growing.
 - **Share your ideas:** Every perspective matters, and your ideas can spark innovation.
 - **Report bugs:** Help us identify and fix issues to make the project more robust.
@@ -39,14 +38,6 @@ This is an open-source project, and we warmly welcome contributions from everyon
 No matter how you choose to contribute, your involvement is greatly appreciated and valued!
 
 ---
-
-### Join Reddit Discussions:
-
-💬 https://www.reddit.com/r/df_generate_screen/
-
-### Join GitHub Discussions:
-
-💬 https://github.com/robmllze/df_generate_screen/discussions/
 
 ### Chief Maintainer:
 
