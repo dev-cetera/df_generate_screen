@@ -185,7 +185,6 @@ base class ____CLASS___ extends Screen {
   const ____CLASS___({
     required super.key,
     required super.configuration,
-    // ignore: unused_element
     super.controllerCacheTimeout = Duration.zero,
   });
 
