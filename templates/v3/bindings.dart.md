@@ -45,7 +45,7 @@ class ___CONFIGURATION_CLASS___ extends ModelScreenConfiguration {
   ___CONFIGURATION_CLASS___.c2({
     Map<dynamic, dynamic>? args,
   }): super.c2(
-    title: translatedTitle,
+    title: null,
     path: _PATH,
     args: args ?? {},
     isAccessibleOnlyIfLoggedInAndVerified: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
@@ -53,13 +53,6 @@ class ___CONFIGURATION_CLASS___ extends ModelScreenConfiguration {
     isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
     isRedirectable: _IS_REDIRECTABLE,
   );
-
-  //
-  //
-  //
-
-  @override
-  String get title => translatedTitle;
 
   //
   //
@@ -127,7 +120,7 @@ final generated___CLASS___Route = GoRoute(
       isAccessibleOnlyIfLoggedInAndVerified: ___CONFIGURATION_CLASS___.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
       isAccessibleOnlyIfLoggedOut: ___CONFIGURATION_CLASS___.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
       isRedirectable: ___CONFIGURATION_CLASS___.IS_REDIRECTABLE,
-      title: ___CONFIGURATION_CLASS___.translatedTitle,
+      title: null,
     );
     final configuration = extraConfiguration ?? urlConfiguration;
     return NoTransitionPage(
