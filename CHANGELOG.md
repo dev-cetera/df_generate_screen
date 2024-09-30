@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.2]
+
+- Released @ 9/2024 (UTC)
+- chore: Removed ScreenTr from bindings
+
 ## [0.1.1]
 
 - Released @ 9/2024 (UTC)
