@@ -19,7 +19,6 @@ final class ___SCREEN_CLASS___ extends ____SCREEN_CLASS___ {
   const ___SCREEN_CLASS___({
     super.key,
     super.configuration,
-    super.controllerCacheTimeout = Duration.zero,
   });
 }
 ```
