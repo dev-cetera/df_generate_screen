@@ -11,7 +11,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:df_screen/df_screen.dart';
 
-import '../v2 copy/_index.g.dart';
+import '_index.g.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
