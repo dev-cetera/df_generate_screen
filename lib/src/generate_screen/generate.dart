@@ -36,7 +36,7 @@ Future<void> generateScreen({
   Set<String> partFileDirs = const {},
 }) async {
   // Notify start.
-  debugLogStart('Starting generator. Please wait...');
+  printBlue('Starting generator. Please wait...');
 
   final controllerTemplate = extractCodeFromMarkdown(
     await loadFileFromPathOrUrl(
@@ -59,8 +59,7 @@ Future<void> generateScreen({
     screenFileName: '${screenName.toSnakeCase()}.dart',
     viewFileName: '_view.dart',
     isAccessibleOnlyIfLoggedIn: isAccessibleOnlyIfLoggedIn,
-    isAccessibleOnlyIfLoggedInAndVerified:
-        isAccessibleOnlyIfLoggedInAndVerified,
+    isAccessibleOnlyIfLoggedInAndVerified: isAccessibleOnlyIfLoggedInAndVerified,
     isAccessibleOnlyIfLoggedOut: isAccessibleOnlyIfLoggedOut,
     isRedirectable: isRedirectable,
     internalParameters: internalParameters,
@@ -84,5 +83,5 @@ Future<void> generateScreen({
   // ---------------------------------------------------------------------------
 
   // Notify end.
-  debugLogStop('Done!');
+  printPurple('Done!');
 }

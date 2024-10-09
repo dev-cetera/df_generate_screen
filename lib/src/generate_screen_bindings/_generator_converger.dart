@@ -43,7 +43,7 @@ final generatorConverger = _GeneratorConverger(
       await fmtDartFile(outputFilePath);
 
       // Log a success.
-      debugLogSuccess('Generated "${previewPath(outputFilePath)}"');
+      printGreen('Generated "${previewPath(outputFilePath)}"');
     }
   },
 );

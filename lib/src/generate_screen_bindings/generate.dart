@@ -29,7 +29,7 @@ Future<void> generateScreenBindings({
   Set<String> pathPatterns = const {},
 }) async {
   // Notify start.
-  debugLogStart('Starting generator. Please wait...');
+  printBlue('Starting generator. Please wait...');
 
   // Explore all source paths.
   final sourceFileExporer = PathExplorer(
@@ -64,8 +64,8 @@ Future<void> generateScreenBindings({
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -91,7 +91,7 @@ Future<void> generateScreenBindings({
   // ---------------------------------------------------------------------------
 
   // Notify end.
-  debugLogStop('Done!');
+  printPurple('Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░

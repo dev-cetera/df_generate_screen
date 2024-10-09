@@ -29,7 +29,7 @@ Future<void> generateScreenAccess({
   required String templateFilePath,
 }) async {
   // Notify start.
-  debugLogStart('Starting generator. Please wait...');
+  printBlue('Starting generator. Please wait...');
 
   // Explore all source paths.
   final sourceFileExporer = PathExplorer(
@@ -64,8 +64,8 @@ Future<void> generateScreenAccess({
   final classInsights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -104,22 +104,19 @@ Future<void> generateScreenAccess({
             return '...PATH_ALWAYS_ACCESSIBLE_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED
-            .placeholder: classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED.placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN.placeholder:
-            classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN.placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT.placeholder:
-            classInsights.map(
+        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT.placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
@@ -144,7 +141,7 @@ Future<void> generateScreenAccess({
     await fmtDartFile(outputFilePath);
 
     // Log a success.
-    debugLogSuccess('Generated "${previewPath(outputFilePath)}"');
+    printGreen('Generated "${previewPath(outputFilePath)}"');
   }
 
   // await writeFile(outputFilePath, outputContent);
@@ -152,7 +149,7 @@ Future<void> generateScreenAccess({
   // ---------------------------------------------------------------------------
 
   // Notify end.
-  debugLogStop('Done!');
+  printPurple('Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
