@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.4]
+
+- Released @ 10/2024 (UTC)
+- fix: Fix issue with executable
+
 ## [0.2.3]
 
 - Released @ 10/2024 (UTC)
