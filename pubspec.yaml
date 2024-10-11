@@ -35,9 +35,9 @@ dependencies:
   df_config: ^0.5.0
   df_gen_core: ^0.3.2
   df_generate_dart_indexes: ^0.3.1
-  df_generate_dart_models_core: ^0.6.2
+  df_generate_dart_models_core: ^0.6.4
   df_log: ^0.2.4
-  df_screen_core: ^0.2.1
+  df_screen_core: ^0.2.4
   df_string: ^0.2.2
   df_type: ^0.6.1
 
@@ -56,7 +56,7 @@ dev_dependencies:
 executables:
   genscr: genscr-v2
   genscr-access: genscr-access-v2
-  genscr-bindings: genscr-bindings-v3 # v3
+  genscr-bindings: genscr-bindings-v4 # v4
 
   genscr-v1: genscr-v1
   genscr-access-v1: genscr-access-v1
