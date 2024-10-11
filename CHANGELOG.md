@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.5]
+
+- Released @ 10/2024 (UTC)
+- chore: Update default executables
+
 ## [0.2.4]
 
 - Released @ 10/2024 (UTC)
