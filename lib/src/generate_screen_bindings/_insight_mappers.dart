@@ -168,7 +168,7 @@ final insightMappers = [
           final nullable = e.nullable != false;
           final exclamationMark = nullable ? '' : '!';
           final questionMark = nullable ? '?' : '';
-          final fieldK = 'K_${fieldKey.toUpperCase()}';
+          final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
           return [
             '/// Key corresponding to the value `$fieldName`',
             "static const $fieldK = '$fieldKey';",
@@ -213,8 +213,7 @@ final insightMappers = [
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
-          final fieldKey = stringCaseType(insight).convert(fieldName);
-          final fieldK = 'K_${fieldKey.toUpperCase()}';
+          final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
           return '$fieldK: $fieldName,';
         }).toList()
           ..sort();
@@ -232,9 +231,9 @@ final insightMappers = [
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
-          final fieldKey = fieldName.toSnakeCase();
+         final fieldKey = stringCaseType(insight).convert(fieldName);
           final nullable = e.nullable != false;
-          final fieldK = 'K_${fieldKey.toUpperCase()}';
+          final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
           final exclamationMark = nullable ? '' : '!';
           final questionMark = nullable ? '?' : '';
           return [
@@ -280,8 +279,7 @@ final insightMappers = [
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
           final nullable = e.nullable != false;
-          final fieldKey = stringCaseType(insight).convert(fieldName);
-          final fieldK = 'K_${fieldKey.toUpperCase()}';
+          final fieldK = 'K_${fieldName.toSnakeCase().toUpperCase()}';
           return "${nullable ? "if ($fieldName != null) " : ""}$fieldK: $fieldName,";
         }).toList()
           ..sort();
