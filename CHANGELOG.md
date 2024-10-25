@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.2.5]
+## [0.2.6]
 
 - Released @ 25/2024 (UTC)
 - fix: Fix another bug with case types
