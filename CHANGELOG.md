@@ -1,11 +1,11 @@
 # Changelog
 
-## [0.2.6]
+## [0.2.7]
 
 - Released @ 25/2024 (UTC)
 - fix: Fix another bug with case types
 
-## [0.2.5]
+## [0.2.6]
 
 - Released @ 25/2024 (UTC)
 - fix: Fix issue with key types in screen bindings generator
