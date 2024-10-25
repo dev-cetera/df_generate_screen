@@ -2,6 +2,11 @@
 
 ## [0.2.5]
 
+- Released @ 25/2024 (UTC)
+- fix: Fix issue with key types in screen bindings generator
+
+## [0.2.5]
+
 - Released @ 10/2024 (UTC)
 - chore: Update default executables
 
