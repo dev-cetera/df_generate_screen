@@ -23,7 +23,7 @@ import '_insight_mappers.dart';
 /// Note: Returns all the annotated screen class names.
 Future<void> generateScreenBindings({
   String? fallbackDartSdkPath,
-  required String templateFilePath,
+  required String templatePathOrUrl,
   required Set<String> rootDirPaths,
   Set<String> subDirPaths = const {},
   Set<String> pathPatterns = const {},
@@ -40,7 +40,7 @@ Future<void> generateScreenBindings({
       ),
     ],
     dirPathGroups: {
-      CombinedPaths(
+      MatchedPathPowerset(
         rootDirPaths,
         subPaths: subDirPaths,
         pathPatterns: pathPatterns,
@@ -50,22 +50,22 @@ Future<void> generateScreenBindings({
   final sourceFileExplorerResults = await sourceFileExporer.explore();
 
   final template = extractCodeFromMarkdown(
-    await loadFileFromPathOrUrl(templateFilePath),
+    (await FileSystemUtility.i.readFileFromPathOrUrl(templatePathOrUrl))!,
   );
 
   // ---------------------------------------------------------------------------
 
   // Create context for the Dart analyzer.
   final analysisContextCollection = createDartAnalysisContextCollection(
-    sourceFileExporer.dirPathGroups.first.paths,
+    sourceFileExporer.dirPathGroups.first.output,
     fallbackDartSdkPath,
   );
 
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.

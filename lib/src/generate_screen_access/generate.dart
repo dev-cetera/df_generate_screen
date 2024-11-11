@@ -26,7 +26,7 @@ Future<void> generateScreenAccess({
   Set<String> pathPatterns = const {},
   Set<String> subDirPaths = const {},
   String? fallbackDartSdkPath,
-  required String templateFilePath,
+  required String templatePathOrUrl,
 }) async {
   // Notify start.
   printBlue('Starting generator. Please wait...');
@@ -40,7 +40,7 @@ Future<void> generateScreenAccess({
       ),
     ],
     dirPathGroups: {
-      CombinedPaths(
+      MatchedPathPowerset(
         rootDirPaths,
         subPaths: subDirPaths,
         pathPatterns: pathPatterns,
@@ -50,22 +50,22 @@ Future<void> generateScreenAccess({
   final sourceFileExplorerResults = await sourceFileExporer.explore();
 
   final template = extractCodeFromMarkdown(
-    await loadFileFromPathOrUrl(templateFilePath),
+    (await FileSystemUtility.i.readFileFromPathOrUrl(templatePathOrUrl))!,
   );
 
   // ---------------------------------------------------------------------------
 
   // Create context for the Dart analyzer.
   final analysisContextCollection = createDartAnalysisContextCollection(
-    sourceFileExporer.dirPathGroups.first.paths,
+    sourceFileExporer.dirPathGroups.first.output,
     fallbackDartSdkPath,
   );
 
   final classInsights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
-  for (final filePathResult in sourceFileExplorerResults.filePathResults
-      .where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult
+      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -80,52 +80,52 @@ Future<void> generateScreenAccess({
   if (classInsights.isNotEmpty) {
     final output = template.replaceData(
       {
-        Placeholders.SCREEN_MAKERS.placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.SCREEN_MAKERS).placeholder: classInsights.map(
           (e) {
             final a = e.className.toPascalCase();
             return 'maker$a';
           },
         ).join(','),
-        Placeholders.PATHS.placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.PATHS).placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_$a';
           },
         ).join(','),
-        Placeholders.PATHS_NOT_REDIRECTABLE.placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.PATHS_NOT_REDIRECTABLE).placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_NOT_REDIRECTABLE_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ALWAYS_ACCESSIBLE.placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.PATHS_ALWAYS_ACCESSIBLE).placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ALWAYS_ACCESSIBLE_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED
-            .placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED).placeholder:
+            classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN.placeholder:
+        EnumPlaceholder(Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN).placeholder:
             classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
           },
         ).join(','),
-        Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT.placeholder:
+        EnumPlaceholder(Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT).placeholder:
             classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
           },
         ).join(','),
-        Placeholders.GENERATED_SCREEN_ROUTES.placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.GENERATED_SCREEN_ROUTES).placeholder: classInsights.map(
           (e) {
             final a = e.className.toPascalCase();
             return 'generated${a}Route';
@@ -135,7 +135,7 @@ Future<void> generateScreenAccess({
     );
 
     // Write the generated Dart file.
-    await writeFile(outputFilePath, output);
+    await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
 
     // Fix the generated Dart file.
     await fixDartFile(outputFilePath);

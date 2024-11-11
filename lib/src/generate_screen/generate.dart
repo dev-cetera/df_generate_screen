@@ -24,7 +24,7 @@ Future<void> generateScreen({
   String? fallbackDartSdkPath,
   required String outputDirPath,
   required String screenName,
-  required String templatesPath,
+  required String templatePathOrUrl,
   String? path,
   bool isAccessibleOnlyIfLoggedIn = false,
   bool isAccessibleOnlyIfLoggedInAndVerified = false,
@@ -39,17 +39,19 @@ Future<void> generateScreen({
   printBlue('Starting generator. Please wait...');
 
   final controllerTemplate = extractCodeFromMarkdown(
-    await loadFileFromPathOrUrl(
-      [templatesPath, 'controller.dart.md'].join('/'),
-    ),
+    (await FileSystemUtility.i.readFileFromPathOrUrl(
+      [templatePathOrUrl, 'controller.dart.md'].join('/'),
+    ))!,
   );
 
   final screenTemplate = extractCodeFromMarkdown(
-    await loadFileFromPathOrUrl([templatesPath, 'screen.dart.md'].join('/')),
+    (await FileSystemUtility.i
+        .readFileFromPathOrUrl([templatePathOrUrl, 'screen.dart.md'].join('/')))!,
   );
 
   final viewTemplate = extractCodeFromMarkdown(
-    await loadFileFromPathOrUrl([templatesPath, 'view.dart.md'].join('/')),
+    (await FileSystemUtility.i
+        .readFileFromPathOrUrl([templatePathOrUrl, 'view.dart.md'].join('/')))!,
   );
 
   final insight = Insight(
@@ -59,8 +61,7 @@ Future<void> generateScreen({
     screenFileName: '${screenName.toSnakeCase()}.dart',
     viewFileName: '_view.dart',
     isAccessibleOnlyIfLoggedIn: isAccessibleOnlyIfLoggedIn,
-    isAccessibleOnlyIfLoggedInAndVerified:
-        isAccessibleOnlyIfLoggedInAndVerified,
+    isAccessibleOnlyIfLoggedInAndVerified: isAccessibleOnlyIfLoggedInAndVerified,
     isAccessibleOnlyIfLoggedOut: isAccessibleOnlyIfLoggedOut,
     isRedirectable: isRedirectable,
     internalParameters: internalParameters,

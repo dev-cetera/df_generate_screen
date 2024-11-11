@@ -102,21 +102,18 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
             })
             .nonNulls
             .toSet();
-        return entries != null
-            ? Map<String, String>.fromEntries(entries)
-            : null;
+        return entries != null ? Map<String, String>.fromEntries(entries) : null;
       }
 
       bool toBool(String option) {
-        return results[option]?.toString().toLowerCase().trim() ==
-            true.toString();
+        return results[option]?.toString().toLowerCase().trim() == true.toString();
       }
 
       return argsChecker = _ArgsChecker(
         fallbackDartSdkPath: results['dart-sdk'] as String?,
         outputDirPath: results['output'] as String?,
         screenName: results['class-name'] as String?,
-        templatesPath: results['templates'] as String?,
+        templatePathOrUrl: results['templates'] as String?,
         path: results['path'] as String?,
         isAccessibleOnlyIfLoggedIn: toBool('is-only-accessible-if-logged-in'),
         isAccessibleOnlyIfLoggedInAndVerified:
@@ -134,11 +131,10 @@ Future<_ArgsChecker> runGenerateScreensApp(List<String> args) async {
         fallbackDartSdkPath: args.fallbackDartSdkPath,
         outputDirPath: args.outputDirPath!,
         screenName: args.screenName!,
-        templatesPath: args.templatesPath!,
+        templatePathOrUrl: args.templatePathOrUrl!,
         path: args.path,
         isAccessibleOnlyIfLoggedIn: args.isAccessibleOnlyIfLoggedIn ?? false,
-        isAccessibleOnlyIfLoggedInAndVerified:
-            args.isAccessibleOnlyIfLoggedInAndVerified ?? false,
+        isAccessibleOnlyIfLoggedInAndVerified: args.isAccessibleOnlyIfLoggedInAndVerified ?? false,
         isAccessibleOnlyIfLoggedOut: args.isAccessibleOnlyIfLoggedOut ?? false,
         isRedirectable: args.isRedirectable ?? false,
         internalParameters: args.internalParameters ?? const {},
@@ -161,7 +157,7 @@ class _ArgsChecker extends ValidArgsChecker {
   final String? fallbackDartSdkPath;
   final String? outputDirPath;
   final String? screenName;
-  final String? templatesPath;
+  final String? templatePathOrUrl;
   final String? path;
   final bool? isAccessibleOnlyIfLoggedIn;
   final bool? isAccessibleOnlyIfLoggedInAndVerified;
@@ -180,7 +176,7 @@ class _ArgsChecker extends ValidArgsChecker {
     required this.fallbackDartSdkPath,
     required this.outputDirPath,
     required this.screenName,
-    required this.templatesPath,
+    required this.templatePathOrUrl,
     required this.path,
     required this.isAccessibleOnlyIfLoggedIn,
     required this.isAccessibleOnlyIfLoggedInAndVerified,
@@ -201,9 +197,8 @@ class _ArgsChecker extends ValidArgsChecker {
         if (fallbackDartSdkPath != null) fallbackDartSdkPath,
         outputDirPath,
         screenName,
-        if (templatesPath != null) templatesPath,
-        if (isAccessibleOnlyIfLoggedInAndVerified != null)
-          isAccessibleOnlyIfLoggedInAndVerified,
+        if (templatePathOrUrl != null) templatePathOrUrl,
+        if (isAccessibleOnlyIfLoggedInAndVerified != null) isAccessibleOnlyIfLoggedInAndVerified,
         if (isAccessibleOnlyIfLoggedIn != null) isAccessibleOnlyIfLoggedIn,
         if (isAccessibleOnlyIfLoggedOut != null) isAccessibleOnlyIfLoggedOut,
         if (isRedirectable != null) isRedirectable,

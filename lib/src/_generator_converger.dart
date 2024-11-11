@@ -52,7 +52,7 @@ final generatorConverger = _GeneratorConverger(
         );
 
         // Write the generated Dart file.
-        await writeFile(outputFilePath, output);
+        await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
 
         // Fix the generated Dart file.
         await fixDartFile(outputFilePath);

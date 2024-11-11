@@ -12,7 +12,7 @@
 
 name: df_generate_screen
 description: A tool to generate ready-made screen templates for your Flutter app (uses df_sceen)
-version: 0.2.7
+version: 0.3.0
 repository: https://github.com/devcetra/df_generate_screen
 funding:
   - https://www.buymeacoffee.com/robmllze
@@ -31,37 +31,35 @@ environment:
 ## -----------------------------------------------------------------------------
 
 dependencies:
-  df_collection: ^0.8.1
-  df_config: ^0.5.0
-  df_gen_core: ^0.3.2
-  df_generate_dart_indexes: ^0.3.1
-  df_generate_dart_models_core: ^0.6.4
+  df_collection: ^0.8.3
+  df_config: ^0.5.3
+  df_gen_core: ^0.4.5
+  df_generate_dart_indexes: ^0.4.1
+  df_generate_dart_models_core: ^0.6.10
   df_log: ^0.2.4
-  df_screen_core: ^0.2.4
-  df_string: ^0.2.2
-  df_type: ^0.6.2
+  df_screen_core: ^0.3.0
+  df_string: ^0.2.3
+  df_type: ^0.7.2
 
-  analyzer: ^6.8.0
-  args: ^2.5.0
-  path: ^1.9.0
+  analyzer: ^6.11.0
+  args: ^2.6.0
+  path: ^1.9.1
 
 ## -----------------------------------------------------------------------------
 
 dev_dependencies:
-  lints: ^5.0.0
+  lints: ^5.1.0
   test: ^1.25.8
 
 ## -----------------------------------------------------------------------------
 
 executables:
-  genscr: genscr-v4
-  genscr-access: genscr-access-v4
-  genscr-bindings: genscr-bindings-v4
-
-  genscr-v1: genscr-v1
-  genscr-access-v1: genscr-access-v1
-  genscr-bindings-v1: genscr-bindings-v1
-
-  genscr-v2: genscr-v2
-  genscr-access-v2: genscr-access-v2
-  genscr-bindings-v2: genscr-bindings-v2
+  dfscr: dfscr-v4
+  dfscr-access: dfscr-access-v4
+  dfscr-bindings: dfscr-bindings-v4
+  dfscr-v1: dfscr-v1
+  dfscr-access-v1: dfscr-access-v1
+  dfscr-bindings-v1: dfscr-bindings-v1
+  dfscr-v2: dfscr-v2
+  dfscr-access-v2: dfscr-access-v2
+  dfscr-bindings-v2: dfscr-bindings-v2

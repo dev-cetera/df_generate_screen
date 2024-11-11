@@ -61,7 +61,7 @@ Future<_ArgsChecker> runGenerateScreenBindingsApp(List<String> args) async {
     onResults: (parser, results) {
       return argsChecker = _ArgsChecker(
         fallbackDartSdkPath: results['dart-sdk'] as String?,
-        templateFilePath: results['template'] as String?,
+        templatePathOrUrl: results['template'] as String?,
         rootPaths: splitArg(results['roots'])?.toSet(),
         subPaths: splitArg(results['subs'])?.toSet(),
         pathPatterns: splitArg(results['patterns'])?.toSet(),
@@ -70,7 +70,7 @@ Future<_ArgsChecker> runGenerateScreenBindingsApp(List<String> args) async {
     action: (parser, results, args) async {
       await generateScreenBindings(
         fallbackDartSdkPath: args.fallbackDartSdkPath,
-        templateFilePath: args.templateFilePath!,
+        templatePathOrUrl: args.templatePathOrUrl!,
         rootDirPaths: args.rootPaths!,
         subDirPaths: args.subPaths ?? const {},
         pathPatterns: args.pathPatterns ?? const {},
@@ -90,7 +90,7 @@ class _ArgsChecker extends ValidArgsChecker {
   final Set<String>? rootPaths;
   final Set<String>? subPaths;
   final Set<String>? pathPatterns;
-  final String? templateFilePath;
+  final String? templatePathOrUrl;
   final String? fallbackDartSdkPath;
 
   //
@@ -101,7 +101,7 @@ class _ArgsChecker extends ValidArgsChecker {
     required this.rootPaths,
     required this.subPaths,
     required this.pathPatterns,
-    required this.templateFilePath,
+    required this.templatePathOrUrl,
     required this.fallbackDartSdkPath,
   });
 
@@ -119,7 +119,7 @@ class _ArgsChecker extends ValidArgsChecker {
       paths,
       ...paths,
       if (pathPatterns != null) pathPatterns,
-      if (templateFilePath != null) templateFilePath,
+      if (templatePathOrUrl != null) templatePathOrUrl,
       if (fallbackDartSdkPath != null) fallbackDartSdkPath,
     ];
   }
