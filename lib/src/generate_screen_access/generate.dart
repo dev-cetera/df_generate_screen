@@ -64,8 +64,8 @@ Future<void> generateScreenAccess({
   final classInsights = <ClassInsight<ModelGenerateScreenBindings>>[];
 
   // For each file...
-  for (final filePathResult
-      in sourceFileExplorerResults.filePathResults.where((e) => e.category == _Categories.DART)) {
+  for (final filePathResult in sourceFileExplorerResults.filePathResults
+      .where((e) => e.category == _Categories.DART)) {
     final filePath = filePathResult.path;
 
     // Extract insights from the file.
@@ -80,7 +80,8 @@ Future<void> generateScreenAccess({
   if (classInsights.isNotEmpty) {
     final output = template.replaceData(
       {
-        EnumPlaceholder(Placeholders.SCREEN_MAKERS).placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.SCREEN_MAKERS).placeholder:
+            classInsights.map(
           (e) {
             final a = e.className.toPascalCase();
             return 'maker$a';
@@ -92,40 +93,44 @@ Future<void> generateScreenAccess({
             return '...PATH_$a';
           },
         ).join(','),
-        EnumPlaceholder(Placeholders.PATHS_NOT_REDIRECTABLE).placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.PATHS_NOT_REDIRECTABLE).placeholder:
+            classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_NOT_REDIRECTABLE_$a';
           },
         ).join(','),
-        EnumPlaceholder(Placeholders.PATHS_ALWAYS_ACCESSIBLE).placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.PATHS_ALWAYS_ACCESSIBLE).placeholder:
+            classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ALWAYS_ACCESSIBLE_$a';
           },
         ).join(','),
-        EnumPlaceholder(Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED).placeholder:
-            classInsights.map(
+        EnumPlaceholder(
+                Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,)
+            .placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
           },
         ).join(','),
-        EnumPlaceholder(Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN).placeholder:
-            classInsights.map(
+        EnumPlaceholder(Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN)
+            .placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
           },
         ).join(','),
-        EnumPlaceholder(Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT).placeholder:
-            classInsights.map(
+        EnumPlaceholder(Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT)
+            .placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
           },
         ).join(','),
-        EnumPlaceholder(Placeholders.GENERATED_SCREEN_ROUTES).placeholder: classInsights.map(
+        EnumPlaceholder(Placeholders.GENERATED_SCREEN_ROUTES).placeholder:
+            classInsights.map(
           (e) {
             final a = e.className.toPascalCase();
             return 'generated${a}Route';
