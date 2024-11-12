@@ -4,9 +4,9 @@
 import 'package:flutter/material.dart';
 import 'package:df_screen/df_screen.dart';
 
-part '../v4 copy/_bindings.g.dart';
-part '../v4 copy/_controller.dart';
-part '../v4 copy/_view.dart';
+part '_bindings.g.dart';
+part '_controller.dart';
+part '_view.dart';
 
 ___PARTS___
 
