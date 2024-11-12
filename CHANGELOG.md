@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.1]
+
+- Released @ 11/2024 (UTC)
+- fix: Add missing scripts
+
 ## [0.4.0]
 
 - Released @ 11/2024 (UTC)
