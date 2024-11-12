@@ -170,13 +170,16 @@ Screen? maker___CLASS___(
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// The controller corresponding to [___CLASS___].
+/// A controller type corresponding to [___CLASS___].
 typedef T___CLASS___Controller =  _ControllerBroker<___CLASS___, _View>;
 
-/// The [ScreenView] corresponding to [___CLASS___].
-typedef T___CLASS___View = AdaptiveScreenView<___CLASS___, ___CONFIGURATION_CLASS___, ___CLASS___Controller>;
+/// A [AdaptiveScreenView] type corresponding to [___CLASS___].
+typedef TAdaptive___CLASS___View = AdaptiveScreenView<___CLASS___, ___CONFIGURATION_CLASS___, ___CLASS___Controller>;
 
-/// The [ScreenPageView] corresponding to [___CLASS___].
+/// A [ScreenView] type corresponding to [___CLASS___].
+typedef T___CLASS___View = ScreenView<___CLASS___, ___CONFIGURATION_CLASS___, ___CLASS___Controller>;
+
+/// A [ScreenPageView] type corresponding to [___CLASS___].
 typedef T___CLASS___PageView<T extends ScreenPage> = ScreenPageView<T, ___CONFIGURATION_CLASS___, ___CLASS___Controller>;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
