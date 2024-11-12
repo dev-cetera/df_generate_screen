@@ -12,7 +12,7 @@
 
 name: df_generate_screen
 description: A tool to generate ready-made screen templates for your Flutter app (uses df_sceen)
-version: 0.3.1
+version: 0.4.0
 repository: https://github.com/devcetra/df_generate_screen
 funding:
   - https://www.buymeacoffee.com/robmllze
@@ -54,12 +54,6 @@ dev_dependencies:
 ## -----------------------------------------------------------------------------
 
 executables:
-  dfscr: dfscr-v4
-  dfscr-access: dfscr-access-v4
-  dfscr-bindings: dfscr-bindings-v4
-  dfscr-v1: dfscr-v1
-  dfscr-access-v1: dfscr-access-v1
-  dfscr-bindings-v1: dfscr-bindings-v1
-  dfscr-v2: dfscr-v2
-  dfscr-access-v2: dfscr-access-v2
-  dfscr-bindings-v2: dfscr-bindings-v2
+  dfscr: dfscr-v5
+  dfscr-access: dfscr-access-v5
+  dfscr-bindings: dfscr-bindings-v5
