@@ -194,7 +194,7 @@ base class ____CLASS___ extends Screen {
   @override
   createController(
     Screen screen,
-    AdaptiveScreenView state,
+    ScreenView state,
   ) {
     return ___CLASS___Controller(screen, state);
   }
