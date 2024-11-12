@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.0]
+
+- Released @ 11/2024 (UTC)
+- breaking: Update templates and set default template
+
 ## [0.3.1]
 
 - Released @ 11/2024 (UTC)
