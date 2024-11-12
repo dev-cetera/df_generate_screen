@@ -108,8 +108,8 @@ Future<void> generateScreenAccess({
           },
         ).join(','),
         EnumPlaceholder(
-                Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,)
-            .placeholder: classInsights.map(
+          Placeholders.PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+        ).placeholder: classInsights.map(
           (e) {
             final a = e.className.toUpperSnakeCase();
             return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';

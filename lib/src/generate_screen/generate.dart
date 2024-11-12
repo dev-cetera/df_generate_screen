@@ -46,7 +46,8 @@ Future<void> generateScreen({
 
   final screenTemplate = extractCodeFromMarkdown(
     (await FileSystemUtility.i.readFileFromPathOrUrl(
-        [templatePathOrUrl, 'screen.dart.md'].join('/'),))!,
+      [templatePathOrUrl, 'screen.dart.md'].join('/'),
+    ))!,
   );
 
   final viewTemplate = extractCodeFromMarkdown(
