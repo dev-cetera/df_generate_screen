@@ -15,7 +15,7 @@ class Insight {
   final String bindingsFileName;
   final String controllerFileName;
   final String screenFileName;
-  final String viewFileName;
+  final String stateFileName;
   final bool isAccessibleOnlyIfLoggedIn;
   final bool isAccessibleOnlyIfLoggedInAndVerified;
   final bool isAccessibleOnlyIfLoggedOut;
@@ -31,7 +31,7 @@ class Insight {
     required this.bindingsFileName,
     required this.controllerFileName,
     required this.screenFileName,
-    required this.viewFileName,
+    required this.stateFileName,
     required this.isAccessibleOnlyIfLoggedIn,
     required this.isAccessibleOnlyIfLoggedInAndVerified,
     required this.isAccessibleOnlyIfLoggedOut,

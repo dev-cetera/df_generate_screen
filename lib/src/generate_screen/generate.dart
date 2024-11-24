@@ -50,9 +50,9 @@ Future<void> generateScreen({
     ))!,
   );
 
-  final viewTemplate = extractCodeFromMarkdown(
+  final stateTemplate = extractCodeFromMarkdown(
     (await FileSystemUtility.i
-        .readFileFromPathOrUrl([templatePathOrUrl, 'view.dart.md'].join('/')))!,
+        .readFileFromPathOrUrl([templatePathOrUrl, 'state.dart.md'].join('/')))!,
   );
 
   final insight = Insight(
@@ -60,10 +60,9 @@ Future<void> generateScreen({
     bindingsFileName: '_bindings.g.dart',
     controllerFileName: '_controller.dart',
     screenFileName: '${screenName.toSnakeCase()}.dart',
-    viewFileName: '_view.dart',
+    stateFileName: '_state.dart',
     isAccessibleOnlyIfLoggedIn: isAccessibleOnlyIfLoggedIn,
-    isAccessibleOnlyIfLoggedInAndVerified:
-        isAccessibleOnlyIfLoggedInAndVerified,
+    isAccessibleOnlyIfLoggedInAndVerified: isAccessibleOnlyIfLoggedInAndVerified,
     isAccessibleOnlyIfLoggedOut: isAccessibleOnlyIfLoggedOut,
     isRedirectable: isRedirectable,
     internalParameters: internalParameters,
@@ -79,7 +78,7 @@ Future<void> generateScreen({
     [
       controllerTemplate,
       screenTemplate,
-      viewTemplate,
+      stateTemplate,
     ],
     insightMappers,
   );

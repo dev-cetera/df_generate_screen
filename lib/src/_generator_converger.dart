@@ -26,14 +26,14 @@ final generatorConverger = _GeneratorConverger(
     final [
       controllerTemplate,
       screenTemplate,
-      viewTemplate,
+      stateTemplate,
     ] = templates;
 
     for (final replacement in replacements) {
       final templates = {
         replacement.insight.controllerFileName: controllerTemplate,
         replacement.insight.screenFileName: screenTemplate,
-        replacement.insight.viewFileName: viewTemplate,
+        replacement.insight.stateFileName: stateTemplate,
       };
       for (final entry in templates.entries) {
         final fileName = entry.key;

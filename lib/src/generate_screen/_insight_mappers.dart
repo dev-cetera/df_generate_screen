@@ -47,9 +47,9 @@ final insightMappers = [
     },
   ),
   _InsightMapper(
-    placeholder: Placeholders.VIEW_FILE,
+    placeholder: Placeholders.STATE_FILE,
     mapInsights: (insight) async {
-      return insight.viewFileName;
+      return insight.stateFileName;
     },
   ),
   _InsightMapper(
@@ -66,9 +66,7 @@ final insightMappers = [
   _InsightMapper(
     placeholder: Placeholders.I1,
     mapInsights: (insight) async {
-      final q1 = insight.queryParameters
-          .map((e) => 'late final $e = configuration.$e;')
-          .join('\n');
+      final q1 = insight.queryParameters.map((e) => 'late final $e = configuration.$e;').join('\n');
       return q1;
     },
   ),
@@ -92,17 +90,13 @@ final insightMappers = [
       final generateScreenBindingsArgs = [
         if (insight.path != null) "path: '${insight.path}'",
         if (insight.title != null) "title: '${insight.title}'",
-        if (insight.isAccessibleOnlyIfLoggedIn)
-          'isAccessibleOnlyIfLoggedIn: true',
+        if (insight.isAccessibleOnlyIfLoggedIn) 'isAccessibleOnlyIfLoggedIn: true',
         if (insight.isAccessibleOnlyIfLoggedInAndVerified)
           'isAccessibleOnlyIfLoggedInAndVerified: true',
-        if (insight.isAccessibleOnlyIfLoggedOut)
-          'isAccessibleOnlyIfLoggedOut: true',
+        if (insight.isAccessibleOnlyIfLoggedOut) 'isAccessibleOnlyIfLoggedOut: true',
         if (insight.isRedirectable) 'isRedirectable: true',
-        if (insight.internalParameters.isNotEmpty && a.isNotEmpty)
-          'internalParameters: {$a,}',
-        if (insight.queryParameters.isNotEmpty && b.isNotEmpty)
-          'queryParameters: {$b,}',
+        if (insight.internalParameters.isNotEmpty && a.isNotEmpty) 'internalParameters: {$a,}',
+        if (insight.queryParameters.isNotEmpty && b.isNotEmpty) 'queryParameters: {$b,}',
       ].join(',');
       return generateScreenBindingsArgs;
     },
@@ -125,7 +119,7 @@ enum Placeholders {
   BINDINGS_FILE,
   CONTROLLER_FILE,
   SCREEN_FILE,
-  VIEW_FILE,
+  STATE_FILE,
   Q1,
   I1,
   GENERATE_SCREEN_BINDINGS_ARGS,

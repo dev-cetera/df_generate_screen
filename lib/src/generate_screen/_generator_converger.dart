@@ -33,7 +33,7 @@ final generatorConverger = _GeneratorConverger(
       final templates = {
         replacement.insight.controllerFileName: controllerTemplate,
         replacement.insight.screenFileName: screenTemplate,
-        replacement.insight.viewFileName: viewTemplate,
+        replacement.insight.stateFileName: viewTemplate,
       };
       for (final entry in templates.entries) {
         final fileName = entry.key;
