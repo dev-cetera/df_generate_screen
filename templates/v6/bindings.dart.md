@@ -151,16 +151,16 @@ Screen? maker___CLASS___(
   if ((_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED && !isLoggedInAndVerified) || (_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN && !isLoggedIn) || (_IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT && !isLoggedOut)) {
     return null;
   }
-  if (configuration is ___CONFIGURATION_CLASS___) {
+  if (extra is ___CONFIGURATION_CLASS___) {
     return ___CLASS___(
       key: _globalKey,
       extra: extra,
     );
   }
   if (RegExp(r'^(' + _PATH + r')([?/].*)?$')
-      .hasMatch(Uri.decodeComponent(configuration.path ?? ''))) {
+      .hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
     final temp = ___CONFIGURATION_CLASS___.optional(
-      args: configuration.args,
+      args: extra.args,
     );
     return ___CLASS___(
       key: _globalKey,
