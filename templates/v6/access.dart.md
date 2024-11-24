@@ -82,14 +82,15 @@ ModelScreenConfiguration? currentUrlToConfiguration({
   required bool loggedIn,
   required bool verified,
 }) {
-  return findScreenFromConfigurationAndAuthService(
-    configuration: ModelScreenConfiguration(
-      args: Uri.base.queryParameters,
-      path: Uri.base.path,
-    ),
-    loggedIn: loggedIn,
-    verified: verified,
-  )?.configuration;
+  return letAsOrNull<ModelScreenConfiguration>(
+    findScreenFromConfigurationAndAuthService(
+      configuration: ModelScreenConfiguration(
+        args: Uri.base.queryParameters,
+        path: Uri.base.path,
+      ),
+      loggedIn: loggedIn,
+      verified: verified,
+    )?.extra,
 }
 
 /// Translates the current URL into a [ModelScreenConfiguration] under the
@@ -99,15 +100,17 @@ ModelScreenConfiguration? currentUrlToConfiguration({
 /// screen is accessible, its configuration is returned; otherwise, `null` is
 /// returned.
 ModelScreenConfiguration? currentUrlToLoginConfiguration() {
-  return findScreenFromConfiguration(
-    configuration: ModelScreenConfiguration(
-      args: Uri.base.queryParameters,
-      path: Uri.base.path,
-    ),
-    isLoggedInAndVerified: true,
-    isLoggedIn: true,
-    isLoggedOut: false,
-  )?.configuration;
+  return letAsOrNull<ModelScreenConfiguration>(
+    findScreenFromConfiguration(
+      configuration: ModelScreenConfiguration(
+        args: Uri.base.queryParameters,
+        path: Uri.base.path,
+      ),
+      isLoggedInAndVerified: true,
+      isLoggedIn: true,
+      isLoggedOut: false,
+    )?.extra,
+  );
 }
 
 /// Translates the current URL into a [ModelScreenConfiguration] under the
@@ -116,14 +119,16 @@ ModelScreenConfiguration? currentUrlToLoginConfiguration() {
 /// logged out. If a corresponding screen is accessible, its configuration is
 /// returned; otherwise, `null` is returned.
 ModelScreenConfiguration? currentUrlToLogoutConfiguration() {
-  return findScreenFromConfiguration(
-    configuration: ModelScreenConfiguration(
-      args: Uri.base.queryParameters,
-      path: Uri.base.path,
-    ),
-    isLoggedInAndVerified: false,
-    isLoggedIn: false,
-    isLoggedOut: true,
-  )?.configuration;
+  return letAsOrNull<ModelScreenConfiguration>(
+    findScreenFromConfiguration(
+      configuration: ModelScreenConfiguration(
+        args: Uri.base.queryParameters,
+        path: Uri.base.path,
+      ),
+      isLoggedInAndVerified: false,
+      isLoggedIn: false,
+      isLoggedOut: true,
+    )?.extra,
+  );
 }
 ```
