@@ -51,8 +51,8 @@ Future<void> generateScreen({
   );
 
   final stateTemplate = extractCodeFromMarkdown(
-    (await FileSystemUtility.i
-        .readFileFromPathOrUrl([templatePathOrUrl, 'state.dart.md'].join('/')))!,
+    (await FileSystemUtility.i.readFileFromPathOrUrl(
+        [templatePathOrUrl, 'state.dart.md'].join('/'),))!,
   );
 
   final insight = Insight(
@@ -62,7 +62,8 @@ Future<void> generateScreen({
     screenFileName: '${screenName.toSnakeCase()}.dart',
     stateFileName: '_state.dart',
     isAccessibleOnlyIfLoggedIn: isAccessibleOnlyIfLoggedIn,
-    isAccessibleOnlyIfLoggedInAndVerified: isAccessibleOnlyIfLoggedInAndVerified,
+    isAccessibleOnlyIfLoggedInAndVerified:
+        isAccessibleOnlyIfLoggedInAndVerified,
     isAccessibleOnlyIfLoggedOut: isAccessibleOnlyIfLoggedOut,
     isRedirectable: isRedirectable,
     internalParameters: internalParameters,
