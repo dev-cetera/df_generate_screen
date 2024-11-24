@@ -32,7 +32,7 @@ const SCREEN_MAKERS = [
 /// and authentication states ([isLoggedInAndVerified], [isLoggedIn], [isLoggedOut]).
 /// If a screen is found that matches the configuration and is accessible, it is
 /// returned. Otherwise, `null` is returned.
-Screen? findScreenFromConfiguration({
+Screen<ModelScreenConfiguration>? findScreenFromConfiguration({
   required ModelScreenConfiguration configuration,
   required bool? isLoggedInAndVerified,
   required bool? isLoggedIn,
@@ -45,7 +45,7 @@ Screen? findScreenFromConfiguration({
       isLoggedIn ?? false,
       isLoggedOut ?? true,
     );
-    if (screen != null) {
+    if (screen is Screen<ModelScreenConfiguration>) {
       return screen;
     }
   }
@@ -57,7 +57,7 @@ Screen? findScreenFromConfiguration({
 /// whether the user is logged in, verified, or logged out, and then calls
 /// `findScreenFromConfiguration` with these states. If a matching screen is
 /// found and accessible, it is returned; otherwise, `null` is returned.
-Screen? findScreenFromConfigurationAndAuthService({
+Screen<ModelScreenConfiguration>? findScreenFromConfigurationAndAuthService({
   required ModelScreenConfiguration configuration,
   required bool loggedIn,
   required bool verified,
