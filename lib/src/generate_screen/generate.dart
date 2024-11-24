@@ -52,7 +52,8 @@ Future<void> generateScreen({
 
   final stateTemplate = extractCodeFromMarkdown(
     (await FileSystemUtility.i.readFileFromPathOrUrl(
-        [templatePathOrUrl, 'state.dart.md'].join('/'),))!,
+      [templatePathOrUrl, 'state.dart.md'].join('/'),
+    ))!,
   );
 
   final insight = Insight(
