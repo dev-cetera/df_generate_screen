@@ -109,7 +109,7 @@ abstract base class _ControllerBroker<T1 extends ___CLASS___, T2 extends _State>
   _ControllerBroker(
     super.superScreen,
     super.superState, [
-    super.internalConfiguration,
+    super.extra,
   ]);
 }
 
