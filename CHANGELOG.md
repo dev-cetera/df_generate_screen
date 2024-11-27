@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.5.2]
+
+- Released @ 11/2024 (UTC)
+- fix: Annoying bugfix
+
 ## [0.5.1]
 
 - Released @ 11/2024 (UTC)
