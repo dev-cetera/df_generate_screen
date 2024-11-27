@@ -19,7 +19,7 @@ import 'package:df_string/df_string.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-const VERSION = 'v5';
+const VERSION = 'v6';
 
 void main(List<String> args) async {
   final currentDir = Directory.current.path;

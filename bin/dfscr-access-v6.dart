@@ -15,7 +15,7 @@ import 'package:df_log/df_log.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-const VERSION = 'v5';
+const VERSION = 'v6';
 
 void main(List<String> args) async {
   DebugLog.debugOnly = false;
