@@ -9,6 +9,7 @@
 //.title~
 
 // ignore_for_file: unused_element
+// ignore_for_file: constant_identifier_names,
 
 part of 'widget.dart';
 

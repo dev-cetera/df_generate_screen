@@ -18,14 +18,13 @@ import 'package:path/path.dart' as p;
 
 import 'extract_insights_from_file.dart';
 
-const _OUTPUT_FILE_NAME = '_bindings.g.dart';
-
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 Future<void> genScreenBindingsApp(
   List<String> args, {
-  String defaultTemplatePathOrUrl =
-      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_bindings.dart.md',
+  List<String> defaultTemplates = const [
+    'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_bindings.g.dart.md',
+  ],
 }) async {
   final parser = CliParser(
     title: 'DevCetra.com/df/tools',
@@ -39,8 +38,8 @@ Future<void> genScreenBindingsApp(
       DefaultOptions.INPUT_PATH.option.copyWith(
         defaultsTo: FileSystemUtility.i.currentDir,
       ),
-      DefaultOptions.TEMPLATE_PATH_OR_URL.option.copyWith(
-        defaultsTo: defaultTemplatePathOrUrl,
+      DefaultMultiOptions.TEMPLATES.multiOption.copyWith(
+        defaultsTo: defaultTemplates,
       ),
       DefaultOptions.DART_SDK.option,
     ],
@@ -55,11 +54,11 @@ Future<void> genScreenBindingsApp(
     exit(ExitCodes.SUCCESS.code);
   }
   late final String inputPath;
-  late final String templatePathOrUrl;
+  late final List<String> templates;
   late final String? dartSdk;
   try {
     inputPath = argResults.option(DefaultOptions.INPUT_PATH.name)!;
-    templatePathOrUrl = argResults.option(DefaultOptions.TEMPLATE_PATH_OR_URL.name)!;
+    templates = argResults.multiOption(DefaultMultiOptions.TEMPLATES.name);
     dartSdk = argResults.option(DefaultOptions.DART_SDK.name);
   } catch (_) {
     _print(
@@ -85,10 +84,10 @@ Future<void> genScreenBindingsApp(
   try {
     findings = await filePathStream1.toList();
   } catch (e) {
+    spinner.stop();
     _print(
       printRed,
       'Failed to read file tree!',
-      spinner,
     );
     exit(ExitCodes.FAILURE.code);
   }
@@ -101,55 +100,66 @@ Future<void> genScreenBindingsApp(
     exit(ExitCodes.SUCCESS.code);
   }
 
-  _print(
-    printWhite,
-    'Reading template at: $templatePathOrUrl...',
-  );
-  final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(
-    templatePathOrUrl,
-  );
-  final template = result.unwrap();
-  if (result.isErr) {
+  final templateData = <String, String>{};
+  for (final template in templates) {
     _print(
-      printRed,
-      ' Failed to read template!',
-      spinner,
+      printWhite,
+      'Reading template at: $template...',
     );
-    exit(ExitCodes.FAILURE.code);
+    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(
+      template,
+    );
+
+    final data = result.unwrap();
+    if (result.isErr) {
+      spinner.stop();
+      _print(
+        printRed,
+        ' Failed to read template!',
+      );
+      exit(ExitCodes.FAILURE.code);
+    }
+    templateData[template] = data;
   }
 
   _print(
     printWhite,
-    'Generating bindings...',
+    'Generating...',
     spinner,
   );
-  try {
-    for (final finding in findings) {
-      final inputFilePath = finding.path;
-      final insights = await extractInsightsFromFile(
-        inputFilePath,
-        analysisContextCollection,
-      );
-      for (final insight in insights) {
-        final output = _interpolator.interpolate(template, insight);
-        final outputFilePath = p.join(
-          PathUtility.i.localDirName(inputFilePath),
-          _OUTPUT_FILE_NAME,
+
+  for (final entry in templateData.entries) {
+    final fileName = p.basename(entry.key).replaceAll('.md', '');
+    final template = entry.value;
+    try {
+      for (final finding in findings) {
+        final inputFilePath = finding.path;
+        final insights = await extractInsightsFromFile(
+          inputFilePath,
+          analysisContextCollection,
         );
-        await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
-        printWhite(
-          '[gen-screen-bindings] ✔ Generated $_OUTPUT_FILE_NAME',
-        );
+        for (final insight in insights) {
+          final output = _interpolator.interpolate(template, insight);
+          final outputFilePath = p.join(
+            PathUtility.i.localDirName(inputFilePath),
+            fileName,
+          );
+          await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
+          printWhite(
+            '[gen-screen-bindings] ✔ Generated $fileName',
+          );
+        }
       }
+    } catch (e) {
+      _print(
+        printRed,
+        '✘ One or more files failed to generate!',
+        spinner,
+      );
+      exit(ExitCodes.FAILURE.code);
     }
-  } catch (e) {
-    _print(
-      printRed,
-      '✘ One or more files failed to generate!',
-      spinner,
-    );
-    exit(ExitCodes.FAILURE.code);
   }
+
   _print(
     printWhite,
     'Fixing generated files..',

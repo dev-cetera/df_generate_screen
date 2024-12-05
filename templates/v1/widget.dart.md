@@ -9,9 +9,9 @@ part '_controller.dart';
 part '_state.dart';
 
 
-// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-@GenerateScreenBindings()
+@GenerateScreenBindings(
+  // TODO: Provide options for your screen here.
+)
 final class ___WIDGET_NAME___ extends ____WIDGET_NAME___ {
   const ___WIDGET_NAME___({
     super.key,

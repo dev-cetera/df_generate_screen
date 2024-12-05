@@ -11,6 +11,9 @@
 // ignore: depend_on_referenced_packages
 import 'package:df_screen/df_screen.dart';
 
+// This file should export all your screen widgets. If it doesn’t exist,
+// generate it using the command “gen-indexes-dart -i .”, available via
+// this package: https://pub.dev/packages/df_generate_dart_indexes
 import '_index.g.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -90,7 +93,8 @@ ModelScreenConfiguration? currentUrlToConfiguration({
       ),
       loggedIn: loggedIn,
       verified: verified,
-    )?.extra,
+     )?.extra,
+  );
 }
 
 /// Translates the current URL into a [ModelScreenConfiguration] under the
