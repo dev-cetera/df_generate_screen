@@ -7,6 +7,8 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
+// ignore_for_file: constant_identifier_names
+
 // ignore: depend_on_referenced_packages
 import 'package:df_screen/df_screen.dart';
 
@@ -19,16 +21,16 @@ import '_index.g.dart';
 
 /// A list of all screen routes in the app.
 final generatedScreenRoutes = [
-  generatedExampleScreenRoute,
-  generatedExampleScreenRoute,
+  generatedLoginScreenRoute,
+  generatedHomeScreenRoute,
 ];
 
 /// A list of function references. Each function returns a corresponding [Screen]
 /// for a given [ModelScreenConfiguration] or `null` if the given configuration
 /// does not match or access is denied to the screen.
 const SCREEN_MAKERS = [
-  makerExampleScreen,
-  makerExampleScreen,
+  makerLoginScreen,
+  makerHomeScreen,
 ];
 
 /// Finds the screen that corresponds to [configuration]. It iterates through

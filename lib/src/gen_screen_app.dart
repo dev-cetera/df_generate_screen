@@ -51,7 +51,13 @@ Future<void> genScreenApp(
       ),
     ],
   );
+
+  // ---------------------------------------------------------------------------
+
   final (argResults, argParser) = parser.parse(args);
+
+  // ---------------------------------------------------------------------------
+
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
     _print(
@@ -60,6 +66,9 @@ Future<void> genScreenApp(
     );
     exit(ExitCodes.SUCCESS.code);
   }
+
+  // ---------------------------------------------------------------------------
+
   late final String inputPath;
   late final String name;
   late final List<String> templates;
@@ -77,12 +86,16 @@ Future<void> genScreenApp(
     exit(ExitCodes.FAILURE.code);
   }
 
+  // ---------------------------------------------------------------------------
+
   final spinner = Spinner();
   spinner.start();
 
+  // ---------------------------------------------------------------------------
+
   _print(
     printWhite,
-    'Looking for Dart files..',
+    'Looking for files..',
   );
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
   final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
@@ -106,6 +119,8 @@ Future<void> genScreenApp(
     exit(ExitCodes.SUCCESS.code);
   }
 
+  // ---------------------------------------------------------------------------
+
   final templateData = <String, String>{};
   for (final template in templates) {
     _print(
@@ -127,6 +142,8 @@ Future<void> genScreenApp(
     templateData[template] = result.unwrap();
   }
 
+  // ---------------------------------------------------------------------------
+
   _print(
     printWhite,
     'Generating...',
@@ -134,21 +151,25 @@ Future<void> genScreenApp(
   );
 
   for (final entry in templateData.entries) {
-    final fileName =
-        p.basename(entry.key).replaceAll('.md', '').replaceAll('{widget}', name.toSnakeCase());
+    final fileName = p.basename(entry.key).replaceAll('.md', '');
     final template = entry.value;
-
-    // Fill the template with the replacement data.
     final data = template.replaceData(
       {
         '___WIDGET_NAME___': name.toPascalCase(),
       },
     );
     await FileSystemUtility.i.writeLocalFile(
-      p.join(outputPath, fileName),
+      p.join(
+        outputPath,
+        name.toSnakeCase(),
+        fileName,
+      ),
       data,
     );
   }
+
+  // ---------------------------------------------------------------------------
+
   spinner.stop();
   _print(
     printGreen,

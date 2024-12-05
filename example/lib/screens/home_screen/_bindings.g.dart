@@ -16,17 +16,17 @@ part of 'widget.dart';
 
 final _globalKey = GlobalKey<_State>();
 
-/// Serves as the blueprint for the [ExampleScreen] screen.
+/// Serves as the blueprint for the [HomeScreen] screen.
 /// It outlines the screen's properties and behaviors prior to routing.
-class ExampleScreenConfiguration extends ModelScreenConfiguration {
+class HomeScreenConfiguration extends ModelScreenConfiguration {
   //
   //
   //
 
-  factory ExampleScreenConfiguration({
+  factory HomeScreenConfiguration({
     Map<dynamic, dynamic>? $args,
   }) {
-    return ExampleScreenConfiguration.optional(
+    return HomeScreenConfiguration.optional(
       args: {
         ...?$args,
       }.nonNulls,
@@ -37,7 +37,7 @@ class ExampleScreenConfiguration extends ModelScreenConfiguration {
   //
   //
 
-  ExampleScreenConfiguration.optional({
+  HomeScreenConfiguration.optional({
     Map<dynamic, dynamic>? args,
   }) : super.optional(
           title: null,
@@ -84,9 +84,9 @@ class ExampleScreenConfiguration extends ModelScreenConfiguration {
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// Extend this class to create a controller for the [ExampleScreen] screen.
-abstract base class _ControllerBroker<T1 extends ExampleScreen,
-    T2 extends _State> extends ScreenController<ExampleScreenConfiguration> {
+/// Extend this class to create a controller for the [HomeScreen] screen.
+abstract base class _ControllerBroker<T1 extends HomeScreen, T2 extends _State>
+    extends ScreenController<HomeScreenConfiguration> {
   /// The [Screen] that corresponds to `this` controller.
   late final screen = super.superScreen as T1;
 
@@ -94,9 +94,9 @@ abstract base class _ControllerBroker<T1 extends ExampleScreen,
   late final state = super.superState as T2;
 
   /// The [ModelScreenConfiguration] that corresponds to `this` controller.
-  late final configuration = screen.extra is ExampleScreenConfiguration
-      ? screen.extra as ExampleScreenConfiguration
-      : ExampleScreenConfiguration.optional(
+  late final configuration = screen.extra is HomeScreenConfiguration
+      ? screen.extra as HomeScreenConfiguration
+      : HomeScreenConfiguration.optional(
           args: screen.extra is ModelScreenConfiguration
               ? (screen.extra as ModelScreenConfiguration).args
               : {},
@@ -111,25 +111,25 @@ abstract base class _ControllerBroker<T1 extends ExampleScreen,
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// The generated [GoRoute] that corresponds to [ExampleScreen].
-final generatedExampleScreenRoute = GoRoute(
+/// The generated [GoRoute] that corresponds to [HomeScreen].
+final generatedHomeScreenRoute = GoRoute(
   path: _SEGMENT,
   pageBuilder: (context, state) {
     final extra = letAsOrNull<ModelScreenConfiguration>(state.extra);
     return NoTransitionPage(
       key: state.pageKey,
-      child: ExampleScreen(
+      child: HomeScreen(
         key: _globalKey,
         extra: extra ??
             urlToScreenConfiguration(
               url: state.uri,
               isAccessibleOnlyIfLoggedIn:
-                  ExampleScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-              isAccessibleOnlyIfLoggedInAndVerified: ExampleScreenConfiguration
+                  HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+              isAccessibleOnlyIfLoggedInAndVerified: HomeScreenConfiguration
                   .IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
               isAccessibleOnlyIfLoggedOut:
-                  ExampleScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
-              isRedirectable: ExampleScreenConfiguration.IS_REDIRECTABLE,
+                  HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
+              isRedirectable: HomeScreenConfiguration.IS_REDIRECTABLE,
               title: null,
             ),
       ),
@@ -139,10 +139,10 @@ final generatedExampleScreenRoute = GoRoute(
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// Returns a [ExampleScreen] instance if the [configuration] is of type
-/// [ExampleScreenConfiguration] and if the current authentication status matches
+/// Returns a [HomeScreen] instance if the [configuration] is of type
+/// [HomeScreenConfiguration] and if the current authentication status matches
 /// [isLoggedInAndVerified], [isLoggedIn], and [isLoggedOut].
-Screen? makerExampleScreen(
+Screen? makerHomeScreen(
   ModelScreenConfiguration extra,
   bool isLoggedInAndVerified,
   bool isLoggedIn,
@@ -154,18 +154,18 @@ Screen? makerExampleScreen(
       (_IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT && !isLoggedOut)) {
     return null;
   }
-  if (extra is ExampleScreenConfiguration) {
-    return ExampleScreen(
+  if (extra is HomeScreenConfiguration) {
+    return HomeScreen(
       key: _globalKey,
       extra: extra,
     );
   }
   if (RegExp(r'^(' + _PATH + r')([?/].*)?$')
       .hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
-    final temp = ExampleScreenConfiguration.optional(
+    final temp = HomeScreenConfiguration.optional(
       args: extra.args,
     );
-    return ExampleScreen(
+    return HomeScreen(
       key: _globalKey,
       extra: temp,
     );
@@ -175,25 +175,25 @@ Screen? makerExampleScreen(
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// A controller type corresponding to [ExampleScreen].
-typedef TExampleScreenController = _ControllerBroker<ExampleScreen, _State>;
+/// A controller type corresponding to [HomeScreen].
+typedef THomeScreenController = _ControllerBroker<HomeScreen, _State>;
 
-/// A [AdaptiveScreenState] type corresponding to [ExampleScreen].
-typedef TAdaptiveExampleScreenState = AdaptiveScreenState<ExampleScreen,
-    ExampleScreenConfiguration, ExampleScreenController>;
+/// A [AdaptiveScreenState] type corresponding to [HomeScreen].
+typedef TAdaptiveHomeScreenState = AdaptiveScreenState<HomeScreen,
+    HomeScreenConfiguration, HomeScreenController>;
 
-/// A [ScreenState] type corresponding to [ExampleScreen].
-typedef TExampleScreenState = ScreenState<ExampleScreen,
-    ExampleScreenConfiguration, ExampleScreenController>;
+/// A [ScreenState] type corresponding to [HomeScreen].
+typedef THomeScreenState
+    = ScreenState<HomeScreen, HomeScreenConfiguration, HomeScreenController>;
 
-/// A [ScreenPageState] type corresponding to [ExampleScreen].
-typedef TExampleScreenPageState<T extends ScreenPage>
-    = ScreenPageState<T, ExampleScreenConfiguration, ExampleScreenController>;
+/// A [ScreenPageState] type corresponding to [HomeScreen].
+typedef THomeScreenPageState<T extends ScreenPage>
+    = ScreenPageState<T, HomeScreenConfiguration, HomeScreenController>;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-base class _ExampleScreen extends Screen {
-  const _ExampleScreen({
+base class _HomeScreen extends Screen {
+  const _HomeScreen({
     required super.key,
     required super.extra,
     super.controllerTimeout = Duration.zero,
@@ -207,7 +207,7 @@ base class _ExampleScreen extends Screen {
     Screen screen,
     ScreenState state,
   ) {
-    return ExampleScreenController(screen, state);
+    return HomeScreenController(screen, state);
   }
 }
 
@@ -219,9 +219,9 @@ base class _ExampleScreen extends Screen {
 const _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED = false;
 const _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN = false;
 const _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT = false;
-const _IS_REDIRECTABLE = false;
-const _CLASS = 'ExampleScreen';
-const _SEGMENT = 'example';
+const _IS_REDIRECTABLE = true;
+const _CLASS = 'HomeScreen';
+const _SEGMENT = 'home';
 const _PATH = '/$_SEGMENT';
-const _TR_KEY = 'screens.ExampleScreen';
-const _DEFAULT_TITLE = 'ExampleScreen';
+const _TR_KEY = 'screens.HomeScreen';
+const _DEFAULT_TITLE = 'HomeScreen';

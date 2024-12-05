@@ -44,7 +44,13 @@ Future<void> genScreenAccessApp(
       DefaultOptions.DART_SDK.option,
     ],
   );
+
+  // ---------------------------------------------------------------------------
+
   final (argResults, argParser) = parser.parse(args);
+
+  // ---------------------------------------------------------------------------
+
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
     _print(
@@ -53,6 +59,9 @@ Future<void> genScreenAccessApp(
     );
     exit(ExitCodes.SUCCESS.code);
   }
+
+  // ---------------------------------------------------------------------------
+
   late final String inputPath;
   late final List<String> templates;
   late final String? dartSdk;
@@ -67,17 +76,24 @@ Future<void> genScreenAccessApp(
     );
     exit(ExitCodes.FAILURE.code);
   }
+
+  // ---------------------------------------------------------------------------
+
+  final spinner = Spinner();
+  spinner.start();
+
+  // ---------------------------------------------------------------------------
+
   final analysisContextCollection = createDartAnalysisContextCollection(
     {inputPath},
     dartSdk,
   );
 
-  final spinner = Spinner();
-  spinner.start();
+  // ---------------------------------------------------------------------------
 
   _print(
     printWhite,
-    'Looking for Dart files..',
+    'Looking for files..',
   );
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
   final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
@@ -101,6 +117,8 @@ Future<void> genScreenAccessApp(
     exit(ExitCodes.SUCCESS.code);
   }
 
+  // ---------------------------------------------------------------------------
+
   final templateData = <String, String>{};
   for (final template in templates) {
     _print(
@@ -121,6 +139,8 @@ Future<void> genScreenAccessApp(
     }
     templateData[template] = result.unwrap();
   }
+
+  // ---------------------------------------------------------------------------
 
   _print(
     printWhite,
@@ -160,19 +180,24 @@ Future<void> genScreenAccessApp(
     }
   }
 
+  // ---------------------------------------------------------------------------
+
   _print(
     printWhite,
     'Fixing generated files..',
     spinner,
   );
   await fixDartFile(inputPath);
+
   _print(
     printWhite,
     'Formatting generated files..',
     spinner,
   );
-  spinner.start();
   await fmtDartFile(inputPath);
+
+  // ---------------------------------------------------------------------------
+
   spinner.stop();
   _print(
     printGreen,

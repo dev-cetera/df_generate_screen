@@ -44,7 +44,13 @@ Future<void> genScreenBindingsApp(
       DefaultOptions.DART_SDK.option,
     ],
   );
+
+  // ---------------------------------------------------------------------------
+
   final (argResults, argParser) = parser.parse(args);
+
+  // ---------------------------------------------------------------------------
+
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
     _print(
@@ -53,6 +59,9 @@ Future<void> genScreenBindingsApp(
     );
     exit(ExitCodes.SUCCESS.code);
   }
+
+  // ---------------------------------------------------------------------------
+
   late final String inputPath;
   late final List<String> templates;
   late final String? dartSdk;
@@ -67,12 +76,20 @@ Future<void> genScreenBindingsApp(
     );
     exit(ExitCodes.FAILURE.code);
   }
+
+  // ---------------------------------------------------------------------------
+
+  final spinner = Spinner();
+  spinner.start();
+
+  // ---------------------------------------------------------------------------
+
   final analysisContextCollection = createDartAnalysisContextCollection(
     {inputPath},
     dartSdk,
   );
-  final spinner = Spinner();
-  spinner.start();
+
+  // ---------------------------------------------------------------------------
 
   _print(
     printWhite,
@@ -100,6 +117,8 @@ Future<void> genScreenBindingsApp(
     exit(ExitCodes.SUCCESS.code);
   }
 
+  // ---------------------------------------------------------------------------
+
   final templateData = <String, String>{};
   for (final template in templates) {
     _print(
@@ -120,6 +139,8 @@ Future<void> genScreenBindingsApp(
     }
     templateData[template] = result.unwrap();
   }
+
+  // ---------------------------------------------------------------------------
 
   _print(
     printWhite,
@@ -159,19 +180,24 @@ Future<void> genScreenBindingsApp(
     }
   }
 
+  // ---------------------------------------------------------------------------
+
   _print(
     printWhite,
     'Fixing generated files..',
     spinner,
   );
   await fixDartFile(inputPath);
+
   _print(
     printWhite,
     'Formatting generated files..',
     spinner,
   );
-  spinner.start();
   await fmtDartFile(inputPath);
+
+  // ---------------------------------------------------------------------------
+
   spinner.stop();
   _print(
     printGreen,
@@ -275,7 +301,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
       return isAlwaysAccessible.toString();
     },
     '___IS_REDIRECTABLE___': (insight) {
-      final b = insight.annotation.isRedirectable ?? false;
+      final b = insight.annotation.isRedirectable ?? true;
       final params = insight.annotation.internalParameters;
       if (b && params != null && params.isNotEmpty) {
         for (final e in params) {
