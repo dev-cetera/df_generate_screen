@@ -11,17 +11,13 @@
 //.title~
 
 import 'package:df_generate_screen/df_generate_screen.dart';
-import 'package:df_log/df_log.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-const VERSION = 'v6';
-
 void main(List<String> args) async {
-  DebugLog.debugOnly = false;
-  await runGenerateScreenBindingsApp([
-    ...args,
-    '--template',
-    'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/$VERSION/bindings.dart.md',
-  ]);
+  await genScreenBindingsApp(
+    args,
+    defaultTemplatePathOrUrl:
+        'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_bindings.dart.md',
+  );
 }

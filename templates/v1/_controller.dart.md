@@ -1,16 +1,13 @@
 ```dart
-part of '___SCREEN_FILE___';
+part of 'widget.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-final class ___SCREEN_CLASS___Controller extends T___SCREEN_CLASS___Controller {
+final class ___WIDGET_NAME___Controller extends T___WIDGET_NAME___Controller {
   //
   //
   //
 
-  ___SCREEN_CLASS___Controller(super.screen, super.state);
-
-  ___Q1___
-  ___I1___
+  ___WIDGET_NAME___Controller(super.screen, super.state);
 }
 ```

@@ -8,15 +8,17 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
+// ignore_for_file: unused_element
+
 part of '___CLASS_FILE___';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-final _globalKey = GlobalKey<_View>();
+final _globalKey = GlobalKey<_State>();
 
-/// Serves as the blueprint for the [___CLASS___] screen.
+/// Serves as the blueprint for the [___WIDGET_NAME___] screen.
 /// It outlines the screen's properties and behaviors prior to routing.
-class ___CONFIGURATION_CLASS___ extends ModelScreenConfiguration {
+class ___WIDGET_NAME___Configuration extends ModelScreenConfiguration {
   //
   //
   //
@@ -24,12 +26,12 @@ class ___CONFIGURATION_CLASS___ extends ModelScreenConfiguration {
   ___IP0___
   ___QP0___
 
-  factory ___CONFIGURATION_CLASS___({
+  factory ___WIDGET_NAME___Configuration({
     ___IP1___
     ___QP1___
     Map<dynamic, dynamic>? $args,
   }) {
-    return ___CONFIGURATION_CLASS___.c2(
+    return ___WIDGET_NAME___Configuration.optional(
       args: {
          ___IP2___
          ___QP2___
@@ -42,10 +44,10 @@ class ___CONFIGURATION_CLASS___ extends ModelScreenConfiguration {
   //
   //
 
-  ___CONFIGURATION_CLASS___.c2({
+  ___WIDGET_NAME___Configuration.optional({
     Map<dynamic, dynamic>? args,
-  }): super.c2(
-    title: translatedTitle,
+  }): super.optional(
+    title: null,
     path: _PATH,
     args: args ?? {},
     isAccessibleOnlyIfLoggedInAndVerified: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
@@ -58,15 +60,8 @@ class ___CONFIGURATION_CLASS___ extends ModelScreenConfiguration {
   //
   //
 
-  @override
-  String get title => translatedTitle;
-
-  //
-  //
-  //
-
   /// The name of the corresponding [Screen] class.
-  static const CLASS = _CLASS;
+  static const WIDGET = _CLASS;
 
   /// The path of the corresponding [Screen].
   static const PATH = _PATH;
@@ -88,21 +83,13 @@ class ___CONFIGURATION_CLASS___ extends ModelScreenConfiguration {
 
   /// Whether the corresponding [Screen] is redirectable, i.e., if it can be requested from the browser URL.
   static const IS_REDIRECTABLE = _IS_REDIRECTABLE;
-
-  /// The title of the corresponding [Screen].
-  static String get translatedTitle => screenTr('$_DEFAULT_TITLE||title');
-
-  /// Translates the provided [key] using the screen's translation key.
-  static String screenTr(String key, {Map<dynamic, dynamic> args = const {}}) {
-    return key.splitByLastOccurrenceOf('||').join('||$_TR_KEY.').tr(args: args);
-  }
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// Extend this class to create a controller for the [___CLASS___] screen.
-abstract base class _ControllerBroker<T1 extends ___CLASS___, T2 extends _View>
-    extends ScreenController<___CONFIGURATION_CLASS___> {
+/// Extend this class to create a controller for the [___WIDGET_NAME___] screen.
+abstract base class _ControllerBroker<T1 extends ___WIDGET_NAME___, T2 extends _State>
+    extends ScreenController<___WIDGET_NAME___Configuration> {
 
   /// The [Screen] that corresponds to `this` controller.
   late final screen = super.superScreen as T1;
@@ -111,38 +98,40 @@ abstract base class _ControllerBroker<T1 extends ___CLASS___, T2 extends _View>
   late final state = super.superState as T2;
 
   /// The [ModelScreenConfiguration] that corresponds to `this` controller.
-  late final configuration = super.internalConfiguration ?? ___CONFIGURATION_CLASS___.c2(
-    args: screen.configuration?.args,
-  );
+  late final configuration = screen.extra is ___WIDGET_NAME___Configuration
+      ? screen.extra as ___WIDGET_NAME___Configuration
+      : ___WIDGET_NAME___Configuration.optional(
+          args: screen.extra is ModelScreenConfiguration
+              ? (screen.extra as ModelScreenConfiguration).args
+              : {},
+        );
 
   _ControllerBroker(
     super.superScreen,
     super.superState, [
-    super.internalConfiguration,
+    super.extra,
   ]);
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// The generated [GoRoute] that corresponds to [___CLASS___].
-final generated___CLASS___Route = GoRoute(
+/// The generated [GoRoute] that corresponds to [___WIDGET_NAME___].
+final generated___WIDGET_NAME___Route = GoRoute(
   path: _SEGMENT,
   pageBuilder: (context, state) {
-    final extraConfiguration = letAsOrNull<ModelScreenConfiguration>(state.extra);
-    final urlConfiguration = urlToScreenConfiguration(
-      url: state.uri,
-      isAccessibleOnlyIfLoggedIn: ___CONFIGURATION_CLASS___.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-      isAccessibleOnlyIfLoggedInAndVerified: ___CONFIGURATION_CLASS___.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
-      isAccessibleOnlyIfLoggedOut: ___CONFIGURATION_CLASS___.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
-      isRedirectable: ___CONFIGURATION_CLASS___.IS_REDIRECTABLE,
-      title: ___CONFIGURATION_CLASS___.translatedTitle,
-    );
-    final configuration = extraConfiguration ?? urlConfiguration;
+    final extra = letAsOrNull<ModelScreenConfiguration>(state.extra);
     return NoTransitionPage(
       key: state.pageKey,
-      child: ___CLASS___(
+      child: ___WIDGET_NAME___(
         key: _globalKey,
-        configuration: configuration,
+        extra: extra ?? urlToScreenConfiguration(
+          url: state.uri,
+          isAccessibleOnlyIfLoggedIn: ___WIDGET_NAME___Configuration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+          isAccessibleOnlyIfLoggedInAndVerified: ___WIDGET_NAME___Configuration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+          isAccessibleOnlyIfLoggedOut: ___WIDGET_NAME___Configuration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
+          isRedirectable: ___WIDGET_NAME___Configuration.IS_REDIRECTABLE,
+          title: null,
+        ),
       ),
     );
   },
@@ -150,23 +139,11 @@ final generated___CLASS___Route = GoRoute(
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-extension _ScreenTr on String {
-  /// Translates this [String] using the translation key '_TR_KEY'. Optionally,
-  /// pass [args] to replace placeholders in this String denoted by `{key}` in
-  /// the translation.
-  // ignore: unused_element
-  String screenTr({Map<dynamic, dynamic> args = const {}}) {
-    return ___CONFIGURATION_CLASS___.screenTr(this, args: args);
-  }
-}
-
-// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-/// Returns a [___CLASS___] instance if the [configuration] is of type
-/// [___CONFIGURATION_CLASS___] and if the current authentication status matches
+/// Returns a [___WIDGET_NAME___] instance if the [configuration] is of type
+/// [___WIDGET_NAME___Configuration] and if the current authentication status matches
 /// [isLoggedInAndVerified], [isLoggedIn], and [isLoggedOut].
-Screen? maker___CLASS___(
-  ModelScreenConfiguration configuration,
+Screen? maker___WIDGET_NAME___(
+  ModelScreenConfiguration extra,
   bool isLoggedInAndVerified,
   bool isLoggedIn,
   bool isLoggedOut,
@@ -174,20 +151,20 @@ Screen? maker___CLASS___(
   if ((_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED && !isLoggedInAndVerified) || (_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN && !isLoggedIn) || (_IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT && !isLoggedOut)) {
     return null;
   }
-  if (configuration is ___CONFIGURATION_CLASS___) {
-    return ___CLASS___(
+  if (extra is ___WIDGET_NAME___Configuration) {
+    return ___WIDGET_NAME___(
       key: _globalKey,
-      configuration: configuration,
+      extra: extra,
     );
   }
   if (RegExp(r'^(' + _PATH + r')([?/].*)?$')
-      .hasMatch(Uri.decodeComponent(configuration.path ?? ''))) {
-    final temp = ___CONFIGURATION_CLASS___.c2(
-      args: configuration.args,
+      .hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
+    final temp = ___WIDGET_NAME___Configuration.optional(
+      args: extra.args,
     );
-    return ___CLASS___(
+    return ___WIDGET_NAME___(
       key: _globalKey,
-      configuration: temp,
+      extra: temp,
     );
   }
   return null;
@@ -195,15 +172,38 @@ Screen? maker___CLASS___(
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-/// The controller [Type] corresponding to [___CLASS___].
-typedef T___CLASS___Controller =  _ControllerBroker<___CLASS___, _View>;
+/// A controller type corresponding to [___WIDGET_NAME___].
+typedef T___WIDGET_NAME___Controller =  _ControllerBroker<___WIDGET_NAME___, _State>;
 
-/// The [ScreenView] [Type] corresponding to [___CLASS___].
-typedef T___CLASS___View = ScreenView<___CLASS___, ___CONFIGURATION_CLASS___, ___CLASS___Controller>;
+/// A [AdaptiveScreenState] type corresponding to [___WIDGET_NAME___].
+typedef TAdaptive___WIDGET_NAME___State = AdaptiveScreenState<___WIDGET_NAME___, ___WIDGET_NAME___Configuration, ___WIDGET_NAME___Controller>;
 
-/// The [ScreenPageView] [Type] corresponding to [___CLASS___].
-typedef T___CLASS___PageView<T extends ScreenPage> = ScreenPageView<T, ___CONFIGURATION_CLASS___, ___CLASS___Controller>;
+/// A [ScreenState] type corresponding to [___WIDGET_NAME___].
+typedef T___WIDGET_NAME___State = ScreenState<___WIDGET_NAME___, ___WIDGET_NAME___Configuration, ___WIDGET_NAME___Controller>;
 
+/// A [ScreenPageState] type corresponding to [___WIDGET_NAME___].
+typedef T___WIDGET_NAME___PageState<T extends ScreenPage> = ScreenPageState<T, ___WIDGET_NAME___Configuration, ___WIDGET_NAME___Controller>;
+
+// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+base class ____WIDGET_NAME___ extends Screen {
+  const ____WIDGET_NAME___({
+    required super.key,
+    required super.extra,
+    super.controllerTimeout = Duration.zero,
+  });
+
+  @override
+  createState() => _State();
+
+  @override
+  createController(
+    Screen screen,
+    ScreenState state,
+  ) {
+    return ___WIDGET_NAME___Controller(screen, state);
+  }
+}
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -214,9 +214,9 @@ const _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED = ___IS_ACCESSIBLE_ONLY_IF_L
 const _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN = ___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN___;
 const _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT = ___IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___;
 const _IS_REDIRECTABLE = ___IS_REDIRECTABLE___;
-const _CLASS = '___CLASS___';
+const _CLASS = '___WIDGET_NAME___';
 const _SEGMENT = '___SCREEN_SEGMENT___';
 const _PATH = '/$_SEGMENT';
-const _TR_KEY = 'screens.___CLASS___';
+const _TR_KEY = 'screens.___WIDGET_NAME___';
 const _DEFAULT_TITLE = '___DEFAULT_TITLE___';
 ```

@@ -10,13 +10,14 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'package:df_gen_core/df_gen_core.dart';
-import 'package:df_generate_dart_models_core/df_generate_dart_models_core.dart';
-import 'package:df_screen_core/df_screen_core.dart';
+import 'package:df_generate_screen/df_generate_screen.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-StringCaseType stringCaseType(ClassInsight<GenerateScreenBindings> insight) {
-  return StringCaseType.values.valueOf(insight.annotation.keyStringCase) ??
-      StringCaseType.CAMEL_CASE;
+void main(List<String> args) async {
+  await genScreenAccessApp(
+    args,
+    defaultTemplatePathOrUrl:
+        'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/access.dart.md',
+  );
 }

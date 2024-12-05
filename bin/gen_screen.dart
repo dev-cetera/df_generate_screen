@@ -10,14 +10,17 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'package:analyzer/dart/constant/value.dart';
-import 'package:df_type/df_type.dart';
+import 'package:df_generate_screen/df_generate_screen.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-List<String>? dartObjToList(DartObject? obj) {
-  return (letListOrNull<String>(obj?.toStringValue()) ??
-          obj?.toListValue()?.map((e) => e.toStringValue()))
-      ?.nonNulls
-      .toList();
+void main(List<String> args) async {
+  await genScreenApp(
+    args,
+    defaultTemplates: const [
+      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_state.dart.md',
+      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/{widget}.dart.md',
+      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_controller.dart.md',
+    ],
+  );
 }
