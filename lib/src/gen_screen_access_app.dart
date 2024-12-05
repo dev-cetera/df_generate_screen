@@ -96,7 +96,8 @@ Future<void> genScreenAccessApp(
     'Looking for files..',
   );
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
-  final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
+  final filePathStream1 =
+      filePathStream0.where((e) => _isAllowedFileName(e.path));
   List<FilePathExplorerFinding> findings;
   try {
     findings = await filePathStream1.toList();
@@ -239,7 +240,8 @@ class TemplateInterpolator2<T> {
   }
 }
 
-final _interpolator = TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>(
+final _interpolator =
+    TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>(
   {
     '___SCREEN_MAKERS___': (insight) {
       final a = insight.className.toPascalCase();

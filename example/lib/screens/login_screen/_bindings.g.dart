@@ -43,7 +43,8 @@ class LoginScreenConfiguration extends ModelScreenConfiguration {
           title: null,
           path: _PATH,
           args: args ?? {},
-          isAccessibleOnlyIfLoggedInAndVerified: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+          isAccessibleOnlyIfLoggedInAndVerified:
+              _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
           isAccessibleOnlyIfLoggedIn: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
           isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
           isRedirectable: _IS_REDIRECTABLE,
@@ -66,14 +67,16 @@ class LoginScreenConfiguration extends ModelScreenConfiguration {
   static const TR_KEY = _TR_KEY;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged in and verified.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN = _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN;
+  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN =
+      _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged in.
   static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED =
       _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged out.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT = _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT;
+  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT =
+      _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT;
 
   /// Whether the corresponding [Screen] is redirectable, i.e., if it can be requested from the browser URL.
   static const IS_REDIRECTABLE = _IS_REDIRECTABLE;
@@ -120,9 +123,10 @@ final generatedLoginScreenRoute = GoRoute(
         extra: extra ??
             urlToScreenConfiguration(
               url: state.uri,
-              isAccessibleOnlyIfLoggedIn: LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-              isAccessibleOnlyIfLoggedInAndVerified:
-                  LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+              isAccessibleOnlyIfLoggedIn:
+                  LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+              isAccessibleOnlyIfLoggedInAndVerified: LoginScreenConfiguration
+                  .IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
               isAccessibleOnlyIfLoggedOut:
                   LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
               isRedirectable: LoginScreenConfiguration.IS_REDIRECTABLE,
@@ -144,7 +148,8 @@ Screen? makerLoginScreen(
   bool isLoggedIn,
   bool isLoggedOut,
 ) {
-  if ((_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED && !isLoggedInAndVerified) ||
+  if ((_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED &&
+          !isLoggedInAndVerified) ||
       (_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN && !isLoggedIn) ||
       (_IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT && !isLoggedOut)) {
     return null;
@@ -155,7 +160,8 @@ Screen? makerLoginScreen(
       extra: extra,
     );
   }
-  if (RegExp(r'^(' + _PATH + r')([?/].*)?$').hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
+  if (RegExp(r'^(' + _PATH + r')([?/].*)?$')
+      .hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
     final temp = LoginScreenConfiguration.optional(
       args: extra.args,
     );
@@ -173,8 +179,8 @@ Screen? makerLoginScreen(
 typedef TLoginScreenController = _ControllerBroker<LoginScreen, _State>;
 
 /// A [AdaptiveScreenState] type corresponding to [LoginScreen].
-typedef TAdaptiveLoginScreenState
-    = AdaptiveScreenState<LoginScreen, LoginScreenConfiguration, LoginScreenController>;
+typedef TAdaptiveLoginScreenState = AdaptiveScreenState<LoginScreen,
+    LoginScreenConfiguration, LoginScreenController>;
 
 /// A [ScreenState] type corresponding to [LoginScreen].
 typedef TLoginScreenState

@@ -28,7 +28,8 @@ Future<void> genScreenApp(
 }) async {
   final parser = CliParser(
     title: 'DevCetra.com/df/tools',
-    description: 'A tool for generating screen/page files for Flutter projects.',
+    description:
+        'A tool for generating screen/page files for Flutter projects.',
     example: 'gen-screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/DevCetra.',
@@ -98,7 +99,8 @@ Future<void> genScreenApp(
     'Looking for files..',
   );
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
-  final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
+  final filePathStream1 =
+      filePathStream0.where((e) => _isAllowedFileName(e.path));
   List<FilePathExplorerFinding> findings;
   try {
     findings = await filePathStream1.toList();
