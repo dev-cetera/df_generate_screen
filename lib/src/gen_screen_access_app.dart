@@ -187,12 +187,6 @@ bool _isAllowedFileName(String e) {
   return !e.endsWith('.g.dart') && e.endsWith('.dart');
 }
 
-extension _ClassInsightExtension on ClassInsight<GenerateScreenBindings> {
-  StringCaseType get stringCaseType {
-    return StringCaseType.values.valueOf(annotation.keyStringCase) ?? StringCaseType.CAMEL_CASE;
-  }
-}
-
 class TemplateInterpolator2<T> {
   final Map<String, String Function(T insight)> map;
 
