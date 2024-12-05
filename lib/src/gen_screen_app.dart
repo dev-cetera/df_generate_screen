@@ -90,10 +90,10 @@ Future<void> genScreenApp(
   try {
     findings = await filePathStream1.toList();
   } catch (e) {
+    spinner.stop();
     _print(
       printRed,
       'Failed to read file tree!',
-      spinner,
     );
     exit(ExitCodes.FAILURE.code);
   }
@@ -118,10 +118,10 @@ Future<void> genScreenApp(
 
     final data = result.unwrap();
     if (result.isErr) {
+      spinner.stop();
       _print(
         printRed,
         ' Failed to read template!',
-        spinner,
       );
       exit(ExitCodes.FAILURE.code);
     }
@@ -144,6 +144,7 @@ Future<void> genScreenApp(
       data,
     );
   }
+  spinner.stop();
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
