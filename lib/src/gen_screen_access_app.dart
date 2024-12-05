@@ -111,7 +111,6 @@ Future<void> genScreenAccessApp(
       template,
     );
 
-    final data = result.unwrap();
     if (result.isErr) {
       spinner.stop();
       _print(
@@ -120,7 +119,7 @@ Future<void> genScreenAccessApp(
       );
       exit(ExitCodes.FAILURE.code);
     }
-    templateData[template] = data;
+    templateData[template] = result.unwrap();
   }
 
   _print(
@@ -134,24 +133,23 @@ Future<void> genScreenAccessApp(
     final template = entry.value;
 
     try {
+      final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
       for (final finding in findings) {
-        final inputFilePath = finding.path;
-        final insights = await extractInsightsFromFile(
-          inputFilePath,
+        final temp = await extractInsightsFromFile(
+          finding.path,
           analysisContextCollection,
         );
-
-        final output = _interpolator.interpolate(template, insights, ',');
-
-        final outputFilePath = p.join(
-          PathUtility.i.localDirName(inputFilePath),
-          fileName,
-        );
-        await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
-        printWhite(
-          '[gen-screen-access] ✔ Generated $fileName',
-        );
+        insights.addAll(temp);
       }
+      final output = _interpolator.interpolate(template, insights, ',');
+      final outputFilePath = p.join(
+        inputPath,
+        fileName,
+      );
+      await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
+      printWhite(
+        '[gen-screen-access] ✔ Generated $fileName',
+      );
     } catch (e) {
       _print(
         printRed,

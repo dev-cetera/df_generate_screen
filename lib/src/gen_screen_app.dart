@@ -116,7 +116,6 @@ Future<void> genScreenApp(
       template,
     );
 
-    final data = result.unwrap();
     if (result.isErr) {
       spinner.stop();
       _print(
@@ -125,7 +124,7 @@ Future<void> genScreenApp(
       );
       exit(ExitCodes.FAILURE.code);
     }
-    templateData[template] = data;
+    templateData[template] = result.unwrap();
   }
 
   _print(

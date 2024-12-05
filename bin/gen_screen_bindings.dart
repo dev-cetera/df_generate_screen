@@ -18,7 +18,7 @@ void main(List<String> args) async {
   await genScreenBindingsApp(
     args,
     defaultTemplates: const [
-      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_bindings.dart.md',
+      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_bindings.g.dart.md',
     ],
   );
 }

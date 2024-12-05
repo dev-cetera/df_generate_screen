@@ -18,7 +18,7 @@ void main(List<String> args) async {
   await genScreenAccessApp(
     args,
     defaultTemplates: const [
-      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/access.dart.md',
+      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_access.g.dart.md',
     ],
   );
 }
