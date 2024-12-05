@@ -23,6 +23,7 @@ environment:
 dependencies:
   df_generate_screen:
     path: ../
+
   df_log: ^0.2.1
-  df_string: ^0.2.3
-  df_gen_core: ^0.3.2
+  df_string: ^0.2.4
+  df_gen_core: ^0.3.3

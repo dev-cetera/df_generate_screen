@@ -1,4 +1,3 @@
-```dart
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
@@ -12,13 +11,10 @@ ___PARTS___
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-@GenerateScreenBindings(
-  ___GENERATE_SCREEN_BINDINGS_ARGS___
-)
+@GenerateScreenBindings()
 final class ___SCREEN_CLASS___ extends ____SCREEN_CLASS___ {
   const ___SCREEN_CLASS___({
     super.key,
     super.configuration,
   });
 }
-```

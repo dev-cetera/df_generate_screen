@@ -10,7 +10,7 @@
 
 // ignore_for_file: unused_element
 
-part of '___CLASS_FILE___';
+part of 'widget.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
