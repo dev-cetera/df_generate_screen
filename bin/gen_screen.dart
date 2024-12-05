@@ -19,7 +19,7 @@ void main(List<String> args) async {
     args,
     defaultTemplates: const [
       'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_state.dart.md',
-      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/{widget}.dart.md',
+      'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/widget.dart.md',
       'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_controller.dart.md',
     ],
   );

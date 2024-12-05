@@ -11,10 +11,8 @@ part '_state.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-@GenerateScreenBindings(
-  ___GENERATE_SCREEN_BINDINGS_ARGS___
-)
-final class ____WIDGET_NAME___ extends Screen {
+@GenerateScreenBindings()
+final class ____WIDGET_NAME___ extends ____WIDGET_NAME___ {
   const ____WIDGET_NAME___({
     super.key,
     super.configuration,

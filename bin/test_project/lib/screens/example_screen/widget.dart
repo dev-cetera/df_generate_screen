@@ -7,14 +7,9 @@ part '_bindings.g.dart';
 part '_controller.dart';
 part '_state.dart';
 
-___PARTS___
-
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 @GenerateScreenBindings()
-final class ___SCREEN_CLASS___ extends ____SCREEN_CLASS___ {
-  const ___SCREEN_CLASS___({
-    super.key,
-    super.configuration,
-  });
+final class _ExampleScreen extends Screen {
+  const _ExampleScreen();
 }

@@ -214,7 +214,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   {
     '___SCREEN_KEY___': _screenKey,
     '___SCREEN_SEGMENT___': _screenSegment,
-    '___WIDGET___': (insight) {
+    '___WIDGET_NAME___': (insight) {
       return insight.className;
     },
     '___DEFAULT_TITLE___': (insight) {
