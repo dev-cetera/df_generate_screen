@@ -9,7 +9,7 @@ Dart & Flutter Packages by DevCetra.com & contributors.
 
 ## Summary
 
-A tool to generate ready-made screen templates for your Flutter app (uses df_generate_screen).
+A tool to generate ready-made screen templates for your Flutter app (uses df_generate_screen_core).
 
 ## Usage Instructions
 
