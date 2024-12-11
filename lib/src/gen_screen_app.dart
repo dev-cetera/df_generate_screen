@@ -35,9 +35,6 @@ Future<void> genScreenApp(
         'For contributions, error reports and information, visit: https://github.com/DevCetra.',
     params: [
       DefaultFlags.HELP.flag,
-      DefaultOptions.INPUT_PATH.option.copyWith(
-        defaultsTo: FileSystemUtility.i.currentDir,
-      ),
       DefaultMultiOptions.TEMPLATES.multiOption.copyWith(
         defaultsTo: defaultTemplates,
       ),
@@ -70,12 +67,10 @@ Future<void> genScreenApp(
 
   // ---------------------------------------------------------------------------
 
-  late final String inputPath;
   late final String name;
   late final List<String> templates;
   late final String outputPath;
   try {
-    inputPath = argResults.option(DefaultOptions.INPUT_PATH.name)!;
     name = argResults.option('name')!;
     templates = argResults.multiOption(DefaultMultiOptions.TEMPLATES.name);
     outputPath = argResults.option(DefaultOptions.OUTPUT_PATH.name)!;
@@ -91,35 +86,6 @@ Future<void> genScreenApp(
 
   final spinner = Spinner();
   spinner.start();
-
-  // ---------------------------------------------------------------------------
-
-  _print(
-    printWhite,
-    'Looking for files..',
-  );
-  final filePathStream0 = PathExplorer(inputPath).exploreFiles();
-  final filePathStream1 =
-      filePathStream0.where((e) => _isAllowedFileName(e.path));
-  List<FilePathExplorerFinding> findings;
-  try {
-    findings = await filePathStream1.toList();
-  } catch (e) {
-    spinner.stop();
-    _print(
-      printRed,
-      'Failed to read file tree!',
-    );
-    exit(ExitCodes.FAILURE.code);
-  }
-  if (findings.isEmpty) {
-    spinner.stop();
-    _print(
-      printYellow,
-      'No files found in $inputPath!',
-    );
-    exit(ExitCodes.SUCCESS.code);
-  }
 
   // ---------------------------------------------------------------------------
 
@@ -187,10 +153,6 @@ void _print(
   Spinner? spinner,
 ]) {
   spinner?.stop();
-  print('[gen-screen-bindings] $message');
+  print('[gen-screen] $message');
   spinner?.start();
-}
-
-bool _isAllowedFileName(String e) {
-  return !e.endsWith('.g.dart') && e.endsWith('.dart');
 }
