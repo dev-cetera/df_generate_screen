@@ -10,9 +10,9 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:df_generate_dart_models_core/df_generate_dart_models_core.dart';
-import 'package:df_generate_dart_models_core/df_generate_dart_models_core_utils.dart';
+import 'package:df_generate_dart_models_core/df_generate_dart_models_core_utils.dart'
+    show DartFromRecordOnDartObjectX;
 
 import 'package:path/path.dart' as p;
 import 'package:df_gen_core/df_gen_core.dart';
@@ -22,7 +22,7 @@ import 'package:df_screen_core/df_screen_core.dart';
 
 Future<List<ClassInsight<ModelGenerateScreenBindings>>> extractInsightsFromFile(
   String filePath,
-  AnalysisContextCollection analysisContextCollection,
+  dynamic analysisContextCollection,
 ) async {
   late ModelGenerateScreenBindings temp;
   final analyzer = DartAnnotatedClassAnalyzer(
@@ -33,8 +33,7 @@ Future<List<ClassInsight<ModelGenerateScreenBindings>>> extractInsightsFromFile(
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
   await analyzer.analyze(
     inclClassAnnotations: {ModelGenerateScreenBindings.CLASS_NAME},
-    onClassAnnotationField: (params) async =>
-        temp = _updateFromClassAnnotationField(temp, params),
+    onClassAnnotationField: (params) async => temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       final fullPathName = params.fullFilePath;
@@ -65,8 +64,7 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
               (k, v) => MapEntry(k?.toStringValue(), v?.toStringValue()),
             ),
       );
-    case ModelGenerateScreenBindingsFieldNames
-          .isAccessibleOnlyIfLoggedInAndVerified:
+    case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
       );
@@ -91,10 +89,11 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
         queryParameters: {
           ...?annotation.queryParameters,
           ...?params.fieldValue.toSetValue()?.map((e) {
+            final x = DartFromRecordOnDartObjectX(e);
             final field = FieldModel(
-              fieldPath: e.fieldPathFromRecord()!,
-              fieldType: e.fieldTypeFromRecord()!,
-              nullable: e.nullableFromRecord()!,
+              fieldPath: x.fieldPathFromRecord()!,
+              fieldType: x.fieldTypeFromRecord()!,
+              nullable: x.nullableFromRecord()!,
             );
             return field.toRecord;
           }),
@@ -105,10 +104,11 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
         internalParameters: {
           ...?annotation.internalParameters,
           ...?params.fieldValue.toSetValue()?.map((e) {
+            final x = DartFromRecordOnDartObjectX(e);
             final field = FieldModel(
-              fieldPath: e.fieldPathFromRecord()!,
-              fieldType: e.fieldTypeFromRecord()!,
-              nullable: e.nullableFromRecord()!,
+              fieldPath: x.fieldPathFromRecord()!,
+              fieldType: x.fieldTypeFromRecord()!,
+              nullable: x.nullableFromRecord()!,
             );
             return field.toRecord;
           }),
