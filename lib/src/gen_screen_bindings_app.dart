@@ -1,7 +1,7 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// Dart/Flutter (DF) Packages by dev-cetera.com & contributors. The use of this
 // source code is governed by an MIT-style license described in the LICENSE
 // file located in this project's root directory.
 //
@@ -23,16 +23,16 @@ import 'extract_insights_from_file.dart';
 Future<void> genScreenBindingsApp(
   List<String> args, {
   List<String> defaultTemplates = const [
-    'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_bindings.g.dart.md',
+    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v1/_bindings.g.dart.md',
   ],
 }) async {
   final parser = CliParser(
-    title: 'DevCetra.com/df/tools',
+    title: 'dev-cetera.com/df/tools',
     description:
         'A tool for generating screen bindings for classes annotated @GenerateScreenBindings.',
     example: 'gen-screen-bindings -i .',
     additional:
-        'For contributions, error reports and information, visit: https://github.com/DevCetra.',
+        'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
     params: [
       DefaultFlags.HELP.flag,
       DefaultOptions.INPUT_PATH.option.copyWith(
@@ -96,8 +96,7 @@ Future<void> genScreenBindingsApp(
     'Looking for Dart files..',
   );
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
-  final filePathStream1 =
-      filePathStream0.where((e) => _isAllowedFileName(e.path));
+  final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
   List<FilePathExplorerFinding> findings;
   try {
     findings = await filePathStream1.toList();
@@ -219,13 +218,13 @@ void _print(
 }
 
 bool _isAllowedFileName(String e) {
-  return !e.endsWith('.g.dart') && e.endsWith('.dart');
+  final lc = e.toLowerCase();
+  return !lc.endsWith('.g.dart') && lc.endsWith('.dart');
 }
 
 extension _ClassInsightExtension on ClassInsight<GenerateScreenBindings> {
   StringCaseType get stringCaseType {
-    return StringCaseType.values.valueOf(annotation.keyStringCase) ??
-        StringCaseType.CAMEL_CASE;
+    return StringCaseType.values.valueOf(annotation.keyStringCase) ?? StringCaseType.CAMEL_CASE;
   }
 }
 
@@ -240,17 +239,14 @@ String _screenSegment(ClassInsight<ModelGenerateScreenBindings> insight) {
   final path = insight.annotation.path ?? '';
   final screenSegment = p.joinAll(
     [
-      path.isNotEmpty && path.startsWith(RegExp(r'[\\/]'))
-          ? path.substring(1)
-          : path,
+      path.isNotEmpty && path.startsWith(RegExp(r'[\\/]')) ? path.substring(1) : path,
       screenKey,
     ],
   );
   return screenSegment;
 }
 
-final _interpolator =
-    TemplateInterpolator<ClassInsight<GenerateScreenBindings>>(
+final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>(
   {
     '___SCREEN_KEY___': _screenKey,
     '___SCREEN_SEGMENT___': _screenSegment,
@@ -275,20 +271,16 @@ final _interpolator =
       return '/$screenSegment';
     },
     '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
-      return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false)
-          .toString();
+      return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false).toString();
     },
     '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
-      return (insight.annotation.isAccessibleOnlyIfLoggedIn ?? false)
-          .toString();
+      return (insight.annotation.isAccessibleOnlyIfLoggedIn ?? false).toString();
     },
     '___IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___': (insight) {
-      return (insight.annotation.isAccessibleOnlyIfLoggedOut ?? false)
-          .toString();
+      return (insight.annotation.isAccessibleOnlyIfLoggedOut ?? false).toString();
     },
     '___IS_ALWAYS_ACCESSIBLE___': (insight) {
-      final a =
-          insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false;
+      final a = insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false;
       final b = insight.annotation.isAccessibleOnlyIfLoggedIn ?? false;
       final c = insight.annotation.isAccessibleOnlyIfLoggedOut ?? false;
       if (a && b) {
@@ -325,10 +317,8 @@ final _interpolator =
       return b.toString();
     },
     '___IP0___': (insight) {
-      final params = insight.annotation.internalParameters
-              ?.map((e) => FieldUtils.ofOrNull(e))
-              .nonNulls ??
-          {};
+      final params =
+          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -353,10 +343,8 @@ final _interpolator =
       }
     },
     '___IP1___': (insight) {
-      final params = insight.annotation.internalParameters
-              ?.map((e) => FieldUtils.ofOrNull(e))
-              .nonNulls ??
-          {};
+      final params =
+          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -373,10 +361,8 @@ final _interpolator =
       }
     },
     '___IP2___': (insight) {
-      final params = insight.annotation.internalParameters
-              ?.map((e) => FieldUtils.ofOrNull(e))
-              .nonNulls ??
-          {};
+      final params =
+          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -390,10 +376,8 @@ final _interpolator =
       }
     },
     '___QP0___': (insight) {
-      final params = insight.annotation.queryParameters
-              ?.map((e) => FieldUtils.ofOrNull(e))
-              .nonNulls ??
-          {};
+      final params =
+          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -418,10 +402,8 @@ final _interpolator =
       }
     },
     '___QP1___': (insight) {
-      final params = insight.annotation.queryParameters
-              ?.map((e) => FieldUtils.ofOrNull(e))
-              .nonNulls ??
-          {};
+      final params =
+          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -435,10 +417,8 @@ final _interpolator =
       }
     },
     '___QP2___': (insight) {
-      final params = insight.annotation.queryParameters
-              ?.map((e) => FieldUtils.ofOrNull(e))
-              .nonNulls ??
-          {};
+      final params =
+          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
       if (params.isNotEmpty) {
         final a = params.map((e) {
           final fieldName = e.fieldPath!.join('_').toCamelCase();

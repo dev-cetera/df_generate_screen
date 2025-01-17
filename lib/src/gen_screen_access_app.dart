@@ -1,7 +1,7 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// Dart/Flutter (DF) Packages by dev-cetera.com & contributors. The use of this
 // source code is governed by an MIT-style license described in the LICENSE
 // file located in this project's root directory.
 //
@@ -23,16 +23,16 @@ import 'extract_insights_from_file.dart';
 Future<void> genScreenAccessApp(
   List<String> args, {
   List<String> defaultTemplates = const [
-    'https://raw.githubusercontent.com/robmllze/df_generate_screen/main/templates/v1/_access.g.dart.md',
+    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v1/_access.g.dart.md',
   ],
 }) async {
   final parser = CliParser(
-    title: 'DevCetra.com/df/tools',
+    title: 'dev-cetera.com/df/tools',
     description:
         'A tool for generating screen a access file for all classes annotated @GenerateScreenBindings withing a directory.',
     example: 'gen-screen-access -i .',
     additional:
-        'For contributions, error reports and information, visit: https://github.com/DevCetra.',
+        'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
     params: [
       DefaultFlags.HELP.flag,
       DefaultOptions.INPUT_PATH.option.copyWith(
@@ -96,8 +96,7 @@ Future<void> genScreenAccessApp(
     'Looking for files..',
   );
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
-  final filePathStream1 =
-      filePathStream0.where((e) => _isAllowedFileName(e.path));
+  final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
   List<FilePathExplorerFinding> findings;
   try {
     findings = await filePathStream1.toList();
@@ -219,7 +218,8 @@ void _print(
 }
 
 bool _isAllowedFileName(String e) {
-  return !e.endsWith('.g.dart') && e.endsWith('.dart');
+  final lc = e.toLowerCase();
+  return !lc.endsWith('.g.dart') && lc.endsWith('.dart');
 }
 
 class TemplateInterpolator2<T> {
@@ -240,8 +240,7 @@ class TemplateInterpolator2<T> {
   }
 }
 
-final _interpolator =
-    TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>(
+final _interpolator = TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>(
   {
     '___SCREEN_MAKERS___': (insight) {
       final a = insight.className.toPascalCase();

@@ -1,7 +1,7 @@
 //.title
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
-// Dart/Flutter (DF) Packages by DevCetra.com & contributors. The use of this
+// Dart/Flutter (DF) Packages by dev-cetera.com & contributors. The use of this
 // source code is governed by an MIT-style license described in the LICENSE
 // file located in this project's root directory.
 //
@@ -33,8 +33,7 @@ Future<List<ClassInsight<ModelGenerateScreenBindings>>> extractInsightsFromFile(
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
   await analyzer.analyze(
     inclClassAnnotations: {ModelGenerateScreenBindings.CLASS_NAME},
-    onClassAnnotationField: (params) async =>
-        temp = _updateFromClassAnnotationField(temp, params),
+    onClassAnnotationField: (params) async => temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       final fullPathName = params.fullFilePath;
@@ -65,8 +64,7 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
               (k, v) => MapEntry(k?.toStringValue(), v?.toStringValue()),
             ),
       );
-    case ModelGenerateScreenBindingsFieldNames
-          .isAccessibleOnlyIfLoggedInAndVerified:
+    case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
       );

@@ -2,7 +2,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //
 // GENERATED - DO NOT MODIFY BY HAND
-// See: https://github.com/DevCetra/df_generate_screen
+// See: https://github.com/dev-cetera/df_generate_screen
 //
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
@@ -43,8 +43,7 @@ class HomeScreenConfiguration extends ModelScreenConfiguration {
           title: null,
           path: _PATH,
           args: args ?? {},
-          isAccessibleOnlyIfLoggedInAndVerified:
-              _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+          isAccessibleOnlyIfLoggedInAndVerified: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
           isAccessibleOnlyIfLoggedIn: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
           isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
           isRedirectable: _IS_REDIRECTABLE,
@@ -67,16 +66,14 @@ class HomeScreenConfiguration extends ModelScreenConfiguration {
   static const TR_KEY = _TR_KEY;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged in and verified.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN =
-      _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN;
+  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN = _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged in.
   static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED =
       _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged out.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT =
-      _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT;
+  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT = _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT;
 
   /// Whether the corresponding [Screen] is redirectable, i.e., if it can be requested from the browser URL.
   static const IS_REDIRECTABLE = _IS_REDIRECTABLE;
@@ -123,12 +120,10 @@ final generatedHomeScreenRoute = GoRoute(
         extra: extra ??
             urlToScreenConfiguration(
               url: state.uri,
-              isAccessibleOnlyIfLoggedIn:
-                  HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-              isAccessibleOnlyIfLoggedInAndVerified: HomeScreenConfiguration
-                  .IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
-              isAccessibleOnlyIfLoggedOut:
-                  HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
+              isAccessibleOnlyIfLoggedIn: HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+              isAccessibleOnlyIfLoggedInAndVerified:
+                  HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+              isAccessibleOnlyIfLoggedOut: HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
               isRedirectable: HomeScreenConfiguration.IS_REDIRECTABLE,
               title: null,
             ),
@@ -148,8 +143,7 @@ Screen? makerHomeScreen(
   bool isLoggedIn,
   bool isLoggedOut,
 ) {
-  if ((_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED &&
-          !isLoggedInAndVerified) ||
+  if ((_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED && !isLoggedInAndVerified) ||
       (_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN && !isLoggedIn) ||
       (_IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT && !isLoggedOut)) {
     return null;
@@ -160,8 +154,7 @@ Screen? makerHomeScreen(
       extra: extra,
     );
   }
-  if (RegExp(r'^(' + _PATH + r')([?/].*)?$')
-      .hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
+  if (RegExp(r'^(' + _PATH + r')([?/].*)?$').hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
     final temp = HomeScreenConfiguration.optional(
       args: extra.args,
     );
@@ -179,12 +172,11 @@ Screen? makerHomeScreen(
 typedef THomeScreenController = _ControllerBroker<HomeScreen, _State>;
 
 /// A [AdaptiveScreenState] type corresponding to [HomeScreen].
-typedef TAdaptiveHomeScreenState = AdaptiveScreenState<HomeScreen,
-    HomeScreenConfiguration, HomeScreenController>;
+typedef TAdaptiveHomeScreenState
+    = AdaptiveScreenState<HomeScreen, HomeScreenConfiguration, HomeScreenController>;
 
 /// A [ScreenState] type corresponding to [HomeScreen].
-typedef THomeScreenState
-    = ScreenState<HomeScreen, HomeScreenConfiguration, HomeScreenController>;
+typedef THomeScreenState = ScreenState<HomeScreen, HomeScreenConfiguration, HomeScreenController>;
 
 /// A [ScreenPageState] type corresponding to [HomeScreen].
 typedef THomeScreenPageState<T extends ScreenPage>
