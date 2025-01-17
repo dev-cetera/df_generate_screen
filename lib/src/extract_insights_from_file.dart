@@ -33,7 +33,8 @@ Future<List<ClassInsight<ModelGenerateScreenBindings>>> extractInsightsFromFile(
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
   await analyzer.analyze(
     inclClassAnnotations: {ModelGenerateScreenBindings.CLASS_NAME},
-    onClassAnnotationField: (params) async => temp = _updateFromClassAnnotationField(temp, params),
+    onClassAnnotationField: (params) async =>
+        temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       final fullPathName = params.fullFilePath;
@@ -64,7 +65,8 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
               (k, v) => MapEntry(k?.toStringValue(), v?.toStringValue()),
             ),
       );
-    case ModelGenerateScreenBindingsFieldNames.isAccessibleOnlyIfLoggedInAndVerified:
+    case ModelGenerateScreenBindingsFieldNames
+          .isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
       );
