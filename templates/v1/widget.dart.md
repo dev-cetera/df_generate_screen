@@ -16,6 +16,7 @@ final class ___WIDGET_NAME___ extends ____WIDGET_NAME___ {
   const ___WIDGET_NAME___({
     super.key,
     super.extra,
+    super.controllerTimeout = Duration.zero,
   });
 }
 ```
