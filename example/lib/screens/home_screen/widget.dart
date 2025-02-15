@@ -12,8 +12,5 @@ part '_state.dart';
 
 @GenerateScreenBindings()
 final class HomeScreen extends _HomeScreen {
-  const HomeScreen({
-    super.key,
-    super.extra,
-  });
+  const HomeScreen({super.key, super.extra});
 }

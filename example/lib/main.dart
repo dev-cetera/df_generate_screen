@@ -44,9 +44,7 @@ class _MainWidgetState extends State<MainWidget> {
       debugShowCheckedModeBanner: false,
       builder: (context, body) {
         // Draw each screen in a Scaffold.
-        return Scaffold(
-          body: body,
-        );
+        return Scaffold(body: body);
       },
     );
   }

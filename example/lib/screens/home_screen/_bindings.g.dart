@@ -23,32 +23,25 @@ class HomeScreenConfiguration extends ModelScreenConfiguration {
   //
   //
 
-  factory HomeScreenConfiguration({
-    Map<dynamic, dynamic>? $args,
-  }) {
-    return HomeScreenConfiguration.optional(
-      args: {
-        ...?$args,
-      }.nonNulls,
-    );
+  factory HomeScreenConfiguration({Map<dynamic, dynamic>? $args}) {
+    return HomeScreenConfiguration.optional(args: {...?$args}.nonNulls);
   }
 
   //
   //
   //
 
-  HomeScreenConfiguration.optional({
-    Map<dynamic, dynamic>? args,
-  }) : super.optional(
-          title: null,
-          path: _PATH,
-          args: args ?? {},
-          isAccessibleOnlyIfLoggedInAndVerified:
-              _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
-          isAccessibleOnlyIfLoggedIn: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-          isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
-          isRedirectable: _IS_REDIRECTABLE,
-        );
+  HomeScreenConfiguration.optional({Map<dynamic, dynamic>? args})
+    : super.optional(
+        title: null,
+        path: _PATH,
+        args: args ?? {},
+        isAccessibleOnlyIfLoggedInAndVerified:
+            _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+        isAccessibleOnlyIfLoggedIn: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+        isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
+        isRedirectable: _IS_REDIRECTABLE,
+      );
 
   //
   //
@@ -94,19 +87,17 @@ abstract base class _ControllerBroker<T1 extends HomeScreen, T2 extends _State>
   late final state = super.superState as T2;
 
   /// The [ModelScreenConfiguration] that corresponds to `this` controller.
-  late final configuration = screen.extra is HomeScreenConfiguration
-      ? screen.extra as HomeScreenConfiguration
-      : HomeScreenConfiguration.optional(
-          args: screen.extra is ModelScreenConfiguration
-              ? (screen.extra as ModelScreenConfiguration).args
-              : {},
-        );
+  late final configuration =
+      screen.extra is HomeScreenConfiguration
+          ? screen.extra as HomeScreenConfiguration
+          : HomeScreenConfiguration.optional(
+            args:
+                screen.extra is ModelScreenConfiguration
+                    ? (screen.extra as ModelScreenConfiguration).args
+                    : {},
+          );
 
-  _ControllerBroker(
-    super.superScreen,
-    super.superState, [
-    super.extra,
-  ]);
+  _ControllerBroker(super.superScreen, super.superState, [super.extra]);
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -120,13 +111,15 @@ final generatedHomeScreenRoute = GoRoute(
       key: state.pageKey,
       child: HomeScreen(
         key: _globalKey,
-        extra: extra ??
+        extra:
+            extra ??
             urlToScreenConfiguration(
               url: state.uri,
               isAccessibleOnlyIfLoggedIn:
                   HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-              isAccessibleOnlyIfLoggedInAndVerified: HomeScreenConfiguration
-                  .IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+              isAccessibleOnlyIfLoggedInAndVerified:
+                  HomeScreenConfiguration
+                      .IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
               isAccessibleOnlyIfLoggedOut:
                   HomeScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
               isRedirectable: HomeScreenConfiguration.IS_REDIRECTABLE,
@@ -155,20 +148,13 @@ Screen? makerHomeScreen(
     return null;
   }
   if (extra is HomeScreenConfiguration) {
-    return HomeScreen(
-      key: _globalKey,
-      extra: extra,
-    );
+    return HomeScreen(key: _globalKey, extra: extra);
   }
-  if (RegExp(r'^(' + _PATH + r')([?/].*)?$')
-      .hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
-    final temp = HomeScreenConfiguration.optional(
-      args: extra.args,
-    );
-    return HomeScreen(
-      key: _globalKey,
-      extra: temp,
-    );
+  if (RegExp(
+    r'^(' + _PATH + r')([?/].*)?$',
+  ).hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
+    final temp = HomeScreenConfiguration.optional(args: extra.args);
+    return HomeScreen(key: _globalKey, extra: temp);
   }
   return null;
 }
@@ -179,16 +165,20 @@ Screen? makerHomeScreen(
 typedef THomeScreenController = _ControllerBroker<HomeScreen, _State>;
 
 /// A [AdaptiveScreenState] type corresponding to [HomeScreen].
-typedef TAdaptiveHomeScreenState = AdaptiveScreenState<HomeScreen,
-    HomeScreenConfiguration, HomeScreenController>;
+typedef TAdaptiveHomeScreenState =
+    AdaptiveScreenState<
+      HomeScreen,
+      HomeScreenConfiguration,
+      HomeScreenController
+    >;
 
 /// A [ScreenState] type corresponding to [HomeScreen].
-typedef THomeScreenState
-    = ScreenState<HomeScreen, HomeScreenConfiguration, HomeScreenController>;
+typedef THomeScreenState =
+    ScreenState<HomeScreen, HomeScreenConfiguration, HomeScreenController>;
 
 /// A [ScreenPageState] type corresponding to [HomeScreen].
-typedef THomeScreenPageState<T extends ScreenPage>
-    = ScreenPageState<T, HomeScreenConfiguration, HomeScreenController>;
+typedef THomeScreenPageState<T extends ScreenPage> =
+    ScreenPageState<T, HomeScreenConfiguration, HomeScreenController>;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -203,10 +193,7 @@ base class _HomeScreen extends Screen {
   createState() => _State();
 
   @override
-  createController(
-    Screen screen,
-    ScreenState state,
-  ) {
+  createController(Screen screen, ScreenState state) {
     return HomeScreenController(screen, state);
   }
 }

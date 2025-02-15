@@ -55,10 +55,7 @@ Future<void> genScreenBindingsApp(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(
-      printCyan,
-      parser.getInfo(argParser),
-    );
+    _print(printCyan, parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -86,36 +83,28 @@ Future<void> genScreenBindingsApp(
 
   // ---------------------------------------------------------------------------
 
-  final analysisContextCollection = createDartAnalysisContextCollection(
-    {inputPath},
-    dartSdk,
-  );
+  final analysisContextCollection = createDartAnalysisContextCollection({
+    inputPath,
+  }, dartSdk,);
 
   // ---------------------------------------------------------------------------
 
-  _print(
-    printWhite,
-    'Looking for Dart files..',
-  );
+  _print(printWhite, 'Looking for Dart files..');
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
-  final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
+  final filePathStream1 = filePathStream0.where(
+    (e) => _isAllowedFileName(e.path),
+  );
   List<FilePathExplorerFinding> findings;
   try {
     findings = await filePathStream1.toList();
   } catch (e) {
     spinner.stop();
-    _print(
-      printRed,
-      'Failed to read file tree!',
-    );
+    _print(printRed, 'Failed to read file tree!');
     exit(ExitCodes.FAILURE.code);
   }
   if (findings.isEmpty) {
     spinner.stop();
-    _print(
-      printYellow,
-      'No files found in $inputPath!',
-    );
+    _print(printYellow, 'No files found in $inputPath!');
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -123,22 +112,13 @@ Future<void> genScreenBindingsApp(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(
-      printWhite,
-      'Reading template at: $template...',
-    );
-    final result = await MdTemplateUtility.i
-        .readTemplateFromPathOrUrl(
-          template,
-        )
-        .value;
+    _print(printWhite, 'Reading template at: $template...');
+    final result =
+        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       spinner.stop();
-      _print(
-        printRed,
-        ' Failed to read template!',
-      );
+      _print(printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -146,11 +126,7 @@ Future<void> genScreenBindingsApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(
-    printWhite,
-    'Generating...',
-    spinner,
-  );
+  _print(printWhite, 'Generating...', spinner);
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -169,53 +145,32 @@ Future<void> genScreenBindingsApp(
             fileName,
           );
           await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
-          printWhite(
-            '[gen-screen-bindings] ✔ Generated $fileName',
-          );
+          printWhite('[gen-screen-bindings] ✔ Generated $fileName');
         }
       }
     } catch (e) {
-      _print(
-        printRed,
-        '✘ One or more files failed to generate!',
-        spinner,
-      );
+      _print(printRed, '✘ One or more files failed to generate!', spinner);
       exit(ExitCodes.FAILURE.code);
     }
   }
 
   // ---------------------------------------------------------------------------
 
-  _print(
-    printWhite,
-    'Fixing generated files..',
-    spinner,
-  );
+  _print(printWhite, 'Fixing generated files..', spinner);
   await fixDartFile(inputPath);
 
-  _print(
-    printWhite,
-    'Formatting generated files..',
-    spinner,
-  );
+  _print(printWhite, 'Formatting generated files..', spinner);
   await fmtDartFile(inputPath);
 
   // ---------------------------------------------------------------------------
 
   spinner.stop();
-  _print(
-    printGreen,
-    'Done!',
-  );
+  _print(printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-void _print(
-  void Function(String) print,
-  String message, [
-  Spinner? spinner,
-]) {
+void _print(void Function(String) print, String message, [Spinner? spinner]) {
   spinner?.stop();
   print('[gen-screen-bindings] $message');
   spinner?.start();
@@ -228,7 +183,8 @@ bool _isAllowedFileName(String e) {
 
 extension _ClassInsightExtension on ClassInsight<GenerateScreenBindings> {
   StringCaseType get stringCaseType {
-    return StringCaseType.values.valueOf(annotation.keyStringCase) ?? StringCaseType.CAMEL_CASE;
+    return StringCaseType.values.valueOf(annotation.keyStringCase) ??
+        StringCaseType.CAMEL_CASE;
   }
 }
 
@@ -241,200 +197,225 @@ String _screenKey(ClassInsight<ModelGenerateScreenBindings> insight) {
 String _screenSegment(ClassInsight<ModelGenerateScreenBindings> insight) {
   final screenKey = _screenKey(insight);
   final path = insight.annotation.path ?? '';
-  final screenSegment = p.joinAll(
-    [
-      path.isNotEmpty && path.startsWith(RegExp(r'[\\/]')) ? path.substring(1) : path,
-      screenKey,
-    ],
-  );
+  final screenSegment = p.joinAll([
+    path.isNotEmpty && path.startsWith(RegExp(r'[\\/]'))
+        ? path.substring(1)
+        : path,
+    screenKey,
+  ]);
   return screenSegment;
 }
 
-final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>(
-  {
-    '___SCREEN_KEY___': _screenKey,
-    '___SCREEN_SEGMENT___': _screenSegment,
-    '___WIDGET_NAME___': (insight) {
-      return insight.className;
-    },
-    '___DEFAULT_TITLE___': (insight) {
-      return insight.annotation.title ??
-          insight.className
-              .toCamelCase()
-              .replaceAll('screen', '')
-              .split('_')
-              .map((e) => e.capitalize())
-              .join(' ');
-    },
-    '___SCREEN_CONST_KEY___': (insight) {
-      final screenKey = _screenKey(insight);
-      return screenKey.toUpperCase();
-    },
-    '___SCREEN_PATH___': (insight) {
-      final screenSegment = _screenSegment(insight);
-      return '/$screenSegment';
-    },
-    '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
-      return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false).toString();
-    },
-    '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
-      return (insight.annotation.isAccessibleOnlyIfLoggedIn ?? false).toString();
-    },
-    '___IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___': (insight) {
-      return (insight.annotation.isAccessibleOnlyIfLoggedOut ?? false).toString();
-    },
-    '___IS_ALWAYS_ACCESSIBLE___': (insight) {
-      final a = insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false;
-      final b = insight.annotation.isAccessibleOnlyIfLoggedIn ?? false;
-      final c = insight.annotation.isAccessibleOnlyIfLoggedOut ?? false;
-      if (a && b) {
-        throw Exception(
-          'Cannot set both `isAccessibleOnlyIfLoggedInAndVerified` and `isAccessibleOnlyIfLoggedIn` to `true`.',
-        );
-      }
-      if (a && c) {
-        throw Exception(
-          'Cannot set both `isAccessibleOnlyIfLoggedInAndVerified` and `isAccessibleOnlyIfLoggedOut` to `true`.',
-        );
-      }
-      if (b && c) {
-        throw Exception(
-          'Cannot set both `isAccessibleOnlyIfLoggedIn` and `isAccessibleOnlyIfLoggedOut` to `true`.',
-        );
-      }
-      final isAlwaysAccessible = (!a && !b && !c);
-      return isAlwaysAccessible.toString();
-    },
-    '___IS_REDIRECTABLE___': (insight) {
-      final b = insight.annotation.isRedirectable ?? true;
-      final params = insight.annotation.internalParameters;
-      if (b && params != null && params.isNotEmpty) {
-        for (final e in params) {
-          final field = FieldUtils.ofOrNull(e)!;
-          if (field.nullable == false) {
-            throw Exception(
-              'Cannot set `isRedirectable` to `true` if `internalParameters` contains required parameters.',
-            );
-          }
+final _interpolator = TemplateInterpolator<
+  ClassInsight<GenerateScreenBindings>
+>({
+  '___SCREEN_KEY___': _screenKey,
+  '___SCREEN_SEGMENT___': _screenSegment,
+  '___WIDGET_NAME___': (insight) {
+    return insight.className;
+  },
+  '___DEFAULT_TITLE___': (insight) {
+    return insight.annotation.title ??
+        insight.className
+            .toCamelCase()
+            .replaceAll('screen', '')
+            .split('_')
+            .map((e) => e.capitalize())
+            .join(' ');
+  },
+  '___SCREEN_CONST_KEY___': (insight) {
+    final screenKey = _screenKey(insight);
+    return screenKey.toUpperCase();
+  },
+  '___SCREEN_PATH___': (insight) {
+    final screenSegment = _screenSegment(insight);
+    return '/$screenSegment';
+  },
+  '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
+    return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false)
+        .toString();
+  },
+  '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
+    return (insight.annotation.isAccessibleOnlyIfLoggedIn ?? false).toString();
+  },
+  '___IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___': (insight) {
+    return (insight.annotation.isAccessibleOnlyIfLoggedOut ?? false).toString();
+  },
+  '___IS_ALWAYS_ACCESSIBLE___': (insight) {
+    final a = insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false;
+    final b = insight.annotation.isAccessibleOnlyIfLoggedIn ?? false;
+    final c = insight.annotation.isAccessibleOnlyIfLoggedOut ?? false;
+    if (a && b) {
+      throw Exception(
+        'Cannot set both `isAccessibleOnlyIfLoggedInAndVerified` and `isAccessibleOnlyIfLoggedIn` to `true`.',
+      );
+    }
+    if (a && c) {
+      throw Exception(
+        'Cannot set both `isAccessibleOnlyIfLoggedInAndVerified` and `isAccessibleOnlyIfLoggedOut` to `true`.',
+      );
+    }
+    if (b && c) {
+      throw Exception(
+        'Cannot set both `isAccessibleOnlyIfLoggedIn` and `isAccessibleOnlyIfLoggedOut` to `true`.',
+      );
+    }
+    final isAlwaysAccessible = (!a && !b && !c);
+    return isAlwaysAccessible.toString();
+  },
+  '___IS_REDIRECTABLE___': (insight) {
+    final b = insight.annotation.isRedirectable ?? true;
+    final params = insight.annotation.internalParameters;
+    if (b && params != null && params.isNotEmpty) {
+      for (final e in params) {
+        final field = FieldUtils.ofOrNull(e)!;
+        if (field.nullable == false) {
+          throw Exception(
+            'Cannot set `isRedirectable` to `true` if `internalParameters` contains required parameters.',
+          );
         }
       }
-      return b.toString();
-    },
-    '___IP0___': (insight) {
-      final params =
-          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
-      if (params.isNotEmpty) {
-        final a = params.map((e) {
-          final fieldName = e.fieldPath!.join('_').toCamelCase();
-          final fieldKey = insight.stringCaseType.convert(fieldName);
-          final fieldType = e.fieldType;
-          final nullable = e.nullable != false;
-          final exclamationMark = nullable ? '' : '!';
-          final questionMark = nullable ? '?' : '';
-          final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
-          return [
-            '/// Key corresponding to the value `$fieldName`',
-            "static const $fieldK = '$fieldKey';",
-            '/// Returns the **internal parameter** with the key `$fieldKey`',
-            '/// or [$fieldK].',
-            '$fieldType$questionMark get $fieldName => arg<$fieldType>($fieldK)$exclamationMark;',
-          ].join('\n');
-        }).toList()
-          ..sort();
-        return a.isNotEmpty ? a.join('\n') : '';
-      } else {
-        return '';
-      }
-    },
-    '___IP1___': (insight) {
-      final params =
-          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
-      if (params.isNotEmpty) {
-        final a = params.map((e) {
-          final fieldName = e.fieldPath!.join('_').toCamelCase();
-          final fieldType = e.fieldType;
-          final nullable = e.nullable != false;
-          final questionMark = nullable ? '?' : '';
-          final required = nullable ? '' : 'required ';
-          return '$required$fieldType$questionMark $fieldName,';
-        }).toList()
-          ..sort();
-        return a.isNotEmpty ? a.join('\n') : '';
-      } else {
-        return '';
-      }
-    },
-    '___IP2___': (insight) {
-      final params =
-          insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
-      if (params.isNotEmpty) {
-        final a = params.map((e) {
-          final fieldName = e.fieldPath!.join('_').toCamelCase();
-          final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
-          return '$fieldK: $fieldName,';
-        }).toList()
-          ..sort();
-        return a.isNotEmpty ? a.join('\n') : '';
-      } else {
-        return '';
-      }
-    },
-    '___QP0___': (insight) {
-      final params =
-          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
-      if (params.isNotEmpty) {
-        final a = params.map((e) {
-          final fieldName = e.fieldPath!.join('_').toCamelCase();
-          final fieldKey = insight.stringCaseType.convert(fieldName);
-          final nullable = e.nullable != false;
-          final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
-          final exclamationMark = nullable ? '' : '!';
-          final questionMark = nullable ? '?' : '';
-          return [
-            '/// Key corresponding to the value `$fieldName`',
-            // ignore: unnecessary_string_escapes
-            "static const $fieldK = '$fieldKey';",
-            '/// Returns the URI **query parameter** with the key `$fieldKey`',
-            '/// or [$fieldK].',
-            'String$questionMark get $fieldName => arg<String>($fieldK)$exclamationMark;',
-          ].join('\n');
-        }).toList()
-          ..sort();
-        return a.isNotEmpty ? a.join('\n') : '';
-      } else {
-        return '';
-      }
-    },
-    '___QP1___': (insight) {
-      final params =
-          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
-      if (params.isNotEmpty) {
-        final a = params.map((e) {
-          final fieldName = e.fieldPath!.join('_').toCamelCase();
-          final nullable = e.nullable != false;
-          return "${nullable ? "String?" : "required String"} $fieldName,";
-        }).toList()
-          ..sort();
-        return a.isNotEmpty ? a.join('\n') : '';
-      } else {
-        return '';
-      }
-    },
-    '___QP2___': (insight) {
-      final params =
-          insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
-      if (params.isNotEmpty) {
-        final a = params.map((e) {
-          final fieldName = e.fieldPath!.join('_').toCamelCase();
-          final nullable = e.nullable != false;
-          final fieldK = 'K_${fieldName.toSnakeCase().toUpperCase()}';
-          return "${nullable ? "if ($fieldName != null) " : ""}$fieldK: $fieldName,";
-        }).toList()
-          ..sort();
-        return a.isNotEmpty ? a.join('\n') : '';
-      } else {
-        return '';
-      }
-    },
+    }
+    return b.toString();
   },
-);
+  '___IP0___': (insight) {
+    final params =
+        insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
+    if (params.isNotEmpty) {
+      final a =
+          params.map((e) {
+              final fieldName = e.fieldPath!.join('_').toCamelCase();
+              final fieldKey = insight.stringCaseType.convert(fieldName);
+              final fieldType = e.fieldType;
+              final nullable = e.nullable != false;
+              final exclamationMark = nullable ? '' : '!';
+              final questionMark = nullable ? '?' : '';
+              final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
+              return [
+                '/// Key corresponding to the value `$fieldName`',
+                "static const $fieldK = '$fieldKey';",
+                '/// Returns the **internal parameter** with the key `$fieldKey`',
+                '/// or [$fieldK].',
+                '$fieldType$questionMark get $fieldName => arg<$fieldType>($fieldK)$exclamationMark;',
+              ].join('\n');
+            }).toList()
+            ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___IP1___': (insight) {
+    final params =
+        insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
+    if (params.isNotEmpty) {
+      final a =
+          params.map((e) {
+              final fieldName = e.fieldPath!.join('_').toCamelCase();
+              final fieldType = e.fieldType;
+              final nullable = e.nullable != false;
+              final questionMark = nullable ? '?' : '';
+              final required = nullable ? '' : 'required ';
+              return '$required$fieldType$questionMark $fieldName,';
+            }).toList()
+            ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___IP2___': (insight) {
+    final params =
+        insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
+    if (params.isNotEmpty) {
+      final a =
+          params.map((e) {
+              final fieldName = e.fieldPath!.join('_').toCamelCase();
+              final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
+              return '$fieldK: $fieldName,';
+            }).toList()
+            ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___QP0___': (insight) {
+    final params =
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
+    if (params.isNotEmpty) {
+      final a =
+          params.map((e) {
+              final fieldName = e.fieldPath!.join('_').toCamelCase();
+              final fieldKey = insight.stringCaseType.convert(fieldName);
+              final nullable = e.nullable != false;
+              final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
+              final exclamationMark = nullable ? '' : '!';
+              final questionMark = nullable ? '?' : '';
+              return [
+                '/// Key corresponding to the value `$fieldName`',
+                // ignore: unnecessary_string_escapes
+                "static const $fieldK = '$fieldKey';",
+                '/// Returns the URI **query parameter** with the key `$fieldKey`',
+                '/// or [$fieldK].',
+                'String$questionMark get $fieldName => arg<String>($fieldK)$exclamationMark;',
+              ].join('\n');
+            }).toList()
+            ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___QP1___': (insight) {
+    final params =
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
+    if (params.isNotEmpty) {
+      final a =
+          params.map((e) {
+              final fieldName = e.fieldPath!.join('_').toCamelCase();
+              final nullable = e.nullable != false;
+              return "${nullable ? "String?" : "required String"} $fieldName,";
+            }).toList()
+            ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___QP2___': (insight) {
+    final params =
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
+    if (params.isNotEmpty) {
+      final a =
+          params.map((e) {
+              final fieldName = e.fieldPath!.join('_').toCamelCase();
+              final nullable = e.nullable != false;
+              final fieldK = 'K_${fieldName.toSnakeCase().toUpperCase()}';
+              return "${nullable ? "if ($fieldName != null) " : ""}$fieldK: $fieldName,";
+            }).toList()
+            ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+});

@@ -30,7 +30,8 @@ Future<void> genScreenApp(
 }) async {
   final parser = CliParser(
     title: 'dev-cetera.com/df/tools',
-    description: 'A tool for generating screen/page files for Flutter projects.',
+    description:
+        'A tool for generating screen/page files for Flutter projects.',
     example: 'gen-screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
@@ -59,10 +60,7 @@ Future<void> genScreenApp(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(
-      printCyan,
-      parser.getInfo(argParser),
-    );
+    _print(printCyan, parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -92,22 +90,13 @@ Future<void> genScreenApp(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(
-      printWhite,
-      'Reading template at: $template...',
-    );
-    final result = await MdTemplateUtility.i
-        .readTemplateFromPathOrUrl(
-          template,
-        )
-        .value;
+    _print(printWhite, 'Reading template at: $template...');
+    final result =
+        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       spinner.stop();
-      _print(
-        printRed,
-        ' Failed to read template!',
-      );
+      _print(printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -115,26 +104,16 @@ Future<void> genScreenApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(
-    printWhite,
-    'Generating...',
-    spinner,
-  );
+  _print(printWhite, 'Generating...', spinner);
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
     final template = entry.value;
-    final data = template.replaceData(
-      {
-        '___WIDGET_NAME___': name.toPascalCase(),
-      },
-    );
+    final data = template.replaceData({
+      '___WIDGET_NAME___': name.toPascalCase(),
+    });
     await FileSystemUtility.i.writeLocalFile(
-      p.join(
-        outputPath,
-        name.toSnakeCase(),
-        fileName,
-      ),
+      p.join(outputPath, name.toSnakeCase(), fileName),
       data,
     );
   }
@@ -142,19 +121,12 @@ Future<void> genScreenApp(
   // ---------------------------------------------------------------------------
 
   spinner.stop();
-  _print(
-    printGreen,
-    'Done!',
-  );
+  _print(printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-void _print(
-  void Function(String) print,
-  String message, [
-  Spinner? spinner,
-]) {
+void _print(void Function(String) print, String message, [Spinner? spinner]) {
   spinner?.stop();
   print('[gen-screen] $message');
   spinner?.start();

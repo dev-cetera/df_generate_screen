@@ -55,10 +55,7 @@ Future<void> genScreenAccessApp(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(
-      printCyan,
-      parser.getInfo(argParser),
-    );
+    _print(printCyan, parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -86,36 +83,28 @@ Future<void> genScreenAccessApp(
 
   // ---------------------------------------------------------------------------
 
-  final analysisContextCollection = createDartAnalysisContextCollection(
-    {inputPath},
-    dartSdk,
-  );
+  final analysisContextCollection = createDartAnalysisContextCollection({
+    inputPath,
+  }, dartSdk,);
 
   // ---------------------------------------------------------------------------
 
-  _print(
-    printWhite,
-    'Looking for files..',
-  );
+  _print(printWhite, 'Looking for files..');
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
-  final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
+  final filePathStream1 = filePathStream0.where(
+    (e) => _isAllowedFileName(e.path),
+  );
   List<FilePathExplorerFinding> findings;
   try {
     findings = await filePathStream1.toList();
   } catch (e) {
     spinner.stop();
-    _print(
-      printRed,
-      'Failed to read file tree!',
-    );
+    _print(printRed, 'Failed to read file tree!');
     exit(ExitCodes.FAILURE.code);
   }
   if (findings.isEmpty) {
     spinner.stop();
-    _print(
-      printYellow,
-      'No files found in $inputPath!',
-    );
+    _print(printYellow, 'No files found in $inputPath!');
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -123,22 +112,13 @@ Future<void> genScreenAccessApp(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(
-      printWhite,
-      'Reading template at: $template...',
-    );
-    final result = await MdTemplateUtility.i
-        .readTemplateFromPathOrUrl(
-          template,
-        )
-        .value;
+    _print(printWhite, 'Reading template at: $template...');
+    final result =
+        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       spinner.stop();
-      _print(
-        printRed,
-        ' Failed to read template!',
-      );
+      _print(printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -146,11 +126,7 @@ Future<void> genScreenAccessApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(
-    printWhite,
-    'Generating...',
-    spinner,
-  );
+  _print(printWhite, 'Generating...', spinner);
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -166,56 +142,32 @@ Future<void> genScreenAccessApp(
         insights.addAll(temp);
       }
       final output = _interpolator.interpolate(template, insights, ',');
-      final outputFilePath = p.join(
-        inputPath,
-        fileName,
-      );
+      final outputFilePath = p.join(inputPath, fileName);
       await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
-      printWhite(
-        '[gen-screen-access] ✔ Generated $fileName',
-      );
+      printWhite('[gen-screen-access] ✔ Generated $fileName');
     } catch (e) {
-      _print(
-        printRed,
-        '✘ One or more files failed to generate!',
-        spinner,
-      );
+      _print(printRed, '✘ One or more files failed to generate!', spinner);
       exit(ExitCodes.FAILURE.code);
     }
   }
 
   // ---------------------------------------------------------------------------
 
-  _print(
-    printWhite,
-    'Fixing generated files..',
-    spinner,
-  );
+  _print(printWhite, 'Fixing generated files..', spinner);
   await fixDartFile(inputPath);
 
-  _print(
-    printWhite,
-    'Formatting generated files..',
-    spinner,
-  );
+  _print(printWhite, 'Formatting generated files..', spinner);
   await fmtDartFile(inputPath);
 
   // ---------------------------------------------------------------------------
 
   spinner.stop();
-  _print(
-    printGreen,
-    'Done!',
-  );
+  _print(printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-void _print(
-  void Function(String) print,
-  String message, [
-  Spinner? spinner,
-]) {
+void _print(void Function(String) print, String message, [Spinner? spinner]) {
   spinner?.stop();
   print('[gen-screen-access] $message');
   spinner?.start();
@@ -237,46 +189,43 @@ class TemplateInterpolator2<T> {
     String separator = '\n',
   ]) {
     return template.replaceData(
-      map.map(
-        (k, v) => MapEntry(k, insights.map((e) => v(e)).join(separator)),
-      ),
+      map.map((k, v) => MapEntry(k, insights.map((e) => v(e)).join(separator))),
     );
   }
 }
 
-final _interpolator = TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>(
-  {
-    '___SCREEN_MAKERS___': (insight) {
-      final a = insight.className.toPascalCase();
-      return 'maker$a';
-    },
-    '___PATHS___': (insight) {
-      final a = insight.className.toUpperSnakeCase();
-      return '...PATH_$a';
-    },
-    '___PATHS_NOT_REDIRECTABLE___': (insight) {
-      final a = insight.className.toUpperSnakeCase();
-      return '...PATH_NOT_REDIRECTABLE_$a';
-    },
-    '___PATHS_ALWAYS_ACCESSIBLE___': (insight) {
-      final a = insight.className.toUpperSnakeCase();
-      return '...PATH_ALWAYS_ACCESSIBLE_$a';
-    },
-    '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
-      final a = insight.className.toUpperSnakeCase();
-      return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
-    },
-    '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
-      final a = insight.className.toUpperSnakeCase();
-      return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
-    },
-    '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___': (insight) {
-      final a = insight.className.toUpperSnakeCase();
-      return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
-    },
-    '___GENERATED_SCREEN_ROUTES___': (insight) {
-      final a = insight.className.toPascalCase();
-      return 'generated${a}Route';
-    },
-  },
-);
+final _interpolator =
+    TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>({
+      '___SCREEN_MAKERS___': (insight) {
+        final a = insight.className.toPascalCase();
+        return 'maker$a';
+      },
+      '___PATHS___': (insight) {
+        final a = insight.className.toUpperSnakeCase();
+        return '...PATH_$a';
+      },
+      '___PATHS_NOT_REDIRECTABLE___': (insight) {
+        final a = insight.className.toUpperSnakeCase();
+        return '...PATH_NOT_REDIRECTABLE_$a';
+      },
+      '___PATHS_ALWAYS_ACCESSIBLE___': (insight) {
+        final a = insight.className.toUpperSnakeCase();
+        return '...PATH_ALWAYS_ACCESSIBLE_$a';
+      },
+      '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
+        final a = insight.className.toUpperSnakeCase();
+        return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
+      },
+      '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
+        final a = insight.className.toUpperSnakeCase();
+        return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
+      },
+      '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___': (insight) {
+        final a = insight.className.toUpperSnakeCase();
+        return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
+      },
+      '___GENERATED_SCREEN_ROUTES___': (insight) {
+        final a = insight.className.toPascalCase();
+        return 'generated${a}Route';
+      },
+    });

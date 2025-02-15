@@ -28,10 +28,7 @@ final generatedScreenRoutes = [
 /// A list of function references. Each function returns a corresponding [Screen]
 /// for a given [ModelScreenConfiguration] or `null` if the given configuration
 /// does not match or access is denied to the screen.
-const SCREEN_MAKERS = [
-  makerLoginScreen,
-  makerHomeScreen,
-];
+const SCREEN_MAKERS = [makerLoginScreen, makerHomeScreen];
 
 /// Finds the screen that corresponds to [configuration]. It iterates through
 /// the list of screen makers and calls each one with the provided [configuration]

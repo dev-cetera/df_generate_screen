@@ -33,8 +33,8 @@ Future<List<ClassInsight<ModelGenerateScreenBindings>>> extractInsightsFromFile(
   final insights = <ClassInsight<ModelGenerateScreenBindings>>[];
   await analyzer.analyze(
     inclClassAnnotations: {ModelGenerateScreenBindings.CLASS_NAME},
-    onClassAnnotationField: (params) async =>
-        temp = _updateFromClassAnnotationField(temp, params),
+    onClassAnnotationField:
+        (params) async => temp = _updateFromClassAnnotationField(temp, params),
     onPreAnalysis: (_, __) => temp = const ModelGenerateScreenBindings(),
     onPostAnalysis: (params) {
       final fullPathName = params.fullFilePath;
@@ -62,11 +62,11 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
     case ModelGenerateScreenBindingsFieldNames.args:
       return annotation.copyWith(
         args: params.fieldValue.toMapValue()?.map(
-              (k, v) => MapEntry(k?.toStringValue(), v?.toStringValue()),
-            ),
+          (k, v) => MapEntry(k?.toStringValue(), v?.toStringValue()),
+        ),
       );
     case ModelGenerateScreenBindingsFieldNames
-          .isAccessibleOnlyIfLoggedInAndVerified:
+        .isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
       );
@@ -83,9 +83,7 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
         isRedirectable: params.fieldValue.toBoolValue(),
       );
     case ModelGenerateScreenBindingsFieldNames.path:
-      return annotation.copyWith(
-        path: params.fieldValue.toStringValue(),
-      );
+      return annotation.copyWith(path: params.fieldValue.toStringValue());
     case ModelGenerateScreenBindingsFieldNames.queryParameters:
       return annotation.copyWith(
         queryParameters: {
@@ -117,17 +115,11 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
         },
       );
     case ModelGenerateScreenBindingsFieldNames.title:
-      return annotation.copyWith(
-        title: params.fieldValue.toStringValue(),
-      );
+      return annotation.copyWith(title: params.fieldValue.toStringValue());
     case ModelGenerateScreenBindingsFieldNames.className:
-      return annotation.copyWith(
-        className: params.fieldValue.toStringValue(),
-      );
+      return annotation.copyWith(className: params.fieldValue.toStringValue());
     case ModelGenerateScreenBindingsFieldNames.screenKey:
-      return annotation.copyWith(
-        screenKey: params.fieldValue.toStringValue(),
-      );
+      return annotation.copyWith(screenKey: params.fieldValue.toStringValue());
     case ModelGenerateScreenBindingsFieldNames.keyStringCase:
       return annotation.copyWith(
         keyStringCase: params.fieldValue.toStringValue(),

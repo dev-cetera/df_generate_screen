@@ -23,32 +23,25 @@ class LoginScreenConfiguration extends ModelScreenConfiguration {
   //
   //
 
-  factory LoginScreenConfiguration({
-    Map<dynamic, dynamic>? $args,
-  }) {
-    return LoginScreenConfiguration.optional(
-      args: {
-        ...?$args,
-      }.nonNulls,
-    );
+  factory LoginScreenConfiguration({Map<dynamic, dynamic>? $args}) {
+    return LoginScreenConfiguration.optional(args: {...?$args}.nonNulls);
   }
 
   //
   //
   //
 
-  LoginScreenConfiguration.optional({
-    Map<dynamic, dynamic>? args,
-  }) : super.optional(
-          title: null,
-          path: _PATH,
-          args: args ?? {},
-          isAccessibleOnlyIfLoggedInAndVerified:
-              _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
-          isAccessibleOnlyIfLoggedIn: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-          isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
-          isRedirectable: _IS_REDIRECTABLE,
-        );
+  LoginScreenConfiguration.optional({Map<dynamic, dynamic>? args})
+    : super.optional(
+        title: null,
+        path: _PATH,
+        args: args ?? {},
+        isAccessibleOnlyIfLoggedInAndVerified:
+            _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+        isAccessibleOnlyIfLoggedIn: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+        isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
+        isRedirectable: _IS_REDIRECTABLE,
+      );
 
   //
   //
@@ -94,19 +87,17 @@ abstract base class _ControllerBroker<T1 extends LoginScreen, T2 extends _State>
   late final state = super.superState as T2;
 
   /// The [ModelScreenConfiguration] that corresponds to `this` controller.
-  late final configuration = screen.extra is LoginScreenConfiguration
-      ? screen.extra as LoginScreenConfiguration
-      : LoginScreenConfiguration.optional(
-          args: screen.extra is ModelScreenConfiguration
-              ? (screen.extra as ModelScreenConfiguration).args
-              : {},
-        );
+  late final configuration =
+      screen.extra is LoginScreenConfiguration
+          ? screen.extra as LoginScreenConfiguration
+          : LoginScreenConfiguration.optional(
+            args:
+                screen.extra is ModelScreenConfiguration
+                    ? (screen.extra as ModelScreenConfiguration).args
+                    : {},
+          );
 
-  _ControllerBroker(
-    super.superScreen,
-    super.superState, [
-    super.extra,
-  ]);
+  _ControllerBroker(super.superScreen, super.superState, [super.extra]);
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -120,13 +111,15 @@ final generatedLoginScreenRoute = GoRoute(
       key: state.pageKey,
       child: LoginScreen(
         key: _globalKey,
-        extra: extra ??
+        extra:
+            extra ??
             urlToScreenConfiguration(
               url: state.uri,
               isAccessibleOnlyIfLoggedIn:
                   LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-              isAccessibleOnlyIfLoggedInAndVerified: LoginScreenConfiguration
-                  .IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+              isAccessibleOnlyIfLoggedInAndVerified:
+                  LoginScreenConfiguration
+                      .IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
               isAccessibleOnlyIfLoggedOut:
                   LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
               isRedirectable: LoginScreenConfiguration.IS_REDIRECTABLE,
@@ -155,20 +148,13 @@ Screen? makerLoginScreen(
     return null;
   }
   if (extra is LoginScreenConfiguration) {
-    return LoginScreen(
-      key: _globalKey,
-      extra: extra,
-    );
+    return LoginScreen(key: _globalKey, extra: extra);
   }
-  if (RegExp(r'^(' + _PATH + r')([?/].*)?$')
-      .hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
-    final temp = LoginScreenConfiguration.optional(
-      args: extra.args,
-    );
-    return LoginScreen(
-      key: _globalKey,
-      extra: temp,
-    );
+  if (RegExp(
+    r'^(' + _PATH + r')([?/].*)?$',
+  ).hasMatch(Uri.decodeComponent(extra.path ?? ''))) {
+    final temp = LoginScreenConfiguration.optional(args: extra.args);
+    return LoginScreen(key: _globalKey, extra: temp);
   }
   return null;
 }
@@ -179,16 +165,20 @@ Screen? makerLoginScreen(
 typedef TLoginScreenController = _ControllerBroker<LoginScreen, _State>;
 
 /// A [AdaptiveScreenState] type corresponding to [LoginScreen].
-typedef TAdaptiveLoginScreenState = AdaptiveScreenState<LoginScreen,
-    LoginScreenConfiguration, LoginScreenController>;
+typedef TAdaptiveLoginScreenState =
+    AdaptiveScreenState<
+      LoginScreen,
+      LoginScreenConfiguration,
+      LoginScreenController
+    >;
 
 /// A [ScreenState] type corresponding to [LoginScreen].
-typedef TLoginScreenState
-    = ScreenState<LoginScreen, LoginScreenConfiguration, LoginScreenController>;
+typedef TLoginScreenState =
+    ScreenState<LoginScreen, LoginScreenConfiguration, LoginScreenController>;
 
 /// A [ScreenPageState] type corresponding to [LoginScreen].
-typedef TLoginScreenPageState<T extends ScreenPage>
-    = ScreenPageState<T, LoginScreenConfiguration, LoginScreenController>;
+typedef TLoginScreenPageState<T extends ScreenPage> =
+    ScreenPageState<T, LoginScreenConfiguration, LoginScreenController>;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -203,10 +193,7 @@ base class _LoginScreen extends Screen {
   createState() => _State();
 
   @override
-  createController(
-    Screen screen,
-    ScreenState state,
-  ) {
+  createController(Screen screen, ScreenState state) {
     return LoginScreenController(screen, state);
   }
 }

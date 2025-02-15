@@ -12,8 +12,5 @@ part '_state.dart';
 
 @GenerateScreenBindings()
 final class LoginScreen extends _LoginScreen {
-  const LoginScreen({
-    super.key,
-    super.extra,
-  });
+  const LoginScreen({super.key, super.extra});
 }
