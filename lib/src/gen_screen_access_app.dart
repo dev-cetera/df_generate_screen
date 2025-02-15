@@ -10,6 +10,8 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_generate_dart_models_core/df_generate_dart_models_core.dart';
 import 'package:df_screen_core/df_screen_core.dart';
@@ -96,8 +98,7 @@ Future<void> genScreenAccessApp(
     'Looking for files..',
   );
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
-  final filePathStream1 =
-      filePathStream0.where((e) => _isAllowedFileName(e.path));
+  final filePathStream1 = filePathStream0.where((e) => _isAllowedFileName(e.path));
   List<FilePathExplorerFinding> findings;
   try {
     findings = await filePathStream1.toList();
@@ -126,11 +127,13 @@ Future<void> genScreenAccessApp(
       printWhite,
       'Reading template at: $template...',
     );
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(
-      template,
-    );
+    final result = await MdTemplateUtility.i
+        .readTemplateFromPathOrUrl(
+          template,
+        )
+        .value;
 
-    if (result.isErr) {
+    if (result.isErr()) {
       spinner.stop();
       _print(
         printRed,
@@ -241,8 +244,7 @@ class TemplateInterpolator2<T> {
   }
 }
 
-final _interpolator =
-    TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>(
+final _interpolator = TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>(
   {
     '___SCREEN_MAKERS___': (insight) {
       final a = insight.className.toPascalCase();

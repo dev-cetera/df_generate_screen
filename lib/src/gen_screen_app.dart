@@ -10,6 +10,8 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_gen_core/df_gen_core.dart' as df_gen_core;
 import 'package:df_generate_dart_models_core/df_generate_dart_models_core.dart';
@@ -28,8 +30,7 @@ Future<void> genScreenApp(
 }) async {
   final parser = CliParser(
     title: 'dev-cetera.com/df/tools',
-    description:
-        'A tool for generating screen/page files for Flutter projects.',
+    description: 'A tool for generating screen/page files for Flutter projects.',
     example: 'gen-screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
@@ -95,11 +96,13 @@ Future<void> genScreenApp(
       printWhite,
       'Reading template at: $template...',
     );
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(
-      template,
-    );
+    final result = await MdTemplateUtility.i
+        .readTemplateFromPathOrUrl(
+          template,
+        )
+        .value;
 
-    if (result.isErr) {
+    if (result.isErr()) {
       spinner.stop();
       _print(
         printRed,

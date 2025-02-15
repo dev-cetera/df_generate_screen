@@ -191,6 +191,7 @@ base class ____WIDGET_NAME___ extends Screen {
   const ____WIDGET_NAME___({
     required super.key,
     required super.extra,
+    // ignore: unused_element_parameter
     super.controllerTimeout = Duration.zero,
   });
 
