@@ -32,15 +32,16 @@ class LoginScreenConfiguration extends ModelScreenConfiguration {
   //
 
   LoginScreenConfiguration.optional({Map<dynamic, dynamic>? args})
-      : super.optional(
-          title: null,
-          path: _PATH,
-          args: args ?? {},
-          isAccessibleOnlyIfLoggedInAndVerified: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
-          isAccessibleOnlyIfLoggedIn: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
-          isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
-          isRedirectable: _IS_REDIRECTABLE,
-        );
+    : super.optional(
+        title: null,
+        path: _PATH,
+        args: args ?? {},
+        isAccessibleOnlyIfLoggedInAndVerified:
+            _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+        isAccessibleOnlyIfLoggedIn: _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+        isAccessibleOnlyIfLoggedOut: _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
+        isRedirectable: _IS_REDIRECTABLE,
+      );
 
   //
   //
@@ -59,14 +60,16 @@ class LoginScreenConfiguration extends ModelScreenConfiguration {
   static const TR_KEY = _TR_KEY;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged in and verified.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN = _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN;
+  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN =
+      _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged in.
   static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED =
       _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED;
 
   /// Whether the corresponding [Screen] is only accessible if the user is logged out.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT = _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT;
+  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT =
+      _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT;
 
   /// Whether the corresponding [Screen] is redirectable, i.e., if it can be requested from the browser URL.
   static const IS_REDIRECTABLE = _IS_REDIRECTABLE;
@@ -84,13 +87,15 @@ abstract base class _ControllerBroker<T1 extends LoginScreen, T2 extends _State>
   late final state = super.superState as T2;
 
   /// The [ModelScreenConfiguration] that corresponds to `this` controller.
-  late final configuration = screen.extra is LoginScreenConfiguration
-      ? screen.extra as LoginScreenConfiguration
-      : LoginScreenConfiguration.optional(
-          args: screen.extra is ModelScreenConfiguration
-              ? (screen.extra as ModelScreenConfiguration).args
-              : {},
-        );
+  late final configuration =
+      screen.extra is LoginScreenConfiguration
+          ? screen.extra as LoginScreenConfiguration
+          : LoginScreenConfiguration.optional(
+            args:
+                screen.extra is ModelScreenConfiguration
+                    ? (screen.extra as ModelScreenConfiguration).args
+                    : {},
+          );
 
   _ControllerBroker(super.superScreen, super.superState, [super.extra]);
 }
@@ -106,12 +111,15 @@ final generatedLoginScreenRoute = GoRoute(
       key: state.pageKey,
       child: LoginScreen(
         key: _globalKey,
-        extra: extra ??
+        extra:
+            extra ??
             urlToScreenConfiguration(
               url: state.uri,
-              isAccessibleOnlyIfLoggedIn: LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
+              isAccessibleOnlyIfLoggedIn:
+                  LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN,
               isAccessibleOnlyIfLoggedInAndVerified:
-                  LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
+                  LoginScreenConfiguration
+                      .IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED,
               isAccessibleOnlyIfLoggedOut:
                   LoginScreenConfiguration.IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT,
               isRedirectable: LoginScreenConfiguration.IS_REDIRECTABLE,
@@ -133,7 +141,8 @@ Screen? makerLoginScreen(
   bool isLoggedIn,
   bool isLoggedOut,
 ) {
-  if ((_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED && !isLoggedInAndVerified) ||
+  if ((_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED &&
+          !isLoggedInAndVerified) ||
       (_IS_ACCESSIBLE_ONLY_IF_LOGGED_IN && !isLoggedIn) ||
       (_IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT && !isLoggedOut)) {
     return null;
@@ -156,24 +165,25 @@ Screen? makerLoginScreen(
 typedef TLoginScreenController = _ControllerBroker<LoginScreen, _State>;
 
 /// A [AdaptiveScreenState] type corresponding to [LoginScreen].
-typedef TAdaptiveLoginScreenState
-    = AdaptiveScreenState<LoginScreen, LoginScreenConfiguration, LoginScreenController>;
+typedef TAdaptiveLoginScreenState =
+    AdaptiveScreenState<
+      LoginScreen,
+      LoginScreenConfiguration,
+      LoginScreenController
+    >;
 
 /// A [ScreenState] type corresponding to [LoginScreen].
-typedef TLoginScreenState
-    = ScreenState<LoginScreen, LoginScreenConfiguration, LoginScreenController>;
+typedef TLoginScreenState =
+    ScreenState<LoginScreen, LoginScreenConfiguration, LoginScreenController>;
 
 /// A [ScreenPageState] type corresponding to [LoginScreen].
-typedef TLoginScreenPageState<T extends ScreenPage>
-    = ScreenPageState<T, LoginScreenConfiguration, LoginScreenController>;
+typedef TLoginScreenPageState<T extends ScreenPage> =
+    ScreenPageState<T, LoginScreenConfiguration, LoginScreenController>;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 base class _LoginScreen extends Screen {
-  const _LoginScreen({
-    required super.key,
-    required super.extra,
-  });
+  const _LoginScreen({required super.key, required super.extra});
 
   @override
   createState() => _State();
