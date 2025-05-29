@@ -15,6 +15,8 @@
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_gen_core/df_gen_core.dart' as df_gen_core;
 import 'package:df_generate_dart_models_core/df_generate_dart_models_core.dart';
+// ignore: implementation_imports
+import 'package:df_config/src/_etc/replace_data.dart';
 
 import 'package:path/path.dart' as p;
 
@@ -23,15 +25,14 @@ import 'package:path/path.dart' as p;
 Future<void> genScreenApp(
   List<String> args, {
   List<String> defaultTemplates = const [
-    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v1/_state.dart.md',
-    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v1/widget.dart.md',
-    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v1/_controller.dart.md',
+    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v2/_state.dart.md',
+    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v2/widget.dart.md',
+    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v2/_controller.dart.md',
   ],
 }) async {
   final parser = CliParser(
     title: 'dev-cetera.com/df/tools',
-    description:
-        'A tool for generating screen/page files for Flutter projects.',
+    description: 'A tool for generating screen/page files for Flutter projects.',
     example: 'gen-screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
@@ -60,7 +61,7 @@ Future<void> genScreenApp(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(printCyan, parser.getInfo(argParser));
+    _print(Glog.printCyan, parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -75,7 +76,7 @@ Future<void> genScreenApp(
     outputPath = argResults.option(DefaultOptions.OUTPUT_PATH.name)!;
   } catch (_) {
     _print(
-      printRed,
+      Glog.printRed,
       'Missing required args! Use --help flag for more information.',
     );
     exit(ExitCodes.FAILURE.code);
@@ -90,13 +91,12 @@ Future<void> genScreenApp(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(printWhite, 'Reading template at: $template...');
-    final result =
-        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    _print(Glog.printWhite, 'Reading template at: $template...');
+    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       spinner.stop();
-      _print(printRed, ' Failed to read template!');
+      _print(Glog.printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -104,11 +104,12 @@ Future<void> genScreenApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(printWhite, 'Generating...', spinner);
+  _print(Glog.printWhite, 'Generating...', spinner);
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
     final template = entry.value;
+    // ignore: invalid_use_of_internal_member
     final data = template.replaceData({
       '___WIDGET_NAME___': name.toPascalCase(),
     });
@@ -121,7 +122,7 @@ Future<void> genScreenApp(
   // ---------------------------------------------------------------------------
 
   spinner.stop();
-  _print(printGreen, 'Done!');
+  _print(Glog.printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░

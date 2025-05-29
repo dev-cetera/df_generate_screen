@@ -12,8 +12,7 @@
 
 name: df_generate_screen
 description: A tool to generate ready-made screen templates for your Flutter app (uses df_sceen)
-version: 0.6.6
-homepage: https://dev-cetera.com
+version: 0.7.0
 repository: https://github.com/dev-cetera/df_generate_screen
 funding:
   - https://www.buymeacoffee.com/dev_cetera
@@ -33,15 +32,15 @@ environment:
 
 dependencies:
   df_collection: ^0.9.1
-  df_config: ^0.6.2
-  df_gen_core: ^0.6.5
-  df_generate_dart_indexes: ^0.5.11
-  df_generate_dart_models_core: ^0.9.7
-  df_log: ^0.2.4
-  df_screen_core: ^0.5.0
+  df_config: ^0.7.1
+  df_gen_core: ^0.6.8
+  df_generate_dart_indexes: ^0.5.14
+  df_generate_dart_models_core: ^0.9.8
+  df_log: ^0.3.4
+  df_screen_core: ^0.5.1
   df_string: ^0.2.4
-  df_safer_dart: ^0.10.0
   df_type: ^0.10.3
+ 
   args: ^2.6.0
   path: ^1.9.1
 
@@ -55,6 +54,9 @@ dev_dependencies:
 ## -----------------------------------------------------------------------------
 
 executables:
-  gen-screen: gen_screen
-  gen-screen-access: gen_screen_access
-  gen-screen-bindings: gen_screen_bindings
+  gen-screen-v1: gen_screen
+  gen-screen-access-v1: gen_screen_access
+  gen-screen-bindings-v1: gen_screen_bindings
+  gen-screen: gen_screen_v2
+  gen-screen-access: gen_screen_access_v2
+  gen-screen-bindings: gen_screen_bindings_v2

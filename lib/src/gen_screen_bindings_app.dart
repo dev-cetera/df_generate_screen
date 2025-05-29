@@ -25,7 +25,7 @@ import 'extract_insights_from_file.dart';
 Future<void> genScreenBindingsApp(
   List<String> args, {
   List<String> defaultTemplates = const [
-    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v1/_bindings.g.dart.md',
+    'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v2/_bindings.g.dart.md',
   ],
 }) async {
   final parser = CliParser(
@@ -55,7 +55,7 @@ Future<void> genScreenBindingsApp(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(printCyan, parser.getInfo(argParser));
+    _print(Glog.printCyan, parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -70,7 +70,7 @@ Future<void> genScreenBindingsApp(
     dartSdk = argResults.option(DefaultOptions.DART_SDK.name);
   } catch (_) {
     _print(
-      printRed,
+      Glog.printRed,
       'Missing required args! Use --help flag for more information.',
     );
     exit(ExitCodes.FAILURE.code);
@@ -83,13 +83,16 @@ Future<void> genScreenBindingsApp(
 
   // ---------------------------------------------------------------------------
 
-  final analysisContextCollection = createDartAnalysisContextCollection({
-    inputPath,
-  }, dartSdk,);
+  final analysisContextCollection = createDartAnalysisContextCollection(
+    {
+      inputPath,
+    },
+    dartSdk,
+  );
 
   // ---------------------------------------------------------------------------
 
-  _print(printWhite, 'Looking for Dart files..');
+  _print(Glog.printWhite, 'Looking for Dart files..');
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
   final filePathStream1 = filePathStream0.where(
     (e) => _isAllowedFileName(e.path),
@@ -99,12 +102,12 @@ Future<void> genScreenBindingsApp(
     findings = await filePathStream1.toList();
   } catch (e) {
     spinner.stop();
-    _print(printRed, 'Failed to read file tree!');
+    _print(Glog.printRed, 'Failed to read file tree!');
     exit(ExitCodes.FAILURE.code);
   }
   if (findings.isEmpty) {
     spinner.stop();
-    _print(printYellow, 'No files found in $inputPath!');
+    _print(Glog.printYellow, 'No files found in $inputPath!');
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -112,13 +115,12 @@ Future<void> genScreenBindingsApp(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(printWhite, 'Reading template at: $template...');
-    final result =
-        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    _print(Glog.printWhite, 'Reading template at: $template...');
+    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       spinner.stop();
-      _print(printRed, ' Failed to read template!');
+      _print(Glog.printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -126,7 +128,7 @@ Future<void> genScreenBindingsApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(printWhite, 'Generating...', spinner);
+  _print(Glog.printWhite, 'Generating...', spinner);
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -145,27 +147,27 @@ Future<void> genScreenBindingsApp(
             fileName,
           );
           await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
-          printWhite('[gen-screen-bindings] ✔ Generated $fileName');
+          Glog.printWhite('[gen-screen-bindings] ✔ Generated $fileName');
         }
       }
     } catch (e) {
-      _print(printRed, '✘ One or more files failed to generate!', spinner);
+      _print(Glog.printRed, '✘ One or more files failed to generate!', spinner);
       exit(ExitCodes.FAILURE.code);
     }
   }
 
   // ---------------------------------------------------------------------------
 
-  _print(printWhite, 'Fixing generated files..', spinner);
+  _print(Glog.printWhite, 'Fixing generated files..', spinner);
   await fixDartFile(inputPath);
 
-  _print(printWhite, 'Formatting generated files..', spinner);
+  _print(Glog.printWhite, 'Formatting generated files..', spinner);
   await fmtDartFile(inputPath);
 
   // ---------------------------------------------------------------------------
 
   spinner.stop();
-  _print(printGreen, 'Done!');
+  _print(Glog.printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -183,8 +185,7 @@ bool _isAllowedFileName(String e) {
 
 extension _ClassInsightExtension on ClassInsight<GenerateScreenBindings> {
   StringCaseType get stringCaseType {
-    return StringCaseType.values.valueOf(annotation.keyStringCase) ??
-        StringCaseType.CAMEL_CASE;
+    return StringCaseType.values.valueOf(annotation.keyStringCase) ?? StringCaseType.CAMEL_CASE;
   }
 }
 
@@ -198,17 +199,13 @@ String _screenSegment(ClassInsight<ModelGenerateScreenBindings> insight) {
   final screenKey = _screenKey(insight);
   final path = insight.annotation.path ?? '';
   final screenSegment = p.joinAll([
-    path.isNotEmpty && path.startsWith(RegExp(r'[\\/]'))
-        ? path.substring(1)
-        : path,
+    path.isNotEmpty && path.startsWith(RegExp(r'[\\/]')) ? path.substring(1) : path,
     screenKey,
   ]);
   return screenSegment;
 }
 
-final _interpolator = TemplateInterpolator<
-  ClassInsight<GenerateScreenBindings>
->({
+final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>({
   '___SCREEN_KEY___': _screenKey,
   '___SCREEN_SEGMENT___': _screenSegment,
   '___WIDGET_NAME___': (insight) {
@@ -232,8 +229,7 @@ final _interpolator = TemplateInterpolator<
     return '/$screenSegment';
   },
   '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
-    return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false)
-        .toString();
+    return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false).toString();
   },
   '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
     return (insight.annotation.isAccessibleOnlyIfLoggedIn ?? false).toString();
@@ -278,31 +274,44 @@ final _interpolator = TemplateInterpolator<
     }
     return b.toString();
   },
+  '___IP0_V2___': (insight) {
+    final params =
+        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    if (params.isNotEmpty) {
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final fieldType = e.fieldType;
+        final nullable = e.nullable != false;
+        final questionMark = nullable ? '?' : '';
+        return 'final $fieldType$questionMark $fieldName;';
+      }).toList()
+        ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
   '___IP0___': (insight) {
     final params =
-        insight.annotation.internalParameters
-            ?.map((e) => FieldUtils.ofOrNull(e))
-            .nonNulls ??
-        {};
+        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
     if (params.isNotEmpty) {
-      final a =
-          params.map((e) {
-              final fieldName = e.fieldPath!.join('_').toCamelCase();
-              final fieldKey = insight.stringCaseType.convert(fieldName);
-              final fieldType = e.fieldType;
-              final nullable = e.nullable != false;
-              final exclamationMark = nullable ? '' : '!';
-              final questionMark = nullable ? '?' : '';
-              final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
-              return [
-                '/// Key corresponding to the value `$fieldName`',
-                "static const $fieldK = '$fieldKey';",
-                '/// Returns the **internal parameter** with the key `$fieldKey`',
-                '/// or [$fieldK].',
-                '$fieldType$questionMark get $fieldName => arg<$fieldType>($fieldK)$exclamationMark;',
-              ].join('\n');
-            }).toList()
-            ..sort();
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final fieldKey = insight.stringCaseType.convert(fieldName);
+        final fieldType = e.fieldType;
+        final nullable = e.nullable != false;
+        final exclamationMark = nullable ? '' : '!';
+        final questionMark = nullable ? '?' : '';
+        final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
+        return [
+          '/// Key corresponding to the value `$fieldName`',
+          "static const $fieldK = '$fieldKey';",
+          '/// Returns the **internal parameter** with the key `$fieldKey`',
+          '/// or [$fieldK].',
+          '$fieldType$questionMark get $fieldName => arg<$fieldType>($fieldK)$exclamationMark;',
+        ].join('\n');
+      }).toList()
+        ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -310,21 +319,17 @@ final _interpolator = TemplateInterpolator<
   },
   '___IP1___': (insight) {
     final params =
-        insight.annotation.internalParameters
-            ?.map((e) => FieldUtils.ofOrNull(e))
-            .nonNulls ??
-        {};
+        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
     if (params.isNotEmpty) {
-      final a =
-          params.map((e) {
-              final fieldName = e.fieldPath!.join('_').toCamelCase();
-              final fieldType = e.fieldType;
-              final nullable = e.nullable != false;
-              final questionMark = nullable ? '?' : '';
-              final required = nullable ? '' : 'required ';
-              return '$required$fieldType$questionMark $fieldName,';
-            }).toList()
-            ..sort();
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final fieldType = e.fieldType;
+        final nullable = e.nullable != false;
+        final questionMark = nullable ? '?' : '';
+        final required = nullable ? '' : 'required ';
+        return '$required$fieldType$questionMark $fieldName,';
+      }).toList()
+        ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -332,18 +337,32 @@ final _interpolator = TemplateInterpolator<
   },
   '___IP2___': (insight) {
     final params =
-        insight.annotation.internalParameters
-            ?.map((e) => FieldUtils.ofOrNull(e))
-            .nonNulls ??
-        {};
+        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
     if (params.isNotEmpty) {
-      final a =
-          params.map((e) {
-              final fieldName = e.fieldPath!.join('_').toCamelCase();
-              final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
-              return '$fieldK: $fieldName,';
-            }).toList()
-            ..sort();
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
+        return '$fieldK: $fieldName,';
+      }).toList()
+        ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___IP3_V2___': (insight) {
+    final params =
+        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    if (params.isNotEmpty) {
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final fieldType = e.fieldType;
+        final nullable = e.nullable != false;
+        final exclamationMark = nullable ? '' : '!';
+        final questionMark = nullable ? '?' : '';
+        return '$fieldType$questionMark get $fieldName =>  super.superScreen?.routeState?.$fieldName$exclamationMark;';
+      }).toList()
+        ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -351,29 +370,42 @@ final _interpolator = TemplateInterpolator<
   },
   '___QP0___': (insight) {
     final params =
-        insight.annotation.queryParameters
-            ?.map((e) => FieldUtils.ofOrNull(e))
-            .nonNulls ??
-        {};
+        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
     if (params.isNotEmpty) {
-      final a =
-          params.map((e) {
-              final fieldName = e.fieldPath!.join('_').toCamelCase();
-              final fieldKey = insight.stringCaseType.convert(fieldName);
-              final nullable = e.nullable != false;
-              final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
-              final exclamationMark = nullable ? '' : '!';
-              final questionMark = nullable ? '?' : '';
-              return [
-                '/// Key corresponding to the value `$fieldName`',
-                // ignore: unnecessary_string_escapes
-                "static const $fieldK = '$fieldKey';",
-                '/// Returns the URI **query parameter** with the key `$fieldKey`',
-                '/// or [$fieldK].',
-                'String$questionMark get $fieldName => arg<String>($fieldK)$exclamationMark;',
-              ].join('\n');
-            }).toList()
-            ..sort();
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final fieldKey = insight.stringCaseType.convert(fieldName);
+        final nullable = e.nullable != false;
+        final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
+        final exclamationMark = nullable ? '' : '!';
+        final questionMark = nullable ? '?' : '';
+        return [
+          '/// Key corresponding to the value `$fieldName`',
+          // ignore: unnecessary_string_escapes
+          "static const $fieldK = '$fieldKey';",
+          '/// Returns the URI **query parameter** with the key `$fieldKey`',
+          '/// or [$fieldK].',
+          'String$questionMark get $fieldName => arg<String>($fieldK)$exclamationMark;',
+        ].join('\n');
+      }).toList()
+        ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___QP0_V2___': (insight) {
+    final params =
+        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    if (params.isNotEmpty) {
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final nullable = e.nullable != false;
+        final exclamationMark = nullable ? '' : '!';
+        final questionMark = nullable ? '?' : '';
+        return "String$questionMark get $fieldName => uri.queryParameters['$fieldName']$exclamationMark;";
+      }).toList()
+        ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -381,18 +413,14 @@ final _interpolator = TemplateInterpolator<
   },
   '___QP1___': (insight) {
     final params =
-        insight.annotation.queryParameters
-            ?.map((e) => FieldUtils.ofOrNull(e))
-            .nonNulls ??
-        {};
+        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
     if (params.isNotEmpty) {
-      final a =
-          params.map((e) {
-              final fieldName = e.fieldPath!.join('_').toCamelCase();
-              final nullable = e.nullable != false;
-              return "${nullable ? "String?" : "required String"} $fieldName,";
-            }).toList()
-            ..sort();
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final nullable = e.nullable != false;
+        return "${nullable ? "String?" : "required String"} $fieldName,";
+      }).toList()
+        ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -400,19 +428,46 @@ final _interpolator = TemplateInterpolator<
   },
   '___QP2___': (insight) {
     final params =
-        insight.annotation.queryParameters
-            ?.map((e) => FieldUtils.ofOrNull(e))
-            .nonNulls ??
-        {};
+        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
     if (params.isNotEmpty) {
-      final a =
-          params.map((e) {
-              final fieldName = e.fieldPath!.join('_').toCamelCase();
-              final nullable = e.nullable != false;
-              final fieldK = 'K_${fieldName.toSnakeCase().toUpperCase()}';
-              return "${nullable ? "if ($fieldName != null) " : ""}$fieldK: $fieldName,";
-            }).toList()
-            ..sort();
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final nullable = e.nullable != false;
+        final fieldK = 'K_${fieldName.toSnakeCase().toUpperCase()}';
+        return "${nullable ? "if ($fieldName != null) " : ""}$fieldK: $fieldName,";
+      }).toList()
+        ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___QP2_V2___': (insight) {
+    final params =
+        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    if (params.isNotEmpty) {
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        return '$fieldName: this.$fieldName,';
+      }).toList()
+        ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___QP3_V2___': (insight) {
+    final params =
+        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    if (params.isNotEmpty) {
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        final nullable = e.nullable != false;
+        final exclamationMark = nullable ? '' : '!';
+        final questionMark = nullable ? '?' : '';
+        return "String$questionMark get $fieldName =>  super.superScreen?.routeState?.uri.queryParameters['$fieldName']$exclamationMark;";
+      }).toList()
+        ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
