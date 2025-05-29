@@ -27,7 +27,7 @@ class ____WIDGET_NAME___Extra {
   //
 
   const ____WIDGET_NAME___Extra({
-    ___IP1__
+    ___IP1___
     @visibleForTesting
     Map<dynamic, dynamic>? $dummy,
   });
@@ -111,7 +111,7 @@ final class ____WIDGET_NAME___RouteState extends RouteState<____WIDGET_NAME___Ex
 
   ____WIDGET_NAME___RouteState({
     ___QP1___
-    Map<dynamic, dynamic>? $queryParameters,
+    Map<String, String>? $queryParameters,
   }) : super.parse(
     _PATH,
     queryParameters: {

@@ -448,7 +448,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
-        return '$fieldName: this.$fieldName,';
+        return '$fieldName: $fieldName,';
       }).toList()
         ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
