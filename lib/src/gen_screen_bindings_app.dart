@@ -206,6 +206,18 @@ String _screenSegment(ClassInsight<ModelGenerateScreenBindings> insight) {
 }
 
 final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>({
+  '___CONDITION___': (insight) {
+    if (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified == true) {
+      return 'isLoggedInAndVerified';
+    }
+    if (insight.annotation.isAccessibleOnlyIfLoggedIn == true) {
+      return 'isLoggedIn';
+    }
+    if (insight.annotation.isAccessibleOnlyIfLoggedOut == true) {
+      return 'isLoggedOut';
+    }
+    return 'null';
+  },
   '___SCREEN_KEY___': _screenKey,
   '___SCREEN_SEGMENT___': _screenSegment,
   '___WIDGET_NAME___': (insight) {

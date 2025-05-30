@@ -8,12 +8,21 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-import 'package:df_screen/df_screen.dart';
-import 'package:flutter/widgets.dart' show SizedBox;
-
-import '_screens.g.dart';
+import '/_common.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+bool isLoggedInAndEmailVerified() {
+  return DI.global<AuthServiceInterface>().map((e) => e.loggedInAndEmailVerified).unwrapOr(false);
+}
+
+bool isLoggedIn() {
+  return DI.global<AuthServiceInterface>().map((e) => e.loggedIn).unwrapOr(false);
+}
+
+bool isLoggedOut() {
+  return DI.global<AuthServiceInterface>().map((e) => e.loggedOut).unwrapOr(false);
+}
 
 final class EmptyScreenState extends RouteState {
   EmptyScreenState() : super.parse('/empty');

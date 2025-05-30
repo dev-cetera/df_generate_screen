@@ -76,6 +76,7 @@ class ___WIDGET_NAME___RouteBuilder extends RouteBuilder<___WIDGET_NAME___Extra?
   ___WIDGET_NAME___RouteBuilder()
       : super(
           routeState: ___WIDGET_NAME___RouteState(),
+          condition: ___CONDITION___,
           builder: (context, routeState) {
             return ___WIDGET_NAME___(routeState: routeState);
           },
