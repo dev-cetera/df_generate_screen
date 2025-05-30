@@ -200,6 +200,12 @@ class TemplateInterpolator2<T> {
 }
 
 final _interpolator = TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>({
+  '___ROUTE_BUILDERS___': (insight) {
+    final a = insight.className.toPascalCase();
+    return [
+      '${a}RouteBuilder()',
+    ].join('\n');
+  },
   '___SCREEN_MAKERS___': (insight) {
     final a = insight.className.toPascalCase();
     return 'maker$a';

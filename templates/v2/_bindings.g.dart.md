@@ -15,57 +15,21 @@ part of 'widget.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-class ____WIDGET_NAME___Extra {
-  //
-  //
-  //
-
+class ___WIDGET_NAME___Extra {
   ___IP0_V2___
 
-  //
-  //
-  //
-
-  const ____WIDGET_NAME___Extra({
+  const ___WIDGET_NAME___Extra({
     ___IP1___
+    // ignore: unused_element_parameter
     @visibleForTesting
     Map<dynamic, dynamic>? $dummy,
   });
-
-  //
-  //
-  //
-
-  /// The name of the corresponding [Screen] class.
-  static const WIDGET = _CLASS;
-
-  /// The path of the corresponding [Screen].
-  static const PATH = _PATH;
-
-  /// The segment of the corresponding [Screen] path.
-  static const SEGMENT = _SEGMENT;
-
-  /// The translation key for the corresponding [Screen].
-  static const TR_KEY = _TR_KEY;
-
-  /// Whether the corresponding [Screen] is only accessible if the user is logged in and verified.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN = _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN;
-
-  /// Whether the corresponding [Screen] is only accessible if the user is logged in.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED = _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED;
-
-  /// Whether the corresponding [Screen] is only accessible if the user is logged out.
-  static const IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT = _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT;
-
-  /// Whether the corresponding [Screen] is redirectable, i.e., if it can be requested from the browser URL.
-  static const IS_REDIRECTABLE = _IS_REDIRECTABLE;
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 /// Extend this class to create a controller for the [___WIDGET_NAME___] screen.
-abstract base class _ControllerBroker<T1 extends ___WIDGET_NAME___, T2 extends _State>
-    extends ScreenController<___WIDGET_NAME___Configuration> {
+abstract base class _ControllerBroker<T1 extends ___WIDGET_NAME___, T2 extends _State> extends ScreenController {
 
   /// The [Screen] that corresponds to `this` controller.
   late final screen = super.superScreen as T1;
@@ -75,11 +39,7 @@ abstract base class _ControllerBroker<T1 extends ___WIDGET_NAME___, T2 extends _
 
   ___QP3_V2___
 
-  _ControllerBroker(
-    super.superScreen,
-    super.superState, [
-    super.routeState,
-  ]);
+  _ControllerBroker(super.superScreen, super.superState);
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -88,42 +48,43 @@ abstract base class _ControllerBroker<T1 extends ___WIDGET_NAME___, T2 extends _
 typedef T___WIDGET_NAME___Controller =  _ControllerBroker<___WIDGET_NAME___, _State>;
 
 /// A [AdaptiveScreenState] type corresponding to [___WIDGET_NAME___].
-typedef TAdaptive___WIDGET_NAME___State = AdaptiveScreenState<___WIDGET_NAME___, ___WIDGET_NAME___Configuration, ___WIDGET_NAME___Controller>;
+typedef TAdaptive___WIDGET_NAME___State = AdaptiveScreenState<___WIDGET_NAME___, ___WIDGET_NAME___Controller>;
 
 /// A [ScreenState] type corresponding to [___WIDGET_NAME___].
-typedef T___WIDGET_NAME___State = ScreenState<___WIDGET_NAME___, ___WIDGET_NAME___Configuration, ___WIDGET_NAME___Controller>;
-
-/// A [ScreenPageState] type corresponding to [___WIDGET_NAME___].
-typedef T___WIDGET_NAME___PageState<T extends ScreenPage> = ScreenPageState<T, ___WIDGET_NAME___Configuration, ___WIDGET_NAME___Controller>;
+typedef T___WIDGET_NAME___State = ScreenState<___WIDGET_NAME___, ___WIDGET_NAME___Controller>;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-final class ____WIDGET_NAME___RouteState extends RouteState<____WIDGET_NAME___Extra?> {
-  //
-  //
-  //
-
+final class ___WIDGET_NAME___RouteState extends RouteState<___WIDGET_NAME___Extra?> {
   ___QP0_V2___
 
-  //
-  //
-  //
-
-  ____WIDGET_NAME___RouteState({
-    ___QP1___
-    Map<String, String>? $queryParameters,
+  ___WIDGET_NAME___RouteState({
+    ___QP1_V2___
+    ___WIDGET_NAME___Extra? extra,
   }) : super.parse(
     _PATH,
+    extra: extra,
     queryParameters: {
       ___QP2_V2___
-      ...?$queryParameters
     },
   );
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-base class ____WIDGET_NAME___ extends Screen {
+class ___WIDGET_NAME___RouteBuilder extends RouteBuilder<___WIDGET_NAME___Extra?> {
+  ___WIDGET_NAME___RouteBuilder()
+      : super(
+          routeState: ___WIDGET_NAME___RouteState(),
+          builder: (context, routeState) {
+            return ___WIDGET_NAME___(routeState: routeState);
+          },
+        );
+}
+
+// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+base class ____WIDGET_NAME___ extends Screen<___WIDGET_NAME___Extra?> {
   const ____WIDGET_NAME___({
     required super.key,
     required super.routeState,
@@ -145,13 +106,6 @@ base class ____WIDGET_NAME___ extends Screen {
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-// The following constants are set by the generator based on the provided
-// options. Together they form the behavior of the generated screen.
-
-const _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED = ___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___;
-const _IS_ACCESSIBLE_ONLY_IF_LOGGED_IN = ___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN___;
-const _IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT = ___IS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___;
-const _IS_REDIRECTABLE = ___IS_REDIRECTABLE___;
 const _CLASS = '___WIDGET_NAME___';
 const _SEGMENT = '___SCREEN_SEGMENT___';
 const _PATH = '/$_SEGMENT';

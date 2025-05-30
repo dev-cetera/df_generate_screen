@@ -360,7 +360,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
         final nullable = e.nullable != false;
         final exclamationMark = nullable ? '' : '!';
         final questionMark = nullable ? '?' : '';
-        return '$fieldType$questionMark get $fieldName =>  super.superScreen?.routeState?.$fieldName$exclamationMark;';
+        return '$fieldType$questionMark get $fieldName =>  super.superScreen!.routeState!.$fieldName)$exclamationMark;';
       }).toList()
         ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
@@ -400,10 +400,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
-        final nullable = e.nullable != false;
-        final exclamationMark = nullable ? '' : '!';
-        final questionMark = nullable ? '?' : '';
-        return "String$questionMark get $fieldName => uri.queryParameters['$fieldName']$exclamationMark;";
+        return "String? get $fieldName => uri.queryParameters['$fieldName'];";
       }).toList()
         ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
@@ -419,6 +416,20 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         final nullable = e.nullable != false;
         return "${nullable ? "String?" : "required String"} $fieldName,";
+      }).toList()
+        ..sort();
+      return a.isNotEmpty ? a.join('\n') : '';
+    } else {
+      return '';
+    }
+  },
+  '___QP1_V2___': (insight) {
+    final params =
+        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    if (params.isNotEmpty) {
+      final a = params.map((e) {
+        final fieldName = e.fieldPath!.join('_').toCamelCase();
+        return 'String? $fieldName,';
       }).toList()
         ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
@@ -448,7 +459,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
-        return '$fieldName: $fieldName,';
+        return 'if ($fieldName != null) $fieldName: $fieldName,';
       }).toList()
         ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
@@ -462,10 +473,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
-        final nullable = e.nullable != false;
-        final exclamationMark = nullable ? '' : '!';
-        final questionMark = nullable ? '?' : '';
-        return "String$questionMark get $fieldName =>  super.superScreen?.routeState?.uri.queryParameters['$fieldName']$exclamationMark;";
+        return "String? get $fieldName =>  super.superScreen?.routeState?.uri.queryParameters['$fieldName'];";
       }).toList()
         ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
