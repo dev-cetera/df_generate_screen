@@ -55,7 +55,7 @@ Future<void> genScreenBindingsApp(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(Glog.printCyan, parser.getInfo(argParser));
+    _print(Log.printCyan, parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -70,7 +70,7 @@ Future<void> genScreenBindingsApp(
     dartSdk = argResults.option(DefaultOptions.DART_SDK.name);
   } catch (_) {
     _print(
-      Glog.printRed,
+      Log.printRed,
       'Missing required args! Use --help flag for more information.',
     );
     exit(ExitCodes.FAILURE.code);
@@ -92,7 +92,7 @@ Future<void> genScreenBindingsApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(Glog.printWhite, 'Looking for Dart files..');
+  _print(Log.printWhite, 'Looking for Dart files..');
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
   final filePathStream1 = filePathStream0.where(
     (e) => _isAllowedFileName(e.path),
@@ -102,12 +102,12 @@ Future<void> genScreenBindingsApp(
     findings = await filePathStream1.toList();
   } catch (e) {
     spinner.stop();
-    _print(Glog.printRed, 'Failed to read file tree!');
+    _print(Log.printRed, 'Failed to read file tree!');
     exit(ExitCodes.FAILURE.code);
   }
   if (findings.isEmpty) {
     spinner.stop();
-    _print(Glog.printYellow, 'No files found in $inputPath!');
+    _print(Log.printYellow, 'No files found in $inputPath!');
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -115,12 +115,12 @@ Future<void> genScreenBindingsApp(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(Glog.printWhite, 'Reading template at: $template...');
+    _print(Log.printWhite, 'Reading template at: $template...');
     final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       spinner.stop();
-      _print(Glog.printRed, ' Failed to read template!');
+      _print(Log.printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -128,7 +128,7 @@ Future<void> genScreenBindingsApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(Glog.printWhite, 'Generating...', spinner);
+  _print(Log.printWhite, 'Generating...', spinner);
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -147,27 +147,27 @@ Future<void> genScreenBindingsApp(
             fileName,
           );
           await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
-          Glog.printWhite('[gen-screen-bindings] ✔ Generated $fileName');
+          Log.printWhite('[gen-screen-bindings] ✔ Generated $fileName');
         }
       }
     } catch (e) {
-      _print(Glog.printRed, '✘ One or more files failed to generate!', spinner);
+      _print(Log.printRed, '✘ One or more files failed to generate!', spinner);
       exit(ExitCodes.FAILURE.code);
     }
   }
 
   // ---------------------------------------------------------------------------
 
-  _print(Glog.printWhite, 'Fixing generated files..', spinner);
+  _print(Log.printWhite, 'Fixing generated files..', spinner);
   await fixDartFile(inputPath);
 
-  _print(Glog.printWhite, 'Formatting generated files..', spinner);
+  _print(Log.printWhite, 'Formatting generated files..', spinner);
   await fmtDartFile(inputPath);
 
   // ---------------------------------------------------------------------------
 
   spinner.stop();
-  _print(Glog.printGreen, 'Done!');
+  _print(Log.printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░

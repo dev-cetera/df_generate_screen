@@ -61,7 +61,7 @@ Future<void> genScreenApp(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(Glog.printCyan, parser.getInfo(argParser));
+    _print(Log.printCyan, parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -76,7 +76,7 @@ Future<void> genScreenApp(
     outputPath = argResults.option(DefaultOptions.OUTPUT_PATH.name)!;
   } catch (_) {
     _print(
-      Glog.printRed,
+      Log.printRed,
       'Missing required args! Use --help flag for more information.',
     );
     exit(ExitCodes.FAILURE.code);
@@ -91,12 +91,12 @@ Future<void> genScreenApp(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(Glog.printWhite, 'Reading template at: $template...');
+    _print(Log.printWhite, 'Reading template at: $template...');
     final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       spinner.stop();
-      _print(Glog.printRed, ' Failed to read template!');
+      _print(Log.printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -104,7 +104,7 @@ Future<void> genScreenApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(Glog.printWhite, 'Generating...', spinner);
+  _print(Log.printWhite, 'Generating...', spinner);
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -122,7 +122,7 @@ Future<void> genScreenApp(
   // ---------------------------------------------------------------------------
 
   spinner.stop();
-  _print(Glog.printGreen, 'Done!');
+  _print(Log.printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
