@@ -32,7 +32,8 @@ Future<void> genScreenApp(
 }) async {
   final parser = CliParser(
     title: 'dev-cetera.com/df/tools',
-    description: 'A tool for generating screen/page files for Flutter projects.',
+    description:
+        'A tool for generating screen/page files for Flutter projects.',
     example: 'gen-screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
@@ -92,7 +93,9 @@ Future<void> genScreenApp(
   final templateData = <String, String>{};
   for (final template in templates) {
     _print(Log.printWhite, 'Reading template at: $template...');
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    final result = await MdTemplateUtility.i
+        .readTemplateFromPathOrUrl(template)
+        .value;
 
     if (result.isErr()) {
       spinner.stop();
