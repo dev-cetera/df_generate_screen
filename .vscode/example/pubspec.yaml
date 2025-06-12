@@ -1,8 +1,0 @@
-name: example
-publish_to: "none"
-environment:
-  sdk: ">=3.5.0 <4.0.0"
-dependencies:
-  flutter:
-    sdk: flutter
-  df_screen: ^0.6.7
