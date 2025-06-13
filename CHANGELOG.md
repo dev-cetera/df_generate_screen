@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.7.2]
+
+- Released @ 6/2025 (UTC)
+- chore: Update dendendencies
+
 ## [0.7.1]
 
 - Released @ 6/2025 (UTC)

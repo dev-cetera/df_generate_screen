@@ -83,12 +83,9 @@ Future<void> genScreenBindingsApp(
 
   // ---------------------------------------------------------------------------
 
-  final analysisContextCollection = createDartAnalysisContextCollection(
-    {
-      inputPath,
-    },
-    dartSdk,
-  );
+  final analysisContextCollection = createDartAnalysisContextCollection({
+    inputPath,
+  }, dartSdk);
 
   // ---------------------------------------------------------------------------
 
@@ -116,7 +113,9 @@ Future<void> genScreenBindingsApp(
   final templateData = <String, String>{};
   for (final template in templates) {
     _print(Log.printWhite, 'Reading template at: $template...');
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    final result = await MdTemplateUtility.i
+        .readTemplateFromPathOrUrl(template)
+        .value;
 
     if (result.isErr()) {
       spinner.stop();
@@ -185,7 +184,8 @@ bool _isAllowedFileName(String e) {
 
 extension _ClassInsightExtension on ClassInsight<GenerateScreenBindings> {
   StringCaseType get stringCaseType {
-    return StringCaseType.values.valueOf(annotation.keyStringCase) ?? StringCaseType.CAMEL_CASE;
+    return StringCaseType.values.valueOf(annotation.keyStringCase) ??
+        StringCaseType.CAMEL_CASE;
   }
 }
 
@@ -199,7 +199,9 @@ String _screenSegment(ClassInsight<ModelGenerateScreenBindings> insight) {
   final screenKey = _screenKey(insight);
   final path = insight.annotation.path ?? '';
   final screenSegment = p.joinAll([
-    path.isNotEmpty && path.startsWith(RegExp(r'[\\/]')) ? path.substring(1) : path,
+    path.isNotEmpty && path.startsWith(RegExp(r'[\\/]'))
+        ? path.substring(1)
+        : path,
     screenKey,
   ]);
   return screenSegment;
@@ -241,7 +243,8 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     return '/$screenSegment';
   },
   '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
-    return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false).toString();
+    return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false)
+        .toString();
   },
   '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
     return (insight.annotation.isAccessibleOnlyIfLoggedIn ?? false).toString();
@@ -288,7 +291,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___IP0_V2___': (insight) {
     final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -296,8 +302,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
         final nullable = e.nullable != false;
         final questionMark = nullable ? '?' : '';
         return 'final $fieldType$questionMark $fieldName;';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -305,7 +310,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___IP0___': (insight) {
     final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -322,8 +330,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
           '/// or [$fieldK].',
           '$fieldType$questionMark get $fieldName => arg<$fieldType>($fieldK)$exclamationMark;',
         ].join('\n');
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -331,7 +338,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___IP1___': (insight) {
     final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -340,8 +350,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
         final questionMark = nullable ? '?' : '';
         final required = nullable ? '' : 'required ';
         return '$required$fieldType$questionMark $fieldName,';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -349,14 +358,16 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___IP2___': (insight) {
     final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
         return '$fieldK: $fieldName,';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -364,7 +375,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___IP3_V2___': (insight) {
     final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -373,8 +387,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
         final exclamationMark = nullable ? '' : '!';
         final questionMark = nullable ? '?' : '';
         return '$fieldType$questionMark get $fieldName =>  super.superScreen!.routeState!.$fieldName)$exclamationMark;';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -382,7 +395,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___QP0___': (insight) {
     final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -399,8 +415,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
           '/// or [$fieldK].',
           'String$questionMark get $fieldName => arg<String>($fieldK)$exclamationMark;',
         ].join('\n');
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -408,13 +423,15 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___QP0_V2___': (insight) {
     final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         return "String? get $fieldName => uri.queryParameters['$fieldName'];";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -422,14 +439,16 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___QP1___': (insight) {
     final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         final nullable = e.nullable != false;
         return "${nullable ? "String?" : "required String"} $fieldName,";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -437,13 +456,15 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___QP1_V2___': (insight) {
     final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         return 'String? $fieldName,';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -451,15 +472,17 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___QP2___': (insight) {
     final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         final nullable = e.nullable != false;
         final fieldK = 'K_${fieldName.toSnakeCase().toUpperCase()}';
         return "${nullable ? "if ($fieldName != null) " : ""}$fieldK: $fieldName,";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -467,13 +490,15 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___QP2_V2___': (insight) {
     final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         return "if ($fieldName != null) '$fieldName': $fieldName,";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
@@ -481,13 +506,15 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
   },
   '___QP3_V2___': (insight) {
     final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+        insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         return "String? get $fieldName =>  super.superScreen?.routeState?.uri.queryParameters['$fieldName'];";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
