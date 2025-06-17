@@ -11,12 +11,16 @@
 ##.title~
 
 name: generate_screens
+homepage: https://dev-cetera.com/
+repository: https://github.com/robmllze/df_generate_screen
+funding:
+  - https://www.buymeacoffee.com/dev_cetera
 publish_to: none
 
 ## -----------------------------------------------------------------------------
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.5.0 <4.0.0"
 
 ## -----------------------------------------------------------------------------
 
@@ -24,6 +28,7 @@ dependencies:
   df_generate_screen:
     path: ../
 
-  df_log: ^0.2.1
+  df_log: ^0.3.12
   df_string: ^0.2.4
-  df_gen_core: ^0.3.3
+  df_gen_core: ^0.6.10
+
