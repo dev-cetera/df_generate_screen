@@ -13,15 +13,15 @@ import '/_common.dart';
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 bool isLoggedInAndEmailVerified() {
-  return DI.global<AuthServiceInterface>().map((e) => e.loggedInAndEmailVerified).unwrapOr(false);
+  return DI.global.getSyncOrNone<AuthServiceInterface>().map((e) => e.loggedInAndEmailVerified).unwrapOr(false);
 }
 
 bool isLoggedIn() {
-  return DI.global<AuthServiceInterface>().map((e) => e.loggedIn).unwrapOr(false);
+  return DI.global.getSyncOrNone<AuthServiceInterface>().map((e) => e.loggedIn).unwrapOr(false);
 }
 
 bool isLoggedOut() {
-  return DI.global<AuthServiceInterface>().map((e) => e.loggedOut).unwrapOr(false);
+  return DI.global.getSyncOrNone<AuthServiceInterface>().map((e) => e.loggedOut).unwrapOr(false);
 }
 
 final class EmptyScreenState extends RouteState {

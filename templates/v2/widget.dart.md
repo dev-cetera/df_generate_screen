@@ -1,13 +1,14 @@
 ```dart
 // ignore_for_file: unused_import
 
-import 'package:flutter/material.dart';
-import 'package:df_screen/df_screen.dart';
+//import '/_common.dart';
+//import 'package:flutter/material.dart';
+//import 'package:df_screen/df_screen.dart';
 
 import '../_access.g.dart';
 part '_bindings.g.dart';
 part '_controller.dart';
-part '/_state.dart';
+part '_state.dart';
 
 
 @GenerateScreenBindings(
