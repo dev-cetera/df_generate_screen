@@ -85,9 +85,10 @@ Future<void> genScreenAccessApp(
 
   // ---------------------------------------------------------------------------
 
-  final analysisContextCollection = createDartAnalysisContextCollection({
-    inputPath,
-  }, dartSdk);
+  final analysisContextCollection = createDartAnalysisContextCollection(
+    {inputPath},
+    dartSdk,
+  );
 
   // ---------------------------------------------------------------------------
 
@@ -115,9 +116,7 @@ Future<void> genScreenAccessApp(
   final templateData = <String, String>{};
   for (final template in templates) {
     _print(Log.printWhite, 'Reading template at: $template...');
-    final result = await MdTemplateUtility.i
-        .readTemplateFromPathOrUrl(template)
-        .value;
+    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       spinner.stop();
@@ -198,42 +197,41 @@ class TemplateInterpolator2<T> {
   }
 }
 
-final _interpolator =
-    TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>({
-      '___ROUTE_BUILDERS___': (insight) {
-        final a = insight.className.toPascalCase();
-        return ['${a}RouteBuilder()'].join('\n');
-      },
-      '___SCREEN_MAKERS___': (insight) {
-        final a = insight.className.toPascalCase();
-        return 'maker$a';
-      },
-      '___PATHS___': (insight) {
-        final a = insight.className.toUpperSnakeCase();
-        return '...PATH_$a';
-      },
-      '___PATHS_NOT_REDIRECTABLE___': (insight) {
-        final a = insight.className.toUpperSnakeCase();
-        return '...PATH_NOT_REDIRECTABLE_$a';
-      },
-      '___PATHS_ALWAYS_ACCESSIBLE___': (insight) {
-        final a = insight.className.toUpperSnakeCase();
-        return '...PATH_ALWAYS_ACCESSIBLE_$a';
-      },
-      '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
-        final a = insight.className.toUpperSnakeCase();
-        return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
-      },
-      '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
-        final a = insight.className.toUpperSnakeCase();
-        return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
-      },
-      '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___': (insight) {
-        final a = insight.className.toUpperSnakeCase();
-        return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
-      },
-      '___GENERATED_SCREEN_ROUTES___': (insight) {
-        final a = insight.className.toPascalCase();
-        return 'generated${a}Route';
-      },
-    });
+final _interpolator = TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>({
+  '___ROUTE_BUILDERS___': (insight) {
+    final a = insight.className.toPascalCase();
+    return ['${a}RouteBuilder()'].join('\n');
+  },
+  '___SCREEN_MAKERS___': (insight) {
+    final a = insight.className.toPascalCase();
+    return 'maker$a';
+  },
+  '___PATHS___': (insight) {
+    final a = insight.className.toUpperSnakeCase();
+    return '...PATH_$a';
+  },
+  '___PATHS_NOT_REDIRECTABLE___': (insight) {
+    final a = insight.className.toUpperSnakeCase();
+    return '...PATH_NOT_REDIRECTABLE_$a';
+  },
+  '___PATHS_ALWAYS_ACCESSIBLE___': (insight) {
+    final a = insight.className.toUpperSnakeCase();
+    return '...PATH_ALWAYS_ACCESSIBLE_$a';
+  },
+  '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
+    final a = insight.className.toUpperSnakeCase();
+    return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED_$a';
+  },
+  '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
+    final a = insight.className.toUpperSnakeCase();
+    return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_IN_$a';
+  },
+  '___PATHS_ACCESSIBLE_ONLY_IF_LOGGED_OUT___': (insight) {
+    final a = insight.className.toUpperSnakeCase();
+    return '...PATH_ACCESSIBLE_ONLY_IF_LOGGED_OUT_$a';
+  },
+  '___GENERATED_SCREEN_ROUTES___': (insight) {
+    final a = insight.className.toPascalCase();
+    return 'generated${a}Route';
+  },
+});
