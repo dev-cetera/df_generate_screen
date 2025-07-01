@@ -4,7 +4,6 @@
 
 - Released @ 7/2025 (UTC)
 - Update dependencies
-- Update readme
 
 ## [0.8.0]
 
