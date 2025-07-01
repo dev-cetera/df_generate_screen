@@ -33,7 +33,8 @@ Future<void> generateScreen(
   Log.enableReleaseAsserts = true;
   final parser = CliParser(
     title: 'dev-cetera.com',
-    description: 'A tool for generating screen/page files for Flutter projects.',
+    description:
+        'A tool for generating screen/page files for Flutter projects.',
     example: 'df_generate_screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
@@ -76,7 +77,9 @@ Future<void> generateScreen(
     templates = argResults.multiOption(DefaultMultiOptions.TEMPLATES.name);
     outputPath = argResults.option(DefaultOptionParams.OUTPUT_PATH.name)!;
   } catch (_) {
-    Log.printRed('Missing required args! Use --help flag for more information.');
+    Log.printRed(
+      'Missing required args! Use --help flag for more information.',
+    );
     exit(ExitCodes.FAILURE.code);
   }
 
@@ -85,7 +88,9 @@ Future<void> generateScreen(
   final templateData = <String, String>{};
   for (final template in templates) {
     Log.printWhite('Reading template at: $template...');
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    final result = await MdTemplateUtility.i
+        .readTemplateFromPathOrUrl(template)
+        .value;
 
     if (result.isErr()) {
       Log.printRed(' Failed to read template!');
