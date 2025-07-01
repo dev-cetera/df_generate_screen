@@ -57,7 +57,7 @@ final routeBuilders = [
         builder: (context, state) => const SizedBox.shrink(),
       );
     },
-  )
+  ),
   ___ROUTE_BUILDERS___,
 ];
 ```

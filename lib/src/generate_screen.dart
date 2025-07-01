@@ -33,8 +33,7 @@ Future<void> generateScreen(
   Log.enableReleaseAsserts = true;
   final parser = CliParser(
     title: 'dev-cetera.com',
-    description:
-        'A tool for generating screen/page files for Flutter projects.',
+    description: 'A tool for generating screen/page files for Flutter projects.',
     example: 'df_generate_screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
@@ -63,7 +62,7 @@ Future<void> generateScreen(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(Log.printCyan, parser.getInfo(argParser));
+    Log.printCyan(parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -77,10 +76,7 @@ Future<void> generateScreen(
     templates = argResults.multiOption(DefaultMultiOptions.TEMPLATES.name);
     outputPath = argResults.option(DefaultOptionParams.OUTPUT_PATH.name)!;
   } catch (_) {
-    _print(
-      Log.printRed,
-      'Missing required args! Use --help flag for more information.',
-    );
+    Log.printRed('Missing required args! Use --help flag for more information.');
     exit(ExitCodes.FAILURE.code);
   }
 
@@ -88,13 +84,11 @@ Future<void> generateScreen(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(Log.printWhite, 'Reading template at: $template...');
-    final result = await MdTemplateUtility.i
-        .readTemplateFromPathOrUrl(template)
-        .value;
+    Log.printWhite('Reading template at: $template...');
+    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
-      _print(Log.printRed, ' Failed to read template!');
+      Log.printRed(' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -102,7 +96,7 @@ Future<void> generateScreen(
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Generating...');
+  Log.printWhite('Generating...');
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -118,11 +112,5 @@ Future<void> generateScreen(
   }
 
   // ---------------------------------------------------------------------------
-  _print(Log.printGreen, 'Done!');
-}
-
-// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-void _print(void Function(String) print, String message) {
-  print('[gen-screen] $message');
+  Log.printGreen('Done!');
 }

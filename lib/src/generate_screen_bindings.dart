@@ -56,7 +56,7 @@ Future<void> generateScreenBindings(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(Log.printCyan, parser.getInfo(argParser));
+    Log.printCyan(parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -70,25 +70,21 @@ Future<void> generateScreenBindings(
     templates = argResults.multiOption(DefaultMultiOptions.TEMPLATES.name);
     dartSdk = argResults.option(DefaultOptionParams.DART_SDK.name);
   } catch (_) {
-    _print(
-      Log.printRed,
-      'Missing required args! Use --help flag for more information.',
-    );
+    Log.printRed('Missing required args! Use --help flag for more information.');
+
     exit(ExitCodes.FAILURE.code);
   }
 
   // ---------------------------------------------------------------------------
 
   final analysisContextCollection = createDartAnalysisContextCollection(
-    {
-      inputPath,
-    },
+    {inputPath},
     dartSdk, //
   );
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Looking for Dart files..');
+  Log.printWhite('Looking for Dart files..');
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
   final filePathStream1 = filePathStream0.where(
     (e) => _isAllowedFileName(e.path),
@@ -97,11 +93,11 @@ Future<void> generateScreenBindings(
   try {
     findings = await filePathStream1.toList();
   } catch (e) {
-    _print(Log.printRed, 'Failed to read file tree!');
+    Log.printRed('Failed to read file tree!');
     exit(ExitCodes.FAILURE.code);
   }
   if (findings.isEmpty) {
-    _print(Log.printYellow, 'No files found in $inputPath!');
+    Log.printYellow('No files found in $inputPath!');
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -109,11 +105,11 @@ Future<void> generateScreenBindings(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(Log.printWhite, 'Reading template at: $template...');
+    Log.printWhite('Reading template at: $template...');
     final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
-      _print(Log.printRed, ' Failed to read template!');
+      Log.printRed(' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -121,7 +117,7 @@ Future<void> generateScreenBindings(
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Generating...');
+  Log.printWhite('Generating...');
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -140,33 +136,29 @@ Future<void> generateScreenBindings(
             fileName,
           );
           await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
-          Log.printWhite('[gen-screen-bindings] ✔ Generated $fileName');
+          Log.printWhite('✔ Generated $fileName');
         }
       }
     } catch (e) {
-      _print(Log.printRed, '✘ One or more files failed to generate!');
+      Log.printRed('✘ One or more files failed to generate!');
       exit(ExitCodes.FAILURE.code);
     }
   }
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Fixing generated files..');
+  Log.printWhite('Fixing generated files..');
   await fixDartFile(inputPath);
 
-  _print(Log.printWhite, 'Formatting generated files..');
+  Log.printWhite('Formatting generated files..');
   await fmtDartFile(inputPath);
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printGreen, 'Done!');
+  Log.printGreen('Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-void _print(void Function(String) print, String message) {
-  print('[gen-screen-bindings] $message');
-}
 
 bool _isAllowedFileName(String e) {
   final lc = e.toLowerCase();

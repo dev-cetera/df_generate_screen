@@ -58,7 +58,7 @@ Future<void> generateScreenAccess(
 
   final help = argResults.flag(DefaultFlags.HELP.name);
   if (help) {
-    _print(Log.printCyan, parser.getInfo(argParser));
+    Log.printCyan(parser.getInfo(argParser));
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -82,15 +82,13 @@ Future<void> generateScreenAccess(
   // ---------------------------------------------------------------------------
 
   final analysisContextCollection = createDartAnalysisContextCollection(
-    {
-      inputPath,
-    },
+    {inputPath},
     dartSdk, //
   );
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Looking for files..');
+  Log.printWhite('Looking for files..');
   final filePathStream0 = PathExplorer(inputPath).exploreFiles();
   final filePathStream1 = filePathStream0.where(
     (e) => _isAllowedFileName(e.path),
@@ -99,11 +97,11 @@ Future<void> generateScreenAccess(
   try {
     findings = await filePathStream1.toList();
   } catch (e) {
-    _print(Log.printRed, 'Failed to read file tree!');
+    Log.printRed('Failed to read file tree!');
     exit(ExitCodes.FAILURE.code);
   }
   if (findings.isEmpty) {
-    _print(Log.printYellow, 'No files found in $inputPath!');
+    Log.printYellow('No files found in $inputPath!');
     exit(ExitCodes.SUCCESS.code);
   }
 
@@ -111,11 +109,11 @@ Future<void> generateScreenAccess(
 
   final templateData = <String, String>{};
   for (final template in templates) {
-    _print(Log.printWhite, 'Reading template at: $template...');
+    Log.printWhite('Reading template at: $template...');
     final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
-      _print(Log.printRed, ' Failed to read template!');
+      Log.printRed(' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
     templateData[template] = result.unwrap();
@@ -123,7 +121,7 @@ Future<void> generateScreenAccess(
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Generating...');
+  Log.printWhite('Generating...');
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -141,30 +139,30 @@ Future<void> generateScreenAccess(
       final output = _interpolator.interpolate(template, insights, ',');
       final outputFilePath = p.join(inputPath, fileName);
       await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
-      Log.printWhite('[gen-screen-access] ✔ Generated $fileName');
+      Log.printWhite('✔ Generated $fileName');
     } catch (e) {
-      _print(Log.printRed, '✘ One or more files failed to generate!');
+      Log.printRed('✘ One or more files failed to generate!');
       exit(ExitCodes.FAILURE.code);
     }
   }
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Fixing generated files..');
+  Log.printWhite('Fixing generated files..');
   await fixDartFile(inputPath);
 
-  _print(Log.printWhite, 'Formatting generated files..');
+  Log.printWhite('Formatting generated files..');
   await fmtDartFile(inputPath);
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printGreen, 'Done!');
+  Log.printGreen('Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 void _print(void Function(String) print, String message) {
-  print('[gen-screen-access] $message');
+  print('$message');
 }
 
 bool _isAllowedFileName(String e) {
