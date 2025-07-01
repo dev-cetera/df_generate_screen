@@ -7,7 +7,7 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-export './gen_screen_access_app.dart';
+export 'generate_screen_access.dart';
 export './extract_insights_from_file.dart';
-export './gen_screen_bindings_app.dart';
-export './gen_screen_app.dart';
+export 'generate_screen_bindings.dart';
+export 'generate_screen.dart';

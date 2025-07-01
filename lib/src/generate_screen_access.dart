@@ -24,28 +24,29 @@ import 'extract_insights_from_file.dart';
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-Future<void> genScreenAccessApp(
+Future<void> generateScreenAccess(
   List<String> args, {
   List<String> defaultTemplates = const [
     'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v2/_access.g.dart.md',
   ],
 }) async {
+  Log.enableReleaseAsserts = true;
   final parser = CliParser(
-    title: 'dev-cetera.com/df/tools',
+    title: 'dev-cetera.com',
     description:
         'A tool for generating screen a access file for all classes annotated @GenerateScreenBindings withing a directory.',
-    example: 'gen-screen-access -i .',
+    example: 'df_generate_screen_access -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
     params: [
       DefaultFlags.HELP.flag,
-      DefaultOptions.INPUT_PATH.option.copyWith(
+      DefaultOptionParams.INPUT_PATH.option.copyWith(
         defaultsTo: FileSystemUtility.i.currentDir,
       ),
       DefaultMultiOptions.TEMPLATES.multiOption.copyWith(
         defaultsTo: defaultTemplates,
       ),
-      DefaultOptions.DART_SDK.option,
+      DefaultOptionParams.DART_SDK.option,
     ],
   );
 
@@ -67,9 +68,9 @@ Future<void> genScreenAccessApp(
   late final List<String> templates;
   late final String? dartSdk;
   try {
-    inputPath = argResults.option(DefaultOptions.INPUT_PATH.name)!;
+    inputPath = argResults.option(DefaultOptionParams.INPUT_PATH.name)!;
     templates = argResults.multiOption(DefaultMultiOptions.TEMPLATES.name);
-    dartSdk = argResults.option(DefaultOptions.DART_SDK.name);
+    dartSdk = argResults.option(DefaultOptionParams.DART_SDK.name);
   } catch (_) {
     _print(
       Log.printRed,
@@ -77,11 +78,6 @@ Future<void> genScreenAccessApp(
     );
     exit(ExitCodes.FAILURE.code);
   }
-
-  // ---------------------------------------------------------------------------
-
-  final spinner = Spinner();
-  spinner.start();
 
   // ---------------------------------------------------------------------------
 
@@ -101,12 +97,10 @@ Future<void> genScreenAccessApp(
   try {
     findings = await filePathStream1.toList();
   } catch (e) {
-    spinner.stop();
     _print(Log.printRed, 'Failed to read file tree!');
     exit(ExitCodes.FAILURE.code);
   }
   if (findings.isEmpty) {
-    spinner.stop();
     _print(Log.printYellow, 'No files found in $inputPath!');
     exit(ExitCodes.SUCCESS.code);
   }
@@ -119,7 +113,6 @@ Future<void> genScreenAccessApp(
     final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
-      spinner.stop();
       _print(Log.printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
@@ -128,7 +121,7 @@ Future<void> genScreenAccessApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Generating...', spinner);
+  _print(Log.printWhite, 'Generating...');
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -148,31 +141,28 @@ Future<void> genScreenAccessApp(
       await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
       Log.printWhite('[gen-screen-access] ✔ Generated $fileName');
     } catch (e) {
-      _print(Log.printRed, '✘ One or more files failed to generate!', spinner);
+      _print(Log.printRed, '✘ One or more files failed to generate!');
       exit(ExitCodes.FAILURE.code);
     }
   }
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Fixing generated files..', spinner);
+  _print(Log.printWhite, 'Fixing generated files..');
   await fixDartFile(inputPath);
 
-  _print(Log.printWhite, 'Formatting generated files..', spinner);
+  _print(Log.printWhite, 'Formatting generated files..');
   await fmtDartFile(inputPath);
 
   // ---------------------------------------------------------------------------
 
-  spinner.stop();
   _print(Log.printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-void _print(void Function(String) print, String message, [Spinner? spinner]) {
-  spinner?.stop();
+void _print(void Function(String) print, String message) {
   print('[gen-screen-access] $message');
-  spinner?.start();
 }
 
 bool _isAllowedFileName(String e) {

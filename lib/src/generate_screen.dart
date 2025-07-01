@@ -22,7 +22,7 @@ import 'package:path/path.dart' as p;
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-Future<void> genScreenApp(
+Future<void> generateScreen(
   List<String> args, {
   List<String> defaultTemplates = const [
     'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v2/_state.dart.md',
@@ -30,11 +30,11 @@ Future<void> genScreenApp(
     'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v2/_controller.dart.md',
   ],
 }) async {
+  Log.enableReleaseAsserts = true;
   final parser = CliParser(
-    title: 'dev-cetera.com/df/tools',
-    description:
-        'A tool for generating screen/page files for Flutter projects.',
-    example: 'gen-screen -i .',
+    title: 'dev-cetera.com',
+    description: 'A tool for generating screen/page files for Flutter projects.',
+    example: 'df_generate_screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
     params: [
@@ -42,13 +42,13 @@ Future<void> genScreenApp(
       DefaultMultiOptions.TEMPLATES.multiOption.copyWith(
         defaultsTo: defaultTemplates,
       ),
-      const df_gen_core.Option(
+      const df_gen_core.OptionParam(
         name: 'name',
         abbr: 'n',
         help: 'The name of the screen to generate.',
         defaultsTo: 'ExampleScreen',
       ),
-      DefaultOptions.OUTPUT_PATH.option.copyWith(
+      DefaultOptionParams.OUTPUT_PATH.option.copyWith(
         defaultsTo: FileSystemUtility.i.currentDir,
       ),
     ],
@@ -74,7 +74,7 @@ Future<void> genScreenApp(
   try {
     name = argResults.option('name')!;
     templates = argResults.multiOption(DefaultMultiOptions.TEMPLATES.name);
-    outputPath = argResults.option(DefaultOptions.OUTPUT_PATH.name)!;
+    outputPath = argResults.option(DefaultOptionParams.OUTPUT_PATH.name)!;
   } catch (_) {
     _print(
       Log.printRed,
@@ -85,20 +85,12 @@ Future<void> genScreenApp(
 
   // ---------------------------------------------------------------------------
 
-  final spinner = Spinner();
-  spinner.start();
-
-  // ---------------------------------------------------------------------------
-
   final templateData = <String, String>{};
   for (final template in templates) {
     _print(Log.printWhite, 'Reading template at: $template...');
-    final result = await MdTemplateUtility.i
-        .readTemplateFromPathOrUrl(template)
-        .value;
+    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
-      spinner.stop();
       _print(Log.printRed, ' Failed to read template!');
       exit(ExitCodes.FAILURE.code);
     }
@@ -107,7 +99,7 @@ Future<void> genScreenApp(
 
   // ---------------------------------------------------------------------------
 
-  _print(Log.printWhite, 'Generating...', spinner);
+  _print(Log.printWhite, 'Generating...');
 
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
@@ -123,15 +115,11 @@ Future<void> genScreenApp(
   }
 
   // ---------------------------------------------------------------------------
-
-  spinner.stop();
   _print(Log.printGreen, 'Done!');
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-void _print(void Function(String) print, String message, [Spinner? spinner]) {
-  spinner?.stop();
+void _print(void Function(String) print, String message) {
   print('[gen-screen] $message');
-  spinner?.start();
 }

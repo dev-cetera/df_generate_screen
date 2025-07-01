@@ -15,7 +15,7 @@ import 'package:df_generate_screen/df_generate_screen.dart';
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 void main(List<String> args) async {
-  await genScreenAccessApp(
+  await generateScreenAccess(
     args,
     defaultTemplates: const [
       'https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/templates/v2/_access.g.dart.md',
