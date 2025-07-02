@@ -11,6 +11,8 @@ Dart & Flutter Packages by dev-cetera.com & contributors.
 
 ---
 
+[![banner](https://github.com/dev-cetera/df_safer_dart/blob/v0.8.1/doc/assets/banner.png?raw=true)](https://github.com/dev-cetera)
+
 <!-- BEGIN _README_CONTENT -->
 
 A tool to generate ready-made screen templates for your Flutter app (uses [df_screen_core](https://pub.dev/packages/df_screen_core)).
@@ -52,3 +54,4 @@ If you're enjoying this package and find it valuable, consider showing your appr
 ## 🧑‍⚖️ License
 
 This project is released under the [MIT License](https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/LICENSE). See [LICENSE](https://raw.githubusercontent.com/dev-cetera/df_generate_screen/main/LICENSE) for more information.
+

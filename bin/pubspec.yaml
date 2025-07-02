@@ -14,7 +14,9 @@ name: generate_screens
 homepage: https://dev-cetera.com/
 repository: https://github.com/robmllze/df_generate_screen
 funding:
-  - https://www.buymeacoffee.com/dev_cetera
+- https://www.buymeacoffee.com/dev_cetera
+- https://www.patreon.com/c/RobertMollentze
+- https://github.com/sponsors/robmllze
 publish_to: none
 
 ## -----------------------------------------------------------------------------
@@ -27,9 +29,9 @@ environment:
 dependencies:
   df_generate_screen:
     path: ../
-  df_log: ^0.3.19
-  df_string: ^0.2.5
-  df_gen_core: ^0.6.15
+  df_log: ^0.3.20
+  df_string: ^0.2.9
+  df_gen_core: ^0.7.0
 
 ## -----------------------------------------------------------------------------
 
