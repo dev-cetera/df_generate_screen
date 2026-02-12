@@ -109,8 +109,9 @@ Future<void> generateScreenBindings(
   final templateData = <String, String>{};
   for (final template in templates) {
     Log.printWhite('Reading template at: $template...');
-    final result =
-        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    final result = await MdTemplateUtility.i
+        .readTemplateFromPathOrUrl(template)
+        .value;
 
     if (result.isErr()) {
       Log.printRed(' Failed to read template!');
@@ -194,8 +195,7 @@ String _screenSegment(ClassInsight<ModelGenerateScreenBindings> insight) {
   return screenSegment;
 }
 
-final _interpolator =
-    TemplateInterpolator<ClassInsight<GenerateScreenBindings>>({
+final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>({
   '___CONDITION___': (insight) {
     if (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified == true) {
       return 'isLoggedInAndVerified';
@@ -278,7 +278,8 @@ final _interpolator =
     return b.toString();
   },
   '___IP0_V2___': (insight) {
-    final params = insight.annotation.internalParameters
+    final params =
+        insight.annotation.internalParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -289,15 +290,15 @@ final _interpolator =
         final nullable = e.nullable != false;
         final questionMark = nullable ? '?' : '';
         return 'final $fieldType$questionMark $fieldName;';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___IP0___': (insight) {
-    final params = insight.annotation.internalParameters
+    final params =
+        insight.annotation.internalParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -317,15 +318,15 @@ final _interpolator =
           '/// or [$fieldK].',
           '$fieldType$questionMark get $fieldName => arg<$fieldType>($fieldK)$exclamationMark;',
         ].join('\n');
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___IP1___': (insight) {
-    final params = insight.annotation.internalParameters
+    final params =
+        insight.annotation.internalParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -337,15 +338,15 @@ final _interpolator =
         final questionMark = nullable ? '?' : '';
         final required = nullable ? '' : 'required ';
         return '$required$fieldType$questionMark $fieldName,';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___IP2___': (insight) {
-    final params = insight.annotation.internalParameters
+    final params =
+        insight.annotation.internalParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -354,15 +355,15 @@ final _interpolator =
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
         return '$fieldK: $fieldName,';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___IP3_V2___': (insight) {
-    final params = insight.annotation.internalParameters
+    final params =
+        insight.annotation.internalParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -374,15 +375,15 @@ final _interpolator =
         final exclamationMark = nullable ? '' : '!';
         final questionMark = nullable ? '?' : '';
         return '$fieldType$questionMark get $fieldName =>  super.superScreen!.routeState!.$fieldName)$exclamationMark;';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___QP0___': (insight) {
-    final params = insight.annotation.queryParameters
+    final params =
+        insight.annotation.queryParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -402,15 +403,15 @@ final _interpolator =
           '/// or [$fieldK].',
           'String$questionMark get $fieldName => arg<String>($fieldK)$exclamationMark;',
         ].join('\n');
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___QP0_V2___': (insight) {
-    final params = insight.annotation.queryParameters
+    final params =
+        insight.annotation.queryParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -418,15 +419,15 @@ final _interpolator =
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         return "String? get $fieldName => uri.queryParameters['$fieldName'];";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___QP1___': (insight) {
-    final params = insight.annotation.queryParameters
+    final params =
+        insight.annotation.queryParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -435,15 +436,15 @@ final _interpolator =
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         final nullable = e.nullable != false;
         return "${nullable ? "String?" : "required String"} $fieldName,";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___QP1_V2___': (insight) {
-    final params = insight.annotation.queryParameters
+    final params =
+        insight.annotation.queryParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -451,15 +452,15 @@ final _interpolator =
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         return 'String? $fieldName,';
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___QP2___': (insight) {
-    final params = insight.annotation.queryParameters
+    final params =
+        insight.annotation.queryParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -469,15 +470,15 @@ final _interpolator =
         final nullable = e.nullable != false;
         final fieldK = 'K_${fieldName.toSnakeCase().toUpperCase()}';
         return "${nullable ? "if ($fieldName != null) " : ""}$fieldK: $fieldName,";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___QP2_V2___': (insight) {
-    final params = insight.annotation.queryParameters
+    final params =
+        insight.annotation.queryParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -485,15 +486,15 @@ final _interpolator =
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         return "if ($fieldName != null) '$fieldName': $fieldName,";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';
     }
   },
   '___QP3_V2___': (insight) {
-    final params = insight.annotation.queryParameters
+    final params =
+        insight.annotation.queryParameters
             ?.map((e) => FieldUtils.ofOrNull(e))
             .nonNulls ??
         {};
@@ -501,8 +502,7 @@ final _interpolator =
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
         return "String? get $fieldName =>  super.superScreen?.routeState?.uri.queryParameters['$fieldName'];";
-      }).toList()
-        ..sort();
+      }).toList()..sort();
       return a.isNotEmpty ? a.join('\n') : '';
     } else {
       return '';

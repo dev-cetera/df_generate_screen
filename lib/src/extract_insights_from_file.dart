@@ -63,11 +63,11 @@ ModelGenerateScreenBindings _updateFromClassAnnotationField(
     case ModelGenerateScreenBindingsFieldNames.args:
       return annotation.copyWith(
         args: params.fieldValue.toMapValue()?.map(
-              (k, v) => MapEntry(k?.toStringValue(), v?.toStringValue()),
-            ),
+          (k, v) => MapEntry(k?.toStringValue(), v?.toStringValue()),
+        ),
       );
     case ModelGenerateScreenBindingsFieldNames
-          .isAccessibleOnlyIfLoggedInAndVerified:
+        .isAccessibleOnlyIfLoggedInAndVerified:
       return annotation.copyWith(
         isAccessibleOnlyIfLoggedInAndVerified: params.fieldValue.toBoolValue(),
       );
