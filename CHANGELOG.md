@@ -4,6 +4,7 @@
 
 - Released @ 2/2026 (UTC)
 - Update and format
+- Fix dependency version
 
 ## [0.8.1]
 
