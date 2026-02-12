@@ -111,7 +111,8 @@ Future<void> generateScreenAccess(
   final templateData = <String, String>{};
   for (final template in templates) {
     Log.printWhite('Reading template at: $template...');
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    final result =
+        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       Log.printRed(' Failed to read template!');
@@ -184,7 +185,8 @@ class TemplateInterpolator2<T> {
   }
 }
 
-final _interpolator = TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>({
+final _interpolator =
+    TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>({
   '___ROUTE_BUILDERS___': (insight) {
     final a = insight.className.toPascalCase();
     return ['${a}RouteBuilder()'].join('\n');
