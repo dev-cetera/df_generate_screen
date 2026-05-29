@@ -109,7 +109,8 @@ Future<void> generateScreenBindings(
   final templateData = <String, String>{};
   for (final template in templates) {
     Log.printWhite('Reading template at: $template...');
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    final result =
+        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       Log.printRed(' Failed to read template!');
@@ -125,6 +126,11 @@ Future<void> generateScreenBindings(
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
     final template = entry.value;
+    // Tracks which output paths have already been written this run so we can
+    // refuse to silently overwrite when two annotated classes in the same
+    // directory would map to the same generated file — the previous code
+    // would drop all but the last insight's output without warning.
+    final writtenOutputPaths = <String>{};
     try {
       for (final finding in findings) {
         final inputFilePath = finding.path;
@@ -138,12 +144,21 @@ Future<void> generateScreenBindings(
             PathUtility.i.localDirName(inputFilePath),
             fileName,
           );
+          if (!writtenOutputPaths.add(outputFilePath)) {
+            Log.printRed(
+              '✘ Collision: `${insight.className}` would overwrite '
+              '$outputFilePath produced earlier in this run. Move '
+              '`${insight.className}` to its own directory or use a '
+              'distinct template per class. Skipping this insight.',
+            );
+            continue;
+          }
           await FileSystemUtility.i.writeLocalFile(outputFilePath, output);
           Log.printWhite('✔ Generated $fileName');
         }
       }
     } catch (e) {
-      Log.printRed('✘ One or more files failed to generate!');
+      Log.printRed('✘ One or more files failed to generate: $e');
       exit(ExitCodes.FAILURE.code);
     }
   }
@@ -170,7 +185,8 @@ bool _isAllowedFileName(String e) {
 
 extension _ClassInsightExtension on ClassInsight<GenerateScreenBindings> {
   StringCaseType get stringCaseType {
-    return StringCaseType.values.valueOf(annotation.keyStringCase) ?? StringCaseType.CAMEL_CASE;
+    return StringCaseType.values.valueOf(annotation.keyStringCase) ??
+        StringCaseType.CAMEL_CASE;
   }
 }
 
@@ -184,13 +200,16 @@ String _screenSegment(ClassInsight<ModelGenerateScreenBindings> insight) {
   final screenKey = _screenKey(insight);
   final path = insight.annotation.path ?? '';
   final screenSegment = p.joinAll([
-    path.isNotEmpty && path.startsWith(RegExp(r'[\\/]')) ? path.substring(1) : path,
+    path.isNotEmpty && path.startsWith(RegExp(r'[\\/]'))
+        ? path.substring(1)
+        : path,
     screenKey,
   ]);
   return screenSegment;
 }
 
-final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>({
+final _interpolator =
+    TemplateInterpolator<ClassInsight<GenerateScreenBindings>>({
   '___CONDITION___': (insight) {
     if (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified == true) {
       return 'isLoggedInAndVerified';
@@ -226,7 +245,8 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     return '/$screenSegment';
   },
   '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN_AND_VERIFIED___': (insight) {
-    return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false).toString();
+    return (insight.annotation.isAccessibleOnlyIfLoggedInAndVerified ?? false)
+        .toString();
   },
   '___IS_ACCESSIBLE_ONLY_IF_LOGGED_IN___': (insight) {
     return (insight.annotation.isAccessibleOnlyIfLoggedIn ?? false).toString();
@@ -272,8 +292,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     return b.toString();
   },
   '___IP0_V2___': (insight) {
-    final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -289,8 +311,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___IP0___': (insight) {
-    final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -315,8 +339,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___IP1___': (insight) {
-    final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -333,8 +359,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___IP2___': (insight) {
-    final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -348,8 +376,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___IP3_V2___': (insight) {
-    final params =
-        insight.annotation.internalParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.internalParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -357,7 +387,7 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
         final nullable = e.nullable != false;
         final exclamationMark = nullable ? '' : '!';
         final questionMark = nullable ? '?' : '';
-        return '$fieldType$questionMark get $fieldName =>  super.superScreen!.routeState!.$fieldName)$exclamationMark;';
+        return '$fieldType$questionMark get $fieldName => super.superScreen!.routeState!.$fieldName$exclamationMark;';
       }).toList()
         ..sort();
       return a.isNotEmpty ? a.join('\n') : '';
@@ -366,8 +396,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___QP0___': (insight) {
-    final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -392,8 +424,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___QP0_V2___': (insight) {
-    final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -406,8 +440,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___QP1___': (insight) {
-    final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -421,8 +457,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___QP1_V2___': (insight) {
-    final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -435,8 +473,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___QP2___': (insight) {
-    final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -451,8 +491,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___QP2_V2___': (insight) {
-    final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();
@@ -465,8 +507,10 @@ final _interpolator = TemplateInterpolator<ClassInsight<GenerateScreenBindings>>
     }
   },
   '___QP3_V2___': (insight) {
-    final params =
-        insight.annotation.queryParameters?.map((e) => FieldUtils.ofOrNull(e)).nonNulls ?? {};
+    final params = insight.annotation.queryParameters
+            ?.map((e) => FieldUtils.ofOrNull(e))
+            .nonNulls ??
+        {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
         final fieldName = e.fieldPath!.join('_').toCamelCase();

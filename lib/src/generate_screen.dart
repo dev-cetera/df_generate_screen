@@ -16,8 +16,6 @@
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_gen_core/df_gen_core.dart' as df_gen_core;
 import 'package:df_generate_dart_models_core/df_generate_dart_models_core.dart';
-// ignore: implementation_imports
-import 'package:df_config/src/_etc/replace_data.dart';
 
 import 'package:path/path.dart' as p;
 
@@ -34,7 +32,8 @@ Future<void> generateScreen(
   Log.enableReleaseAsserts = true;
   final parser = CliParser(
     title: 'dev-cetera.com',
-    description: 'A tool for generating screen/page files for Flutter projects.',
+    description:
+        'A tool for generating screen/page files for Flutter projects.',
     example: 'df_generate_screen -i .',
     additional:
         'For contributions, error reports and information, visit: https://github.com/dev-cetera.',
@@ -88,7 +87,8 @@ Future<void> generateScreen(
   final templateData = <String, String>{};
   for (final template in templates) {
     Log.printWhite('Reading template at: $template...');
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    final result =
+        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       Log.printRed(' Failed to read template!');
@@ -104,7 +104,6 @@ Future<void> generateScreen(
   for (final entry in templateData.entries) {
     final fileName = p.basename(entry.key).replaceAll('.md', '');
     final template = entry.value;
-    // ignore: invalid_use_of_internal_member
     final data = template.replaceData({
       '___WIDGET_NAME___': name.toPascalCase(),
     });

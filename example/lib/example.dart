@@ -11,9 +11,10 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 //.title~
 
-/// A tool to generate ready-made screen templates for your Flutter app (uses df_sceen).
-library;
+//import 'package:dart_package_template/dart_package_template.dart';
 
-export 'src/_src.g.dart';
+// ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-export 'package:df_generate_dart_indexes/df_generate_dart_indexes.dart';
+void main() {
+  print('Hello World!');
+}

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0]
+
+- Released @ 5/2026 (UTC)
+- Fix: when a single source file holds multiple `@ModelGenerateScreenBindings` classes, the generator no longer silently overwrites earlier insights' output; it now detects the collision, logs a clear error pointing to the colliding class name, and skips the duplicate write
+- Fix: top-level catch logs the actual exception, not just a generic message
+- Pulls in df_gen_core 0.8.0 with mapper robustness fixes
+
 ## [0.8.1]
 
 - Released @ 7/2025 (UTC)

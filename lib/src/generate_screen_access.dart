@@ -16,8 +16,6 @@
 import 'package:df_gen_core/df_gen_core.dart';
 import 'package:df_generate_dart_models_core/df_generate_dart_models_core.dart';
 import 'package:df_screen_core/df_screen_core.dart';
-// ignore: implementation_imports
-import 'package:df_config/src/_etc/replace_data.dart';
 
 import 'package:path/path.dart' as p;
 
@@ -111,7 +109,8 @@ Future<void> generateScreenAccess(
   final templateData = <String, String>{};
   for (final template in templates) {
     Log.printWhite('Reading template at: $template...');
-    final result = await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
+    final result =
+        await MdTemplateUtility.i.readTemplateFromPathOrUrl(template).value;
 
     if (result.isErr()) {
       Log.printRed(' Failed to read template!');
@@ -177,14 +176,14 @@ class TemplateInterpolator2<T> {
     List<T> insights, [
     String separator = '\n',
   ]) {
-    // ignore: invalid_use_of_internal_member
     return template.replaceData(
       map.map((k, v) => MapEntry(k, insights.map((e) => v(e)).join(separator))),
     );
   }
 }
 
-final _interpolator = TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>({
+final _interpolator =
+    TemplateInterpolator2<ClassInsight<GenerateScreenBindings>>({
   '___ROUTE_BUILDERS___': (insight) {
     final a = insight.className.toPascalCase();
     return ['${a}RouteBuilder()'].join('\n');
