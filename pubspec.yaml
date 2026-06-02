@@ -38,15 +38,15 @@ dependencies:
   args: ^2.7.0
   path: ^1.9.1
 
-  df_collection: ^0.9.8
-  df_config: ^0.7.5
-  df_gen_core: ^0.7.3
-  df_generate_dart_indexes: ^0.6.4
-  df_generate_dart_models_core: ^0.9.25
+  df_collection: ^0.10.0
+  df_config: ^0.8.0
+  df_gen_core: ^0.8.0
+  df_generate_dart_indexes: ^0.7.0
+  df_generate_dart_models_core: ^0.10.0
   df_log: ^0.5.1
-  df_screen_core: ^0.5.8
-  df_string: ^0.2.10
-  df_type: ^0.14.2
+  df_screen_core: ^0.6.0
+  df_string: ^0.3.0
+  df_type: ^0.16.0
 
 ## -----------------------------------------------------------------------------
 
