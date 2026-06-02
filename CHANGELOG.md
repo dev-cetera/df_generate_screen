@@ -2,10 +2,11 @@
 
 ## [0.9.0]
 
-- Released @ 5/2026 (UTC)
-- Fix: when a single source file holds multiple `@ModelGenerateScreenBindings` classes, the generator no longer silently overwrites earlier insights' output; it now detects the collision, logs a clear error pointing to the colliding class name, and skips the duplicate write
+- Released @ 6/2026 (UTC)
+- Fix: collision detection for multiple `@ModelGenerateScreenBindings` classes in one file — logs the colliding class name and skips the duplicate write instead of silently overwriting
+- Fix: `fieldPath` access normalised via `FieldUtils.fieldPathOrNull` (was `.join('_')` on `Object?` after the upstream `fieldPath` slot became polymorphic)
 - Fix: top-level catch logs the actual exception, not just a generic message
-- Pulls in df_gen_core 0.8.0 with mapper robustness fixes
+- Bumps cross-package constraints to the 0.8/0.10/0.7/0.6 line (df_gen_core, df_generate_dart_models_core, df_generate_dart_indexes, df_screen_core)
 
 ## [0.8.1]
 

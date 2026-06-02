@@ -298,7 +298,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         final fieldType = e.fieldType;
         final nullable = e.nullable != false;
         final questionMark = nullable ? '?' : '';
@@ -317,7 +318,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         final fieldKey = insight.stringCaseType.convert(fieldName);
         final fieldType = e.fieldType;
         final nullable = e.nullable != false;
@@ -345,7 +347,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         final fieldType = e.fieldType;
         final nullable = e.nullable != false;
         final questionMark = nullable ? '?' : '';
@@ -365,7 +368,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
         return '$fieldK: $fieldName,';
       }).toList()
@@ -382,7 +386,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         final fieldType = e.fieldType;
         final nullable = e.nullable != false;
         final exclamationMark = nullable ? '' : '!';
@@ -402,7 +407,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         final fieldKey = insight.stringCaseType.convert(fieldName);
         final nullable = e.nullable != false;
         final fieldK = 'K_${fieldName.toUpperSnakeCase()}';
@@ -430,7 +436,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         return "String? get $fieldName => uri.queryParameters['$fieldName'];";
       }).toList()
         ..sort();
@@ -446,7 +453,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         final nullable = e.nullable != false;
         return "${nullable ? "String?" : "required String"} $fieldName,";
       }).toList()
@@ -463,7 +471,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         return 'String? $fieldName,';
       }).toList()
         ..sort();
@@ -479,7 +488,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         final nullable = e.nullable != false;
         final fieldK = 'K_${fieldName.toSnakeCase().toUpperCase()}';
         return "${nullable ? "if ($fieldName != null) " : ""}$fieldK: $fieldName,";
@@ -497,7 +507,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         return "if ($fieldName != null) '$fieldName': $fieldName,";
       }).toList()
         ..sort();
@@ -513,7 +524,8 @@ final _interpolator =
         {};
     if (params.isNotEmpty) {
       final a = params.map((e) {
-        final fieldName = FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
+        final fieldName =
+            FieldUtils.fieldPathOrNull(e)!.join('_').toCamelCase();
         return "String? get $fieldName =>  super.superScreen?.routeState?.uri.queryParameters['$fieldName'];";
       }).toList()
         ..sort();
