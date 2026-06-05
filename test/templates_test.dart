@@ -101,8 +101,11 @@ void main() {
         'isLoggedIn',
         'isLoggedOut',
       ]) {
-        expect(src, contains('bool $fn()'),
-            reason: 'missing helper $fn',);
+        expect(
+          src,
+          contains('bool $fn()'),
+          reason: 'missing helper $fn',
+        );
       }
     });
 
@@ -117,8 +120,7 @@ void main() {
   });
 
   group('Template Dart syntax sanity', () {
-    File templateFile(String name) =>
-        File('$_templatesDir/$name');
+    File templateFile(String name) => File('$_templatesDir/$name');
 
     void expectBalanced(String src, String label) {
       // Strip markdown fence + placeholders to make brace counting more
@@ -179,7 +181,8 @@ void main() {
   });
 
   group('Interpolator placeholder coverage', () {
-    final src = File('lib/src/generate_screen_bindings.dart').readAsStringSync();
+    final src =
+        File('lib/src/generate_screen_bindings.dart').readAsStringSync();
 
     final wellKnownPlaceholders = {
       '___WIDGET_NAME___',
@@ -210,8 +213,11 @@ void main() {
 
     for (final ph in wellKnownPlaceholders) {
       test('generate_screen_bindings.dart registers $ph', () {
-        expect(src, contains("'$ph'"),
-            reason: '$ph should appear as a registered interpolator key',);
+        expect(
+          src,
+          contains("'$ph'"),
+          reason: '$ph should appear as a registered interpolator key',
+        );
       });
     }
   });

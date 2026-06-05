@@ -43,7 +43,8 @@ void main() {
   });
 
   group('Conflict-detection branches in interpolator', () {
-    test('rejects isAccessibleOnlyIfLoggedInAndVerified + '
+    test(
+        'rejects isAccessibleOnlyIfLoggedInAndVerified + '
         'isAccessibleOnlyIfLoggedIn both true', () {
       expect(
         bindingsSrc,
@@ -54,7 +55,8 @@ void main() {
       );
     });
 
-    test('rejects isAccessibleOnlyIfLoggedInAndVerified + '
+    test(
+        'rejects isAccessibleOnlyIfLoggedInAndVerified + '
         'isAccessibleOnlyIfLoggedOut both true', () {
       expect(
         bindingsSrc,
@@ -65,7 +67,8 @@ void main() {
       );
     });
 
-    test('rejects isAccessibleOnlyIfLoggedIn + isAccessibleOnlyIfLoggedOut '
+    test(
+        'rejects isAccessibleOnlyIfLoggedIn + isAccessibleOnlyIfLoggedOut '
         'both true', () {
       expect(
         bindingsSrc,
