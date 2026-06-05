@@ -19,7 +19,7 @@ funding:
   - https://www.patreon.com/c/robelator
   - https://github.com/sponsors/robelator
 description: A tool to generate ready-made screen templates for your Flutter app (uses df_sceen)
-version: 0.9.0
+version: 0.9.1
 topics:
   - source-gen
   - build-runner
@@ -42,7 +42,7 @@ dependencies:
   df_config: ^0.8.0
   df_gen_core: ^0.8.0
   df_generate_dart_indexes: ^0.7.0
-  df_generate_dart_models_core: ^0.10.0
+  df_generate_dart_models_core: ^0.11.0
   df_log: ^0.5.1
   df_screen_core: ^0.6.0
   df_string: ^0.3.0
