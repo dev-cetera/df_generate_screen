@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.9.1]
+
+- chore: bump `df_string` to `^0.4.0`, `df_gen_core` to `^0.8.1`, and `df_generate_dart_models_core` to `^0.11.1`, adopting df_string 0.4.0's case-conversion digit-boundary change. Generated screen scaffolding that runs case conversions on identifiers with embedded digits emits the new form on the next generation run. All 55 tests pass against df_string 0.4.0.
+
 ## [0.9.0]
 
 - Released @ 6/2026 (UTC)
